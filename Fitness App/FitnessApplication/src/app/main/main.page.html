@@ -1,11 +1,67 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>main</ion-title>
-  </ion-toolbar>
-</ion-header>
+<!-- Menú lateral -->
+<ion-app>
+    <ion-menu side="start" content-id="main-content">
+      <ion-header>
+        <ion-toolbar translucent>
+          <ion-title>Menu Fit</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-item>
+            <ion-icon name="mail" slot="start"></ion-icon>
+            <ion-label>Perfil</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="paper-plane" slot="start"></ion-icon>
+            <ion-label>Rutinas</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="heart" slot="start"></ion-icon>
+            <ion-label>Alimentación</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="trash" slot="start"></ion-icon>
+            <ion-label>Ayuda</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="warning" slot="start"></ion-icon>
+            <ion-label routerLink="/home">Salir</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
 
-<ion-content>
-  <ion-header>ESTE ES EL HEADER</ion-header>
-  <p>RUTINAS</p>
-  <p>ALIMENTACION</p>
-</ion-content>
+    <div class="ion-page" id="main-content">
+      <!-- Header de la página -->
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>Fitness App</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="body-app">
+        <!-- Carrusel de imagenes de ejercicios -->
+        <div>
+          <h2>CARRUSEL DE IMAGENES DE EJERCICIOS</h2>
+        </div>
+
+        <!-- Carrusel de imagenes de dietas -->
+        <div>
+          <h2>CARRUSEL DE IMAGENES DE DIETAS</h2>
+        </div>
+
+        <!-- Calculadora de masa muscular -->
+        <div>
+          <h2>CALCULADORA DE MASA MUSCULAR</h2>
+        </div>
+
+      </ion-content>
+
+
+
+    </div>
+</ion-app>

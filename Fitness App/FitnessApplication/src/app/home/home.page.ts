@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,13 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  infiniteScroll: IonInfiniteScroll;
   signupView: boolean = false;
   viewPasswordLogin: boolean = false;
   viewPasswordRegister: boolean = false;
   passwordTypeLogin: string = 'password';
   passwordTypeRegister: string = 'password';
+  check: boolean = false;
   today;
 
   constructor() {
@@ -46,5 +49,8 @@ export class HomePage {
     }
   }
 
-  
+  //Activar/desactivar boton de login del formulario de registro.
+  checked(): void {
+    this.check = !this.check;
+  }
 }
