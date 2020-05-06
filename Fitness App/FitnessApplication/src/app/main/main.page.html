@@ -45,15 +45,33 @@
       </ion-header>
 
       <ion-content class="body-app">
+        <!-- Carrusel de continuar tu rutina -->
+        <div>
+          <h2>CONTINUA TU RUTINA DONDE LO HABIAS DEJADO</h2>
+        </div>
+
+
+
         <!-- Carrusel de imagenes de ejercicios -->
         <div>
-          <h2>CARRUSEL DE IMAGENES DE EJERCICIOS</h2>
           <!-- Galeria de imagenes con un pequeño titulo y descripción -->
-          <ion-slides>
+          <ion-slides [options]="autoSlide" (ionSlideTouchEnd)="slideChanged()">
             <ion-slide>
               <div class="slide1">
-                <img src=""/>
-                <p>Imagenes que van pasando pero el titulo y descripción no cambia (si le das a culaquiera de las imagenes te lleva a la siguiente pantalla).</p>
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Crea tus propias rutinas</h2>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide1">
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Planifica tus entrenamientos diarios</h2>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide1">
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Personaliza los ejercicios a tu gusto</h2>
               </div>
             </ion-slide>
           </ion-slides>
@@ -61,18 +79,31 @@
 
         <!-- Carrusel de imagenes de dietas -->
         <div>
-          <h2>CARRUSEL DE IMAGENES DE DIETAS/ALIMENTACIÓN</h2>
           <!-- Galeria de imagenes con un pequeño titulo y descripción -->
-          <ion-slides>
+          <ion-slides [options]="autoSlide" (ionSlideTouchEnd)="slideChanged2()">
             <ion-slide>
               <div class="slide1">
                 <img src="./assets/imagenprueba.png"/>
-                <h2>TITULO</h2>
-                <p>Imagenes que van pasando pero el titulo y descripción no cambia (si le das a culaquiera de las imagenes te lleva a la siguiente pantalla).</p>
+                <h2>Explora los alimentos</h2>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide1">
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Todo tipo de información alimenticia</h2>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide1">
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Recetas faciles y asequibles</h2>
               </div>
             </ion-slide>
           </ion-slides>
-        </div>-
+        </div>
+
+        
+
 
         <!-- Calculadora de masa muscular -->
         <div>
