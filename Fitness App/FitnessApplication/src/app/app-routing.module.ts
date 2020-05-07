@@ -19,6 +19,18 @@ const routes: Routes = [
     path: 'slides',
     loadChildren: () => import('./slides/slides.module').then( m => m.SlidesPageModule)
   },
+  {
+    path: 'userprofile',
+    loadChildren: () => import('./userprofile/userprofile.module').then( m => m.UserprofilePageModule)
+  },
+  {
+    path: 'exercices',
+    loadChildren: () => import('./exercices/exercices.module').then( m => m.ExercicesPageModule)
+  },
+  {
+    path: 'diets',
+    loadChildren: () => import('./diets/diets.module').then( m => m.DietsPageModule)
+  },
 ];
 
 @NgModule({

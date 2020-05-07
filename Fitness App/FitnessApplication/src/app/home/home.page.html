@@ -24,7 +24,6 @@
           <ion-icon slot="end" name="eye-off" class="ion-icon-password" *ngIf="viewPasswordLogin==false"></ion-icon>
           <ion-icon slot="end" name="eye" class="ion-icon-password"  *ngIf="viewPasswordLogin==true"></ion-icon>
         </ion-button>
-        <!--<ion-icon slot="end" name="eye"></ion-icon>-->
       </ion-item>
       <ion-item class="item-checkbox">
         <ion-checkbox color="primary" unchecked slot="start"></ion-checkbox>
@@ -39,8 +38,10 @@
     </div>
   </div>
 
+  
   <!-- FORMULARIO DE REGISTRO DE USUARIO -->
-    <div class="sign-up-container gradient-2" [ngClass]="{'active':signupView}">
+
+    <div class="sign-up-container2 gradient-2" [ngClass]="{'active':signupView}" *ngIf="signupView==false">
       
       <div class="toggle-text ion-text-center" tappable (click)="toggleSignUpView()">
         <span *ngIf="!signupView">Register</span>
@@ -49,7 +50,18 @@
         <ion-icon name="arrow-up" *ngIf="!signupView"></ion-icon>
         <ion-icon name="arrow-down" *ngIf="signupView"></ion-icon>
       </div>
+    </div>
+
+    <div class="sign-up-container gradient-2" [ngClass]="{'active':signupView}" *ngIf="signupView==true">
       
+      <div class="toggle-text ion-text-center" tappable (click)="toggleSignUpView()">
+        <span *ngIf="!signupView">Register</span>
+        <span *ngIf="signupView">Login</span>
+        <br>
+        <ion-icon name="arrow-up" *ngIf="!signupView"></ion-icon>
+        <ion-icon name="arrow-down" *ngIf="signupView"></ion-icon>
+      </div> 
+
       <ion-list lines="none" class="form" [ngClass]="{'fade-in':signupView, 'fade-out':!signupView}">
         <ion-item>
           <ion-label>Name</ion-label>
@@ -64,6 +76,7 @@
           <ion-icon slot="end" name="person"></ion-icon>
         </ion-item>
         <ion-item>
+          <!-- Seleccion de fecha de nacimiento por parte del usuario -->
           <ion-datetime placeholder="Birthdate" [max]="today" class="birthdate"></ion-datetime>
           <ion-icon slot="end" name="calendar-outline"></ion-icon>
         </ion-item>
@@ -112,7 +125,7 @@
           Login
         </ion-button>     
       </div>
-      
+
     </div>
   </div>
 </ion-content>

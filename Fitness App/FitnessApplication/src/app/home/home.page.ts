@@ -15,12 +15,14 @@ export class HomePage {
   passwordTypeLogin: string = 'password';
   passwordTypeRegister: string = 'password';
   check: boolean = false;
+  //Variable para recoger la fecha y hora actual.
   today;
 
   constructor() {
     this.today = new Date().toISOString();
   }
 
+  //Funcion para mostrar o ocultar el formulario de registro.
   toggleSignUpView() {
     this.signupView = !this.signupView;
   }
@@ -49,7 +51,7 @@ export class HomePage {
     }
   }
 
-  //Activar/desactivar boton de login del formulario de registro.
+  //Activar/desactivar boton de login del formulario de registro si no se ha seleccionado el campo de terminos y condiciones.
   checked(): void {
     this.check = !this.check;
   }

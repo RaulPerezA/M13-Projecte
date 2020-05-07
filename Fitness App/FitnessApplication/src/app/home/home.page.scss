@@ -52,6 +52,7 @@
       transition: all 1s;
       border-radius: 85% 85% 0 0 / 30%;
       overflow: hidden;
+      //Scroll para desplazarse a través del formulario de registro.
       overflow-y: scroll;
 
       //ALTURA DEL DESPLEGABLE DE REGISTRO DE USUARIO
@@ -74,6 +75,32 @@
           }
       }
   }
+
+  .sign-up-container2 {
+    position: absolute;
+    bottom: 0;
+    height: 70px;
+    width: 100%;
+    padding-top: 10px;
+    transition: all 1s;
+    border-radius: 85% 85% 0 0 / 30%;
+    overflow: hidden;
+
+    .toggle-text {
+        color: #FAFAFA;
+        font-size: 16px;
+        margin-bottom: 60px;
+    }
+
+    .form {
+        ion-item {
+            --background: rgb(38, 158, 167);
+        }
+        .item-checkbox {
+          --background: none;
+        }
+    }
+}
 
 }
 
