@@ -8,13 +8,14 @@ import { IonSlides } from '@ionic/angular';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-
-  @ViewChild(IonSlides,null) slides: IonSlides;
+  
+  @ViewChild("slideDiets",null) slideDiets: IonSlides;
+  @ViewChild("slideExercices",null) slideExercices: IonSlides;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    //Funcion para hacer que los slides cambien automaticamente
+    //Iniciar funcion que hace que los slides cambien automaticamente.
     this.autoSlide;
   }
 
@@ -27,13 +28,20 @@ export class MainPage implements OnInit {
 
   //Funcion que permite seguir haciendo el slice de forma automatica aunque el usuario haga el slice de forma manual.
   slideChanged(){
-    console.log("hola que tal");
-    this.slides.startAutoplay();
+    this.slideDiets.startAutoplay();
+    this.slideExercices.startAutoplay()
   }
 
-  slideChanged2(){
-    console.log("hola que tal");
-    this.slides.startAutoplay();
+  //Funcion que lleva al apartado de ejercicios al clicar en un slide.
+  goExercises() {
+    console.log("VAS A IR AL APARTADO DE EJERCICIOS.");
+    this.router.navigateByUrl('/exercices');
+  }
+
+  //Funcion que lleva al apartado de alimentos al clicar en un slide.
+  goFoods() {
+    console.log("VAS A IR AL APARTADO DE ALIMENTOS.");
+    this.router.navigateByUrl('/diets');
   }
 
 }

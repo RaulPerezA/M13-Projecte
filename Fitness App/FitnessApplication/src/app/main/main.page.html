@@ -7,23 +7,24 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
+      <!-- Opciones del menú lateral -->
         <ion-list>
+        <!-- Opcion 1 -->
           <ion-item>
             <ion-icon name="mail" slot="start"></ion-icon>
-            <ion-label>Perfil</ion-label>
+            <ion-label routerLink="/userprofile">Perfil</ion-label>
           </ion-item>
+          <!-- Opcion 2 -->
           <ion-item>
-            <ion-icon name="paper-plane" slot="start"></ion-icon>
-            <ion-label>Rutinas</ion-label>
+            <ion-icon name="calculator" slot="start"></ion-icon>
+            <ion-label>Calculadora de masa</ion-label>
           </ion-item>
-          <ion-item>
-            <ion-icon name="heart" slot="start"></ion-icon>
-            <ion-label>Alimentación</ion-label>
-          </ion-item>
+          <!-- Opcion 3 -->
           <ion-item>
             <ion-icon name="trash" slot="start"></ion-icon>
             <ion-label>Ayuda</ion-label>
           </ion-item>
+          <!-- Opcion 4 -->
           <ion-item>
             <ion-icon name="warning" slot="start"></ion-icon>
             <ion-label routerLink="/home">Salir</ion-label>
@@ -55,7 +56,7 @@
         <!-- Carrusel de imagenes de ejercicios -->
         <div>
           <!-- Galeria de imagenes con un pequeño titulo y descripción -->
-          <ion-slides [options]="autoSlide" (ionSlideTouchEnd)="slideChanged()">
+          <ion-slides [options]="autoSlide" (ionSlideTouchEnd)="slideChanged()" (click)="goExercises()" #slideExercices>
             <ion-slide>
               <div class="slide1">
                 <img src="./assets/imagenprueba.png"/>
@@ -80,7 +81,7 @@
         <!-- Carrusel de imagenes de dietas -->
         <div>
           <!-- Galeria de imagenes con un pequeño titulo y descripción -->
-          <ion-slides [options]="autoSlide" (ionSlideTouchEnd)="slideChanged2()">
+          <ion-slides [options]="autoSlide" (ionSlideTouchEnd)="slideChanged()" (click)="goFoods()" #slideDiets>
             <ion-slide>
               <div class="slide1">
                 <img src="./assets/imagenprueba.png"/>
@@ -101,18 +102,6 @@
             </ion-slide>
           </ion-slides>
         </div>
-
-        
-
-
-        <!-- Calculadora de masa muscular -->
-        <div>
-          <h2>CALCULADORA DE MASA MUSCULAR</h2>
-        </div>
-
       </ion-content>
-
-
-
     </div>
 </ion-app>
