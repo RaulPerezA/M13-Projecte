@@ -23,6 +23,7 @@ public class Usuario {
 	private Date Fecha_nacimiento;
 	private int Peso;
 	private int Altura;
+	private String Imagen;
 	private Date Fecha_creacion;
 	private Date Fecha_modificacion;
 	
@@ -69,6 +70,12 @@ public class Usuario {
 	public void setAltura(int altura) {
 		Altura = altura;
 	}
+	public String getImagen() {
+		return Imagen;
+	}
+	public void setImagen(String imagen) {
+		Imagen = imagen;
+	}
 	public Date getFecha_creacion() {
 		return Fecha_creacion;
 	}
@@ -83,7 +90,7 @@ public class Usuario {
 	}
 	
 	
-	public Usuario(String _id, String Nombre, String Apellidos, String Email, Date Fecha_nacimiento,int Peso, int Altura, Date Fecha_creacion, Date Fecha_modificacion) {
+	public Usuario(String _id, String Nombre, String Apellidos, String Email, Date Fecha_nacimiento,int Peso, int Altura, String Imagen, Date Fecha_creacion, Date Fecha_modificacion) {
 		super();
 		this._id = _id;
 		this.Nombre = Nombre;
@@ -92,6 +99,7 @@ public class Usuario {
 		this.Fecha_nacimiento = Fecha_nacimiento;
 		this.Peso = Peso;
 		this.Altura = Altura;
+		this.Imagen = Imagen;
 		this.Fecha_creacion=Fecha_creacion;
 		this.Fecha_modificacion=Fecha_modificacion;
 		

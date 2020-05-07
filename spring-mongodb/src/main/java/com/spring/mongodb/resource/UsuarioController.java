@@ -28,6 +28,12 @@ public class UsuarioController {
 	public List<Usuario> getUsuarios(){
 		return repository.findAll();
 	}
+
+	
+	@GetMapping("/Prueba")
+	public String getprueba(){
+		return "hola";
+	}
 	
 	
 	@GetMapping("/findOneUsuarios/{id}")
