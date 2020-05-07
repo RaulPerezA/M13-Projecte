@@ -17,12 +17,12 @@
           <!-- Opcion 2 -->
           <ion-item>
             <ion-icon name="calculator" slot="start"></ion-icon>
-            <ion-label>Calculadora de masa</ion-label>
+            <ion-label routerLink="/calculatorweight">Calculadora de peso</ion-label>
           </ion-item>
           <!-- Opcion 3 -->
           <ion-item>
             <ion-icon name="trash" slot="start"></ion-icon>
-            <ion-label>Ayuda</ion-label>
+            <ion-label routerLink="/help">Ayuda</ion-label>
           </ion-item>
           <!-- Opcion 4 -->
           <ion-item>
@@ -47,9 +47,10 @@
 
       <ion-content class="body-app">
         <!-- Carrusel de continuar tu rutina -->
-        <div>
-          <h2>CONTINUA TU RUTINA DONDE LO HABIAS DEJADO</h2>
-        </div>
+        <ion-item>
+          <ion-label>Continuar rutina</ion-label>
+          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-item>
 
 
 

@@ -31,6 +31,14 @@ const routes: Routes = [
     path: 'diets',
     loadChildren: () => import('./diets/diets.module').then( m => m.DietsPageModule)
   },
+  {
+    path: 'help',
+    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
+  },
+  {
+    path: 'calculatorweight',
+    loadChildren: () => import('./calculatorweight/calculatorweight.module').then( m => m.CalculatorweightPageModule)
+  },
 ];
 
 @NgModule({
