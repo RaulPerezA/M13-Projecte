@@ -32,7 +32,7 @@
     </ion-list>
 
     <div class="ion-text-center fade-in">
-      <ion-button class="login-button" routerLink="/main">
+      <ion-button class="login-button" routerLink="/main" (click)="login()">
         Login
       </ion-button>    
     </div>
@@ -117,12 +117,12 @@
 
       <div class="ion-text-center" [ngClass]="{'fade-in':signupView, 'fade-out':!signupView}">
         <!-- Activar boton si los terminos y condiciones se han aceptado. -->
-        <ion-button class="login-button" routerLink="/slides" *ngIf="check==true" [class.button-disabled]="false">
-          Login
+        <ion-button class="login-button" routerLink="/slides" *ngIf="check==true" [class.button-disabled]="false" (click)="register()">
+          Register
         </ion-button>
         <!-- Desactivar boton si los terminos y condiciones no se han aceptado. -->
         <ion-button class="login-button" *ngIf="check==false" [class.button-disabled]="true">
-          Login
+          Register
         </ion-button>     
       </div>
 

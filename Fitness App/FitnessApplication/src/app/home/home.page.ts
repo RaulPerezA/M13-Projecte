@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomePage {
   //Variable para recoger la fecha y hora actual.
   today;
 
-  constructor() {
+  constructor(private navCtrl: NavController) {
     this.today = new Date().toISOString();
   }
 
@@ -54,5 +55,15 @@ export class HomePage {
   //Activar/desactivar boton de login del formulario de registro si no se ha seleccionado el campo de terminos y condiciones.
   checked(): void {
     this.check = !this.check;
+  }
+
+  //Establecer pagina raiz al loguearse.
+  login() {
+    this.navCtrl.navigateRoot('/main');
+  }
+
+  //Establecer pagina raiz al registrarse.
+  register() {
+    this.navCtrl.navigateRoot('/main');
   }
 }
