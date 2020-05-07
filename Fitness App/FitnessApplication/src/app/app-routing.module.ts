@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'calculatorweight',
     loadChildren: () => import('./calculatorweight/calculatorweight.module').then( m => m.CalculatorweightPageModule)
   },
+  {
+    path: 'continueroutine',
+    loadChildren: () => import('./continueroutine/continueroutine.module').then( m => m.ContinueroutinePageModule)
+  },
 ];
 
 @NgModule({

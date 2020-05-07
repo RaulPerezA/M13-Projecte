@@ -22,6 +22,10 @@ export class HomePage {
   constructor(private navCtrl: NavController) {
     this.today = new Date().toISOString();
   }
+  
+  ngOnDestroy(){
+    console.log("Se ha destruido la pagina de loguin y registro");
+  }
 
   //Funcion para mostrar o ocultar el formulario de registro.
   toggleSignUpView() {
@@ -64,6 +68,6 @@ export class HomePage {
 
   //Establecer pagina raiz al registrarse.
   register() {
-    this.navCtrl.navigateRoot('/main');
+    this.navCtrl.navigateRoot('/slides');
   }
 }
