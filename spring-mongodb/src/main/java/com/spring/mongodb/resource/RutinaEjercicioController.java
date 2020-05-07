@@ -10,30 +10,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.mongodb.model.Ejercicio;
-import com.spring.mongodb.repository.EjercicioRepository;
+import com.spring.mongodb.model.RutinaEjercicio;
+import com.spring.mongodb.repository.RutinaEjercicioRepository;
 
 
 @RestController
-public class EjercicioController {
+public class RutinaEjercicioController {
 	@Autowired
-	private EjercicioRepository repository;
+	private RutinaEjercicioRepository repository;
 	
-	@PostMapping("/addEjercicio")
-	public String saveEjercicio(@RequestBody Ejercicio Ejercicio) {
+	@PostMapping("/addRutinaEjercicio")
+	public String saveRutina(@RequestBody RutinaEjercicio Ejercicio) {
 		repository.save(Ejercicio);
 		return "Ejercicio "+Ejercicio+" añadido";
 	}
 
-	@GetMapping("/findAllEjercicios")
-	public List<Ejercicio> getEjercicios(){
+	@GetMapping("/findAllRutinaEjercicios")
+	public List<RutinaEjercicio> getRutinaEjercicios(){
 		return repository.findAll();
 	}
 	
 	
-	@GetMapping("/findOneEjercicio/{id}")
-	public Optional<Ejercicio> getEjercicio(@PathVariable String id) {
-		Optional<Ejercicio> Ejercicio = repository.findById(id);
+	@GetMapping("/findOneRutinaEjercicio/{id}")
+	public Optional<RutinaEjercicio> getRutinaEjercicio(@PathVariable String id) {
+		Optional<RutinaEjercicio> Ejercicio = repository.findById(id);
 		if (Ejercicio.isPresent())
 			return Ejercicio;
 		else {
@@ -41,9 +41,9 @@ public class EjercicioController {
 		}
 	}
 	
-	@GetMapping("/deleteOneEjercicio/{id}")
-	public String deleteEjercicio(@PathVariable String id) {
-		Optional<Ejercicio> Ejercicio = repository.findById(id);
+	@GetMapping("/deleteOneRutinaEjercicio/{id}")
+	public String deleteRutinaEjercicio(@PathVariable String id) {
+		Optional<RutinaEjercicio> Ejercicio = repository.findById(id);
 		repository.deleteById(id);
 		return "Ejercicio "+Ejercicio+" eliminado";
 	}
