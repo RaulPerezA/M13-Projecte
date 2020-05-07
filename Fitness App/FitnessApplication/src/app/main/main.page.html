@@ -10,24 +10,24 @@
       <!-- Opciones del menú lateral -->
         <ion-list>
         <!-- Opcion 1 -->
-          <ion-item>
+          <ion-item routerLink="/userprofile" (click)="closeMenu()">
             <ion-icon name="mail" slot="start"></ion-icon>
-            <ion-label routerLink="/userprofile">Perfil</ion-label>
+            <ion-label>Perfil</ion-label>
           </ion-item>
           <!-- Opcion 2 -->
-          <ion-item>
+          <ion-item routerLink="/calculatorweight" (click)="closeMenu()">
             <ion-icon name="calculator" slot="start"></ion-icon>
-            <ion-label routerLink="/calculatorweight">Calculadora de peso</ion-label>
+            <ion-label>Calculadora de peso</ion-label>
           </ion-item>
           <!-- Opcion 3 -->
-          <ion-item>
+          <ion-item routerLink="/help" (click)="closeMenu()">
             <ion-icon name="trash" slot="start"></ion-icon>
-            <ion-label routerLink="/help">Ayuda</ion-label>
+            <ion-label>Ayuda</ion-label>
           </ion-item>
           <!-- Opcion 4 -->
-          <ion-item>
+          <ion-item routerLink="/home" (click)="destroy()" (click)="closeMenu()">
             <ion-icon name="warning" slot="start"></ion-icon>
-            <ion-label routerLink="/home">Salir</ion-label>
+            <ion-label>Salir</ion-label>
           </ion-item>
         </ion-list>
       </ion-content>
@@ -47,7 +47,7 @@
 
       <ion-content class="body-app">
         <!-- Carrusel de continuar tu rutina -->
-        <ion-item>
+        <ion-item routerLink="/continueroutine">
           <ion-label>Continuar rutina</ion-label>
           <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
         </ion-item>

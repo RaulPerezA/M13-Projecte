@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-main',
@@ -12,11 +13,15 @@ export class MainPage implements OnInit {
   @ViewChild("slideDiets",null) slideDiets: IonSlides;
   @ViewChild("slideExercices",null) slideExercices: IonSlides;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private menuCtrl: MenuController) { }
 
   ngOnInit() {
     //Iniciar funcion que hace que los slides cambien automaticamente.
     this.autoSlide;
+  }
+
+  ngOnDestroy() {
+    console.log("Pagina main destruida.");
   }
 
   //Funcion para hacer que los slides cambien automaticamente
@@ -42,6 +47,16 @@ export class MainPage implements OnInit {
   goFoods() {
     console.log("VAS A IR AL APARTADO DE ALIMENTOS.");
     this.router.navigateByUrl('/diets');
+  }
+
+  //Cerrar menu lateral al seleccionar una opcion
+  closeMenu() {
+    this.menuCtrl.close();
+  }
+
+  //Llamamos a la funcion ngOnDestroy para que al volver a entrar en la pagina mainla vuelva a crear.
+  destroy() {
+    this.ngOnDestroy();
   }
 
 }

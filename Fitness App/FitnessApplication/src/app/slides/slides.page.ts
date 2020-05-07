@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-slides',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SlidesPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  //Destruimos la pagina de slides para que al volver hacia atras no se vuelva a mostrar.
+  ngOnDestroy() {
+    console.log("Se ha destruido el tutorial de slides");
+  }
+
+  setMainPage(){
+    //Declaramos que la pagina principal sera la /main.
+    this.navCtrl.navigateRoot('/main');
   }
 
 }
