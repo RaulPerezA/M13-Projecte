@@ -27,7 +27,7 @@ export class HomePage {
     
     //Datos del formulario del login
     this.loginForm = this.formBuilder.group({
-      email: [''],
+      emailusername: [''],
       password: ['']
     });
     
@@ -38,10 +38,10 @@ export class HomePage {
       birthdate: [''],
       weight: [''],
       height: [''],
+      username: [''],
       email: [''],
       password: ['']
     });
-
   }
   
   ngOnDestroy(){
@@ -91,6 +91,7 @@ export class HomePage {
   //Establecer pagina raiz al registrarse.
   register() {
     this.navCtrl.navigateRoot('/slides');
+    console.log(this.registerForm.value.name);
     console.log(this.registerForm.value);
   }
 }
