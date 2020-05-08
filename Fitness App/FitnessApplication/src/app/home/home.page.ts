@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,31 @@ export class HomePage {
   passwordTypeLogin: string = 'password';
   passwordTypeRegister: string = 'password';
   check: boolean = false;
+  loginForm: FormGroup;
+  registerForm: FormGroup;
   //Variable para recoger la fecha y hora actual.
   today;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder) {
     this.today = new Date().toISOString();
+    
+    //Datos del formulario del login
+    this.loginForm = this.formBuilder.group({
+      email: [''],
+      password: ['']
+    });
+    
+    //Datos del formulario de registro
+    this.registerForm = this.formBuilder.group({
+      name: [''],
+      surnames: [''],
+      birthdate: [''],
+      weight: [''],
+      height: [''],
+      email: [''],
+      password: ['']
+    });
+
   }
   
   ngOnDestroy(){
@@ -64,10 +85,12 @@ export class HomePage {
   //Establecer pagina raiz al loguearse.
   login() {
     this.navCtrl.navigateRoot('/main');
+    console.log(this.loginForm.value);
   }
 
   //Establecer pagina raiz al registrarse.
   register() {
     this.navCtrl.navigateRoot('/slides');
+    console.log(this.registerForm.value);
   }
 }
