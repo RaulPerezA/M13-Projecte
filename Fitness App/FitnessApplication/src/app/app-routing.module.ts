@@ -43,6 +43,10 @@ const routes: Routes = [
     path: 'continueroutine',
     loadChildren: () => import('./continueroutine/continueroutine.module').then( m => m.ContinueroutinePageModule)
   },
+  {
+    path: 'createexercices',
+    loadChildren: () => import('./createexercices/createexercices.module').then( m => m.CreateexercicesPageModule)
+  },
 ];
 
 @NgModule({
