@@ -8,8 +8,12 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-list-header (click)="showFilter()">Filtrar categorias de ejercicios <ion-icon name="filter-outline"></ion-icon> </ion-list-header>
+  <ion-list-header>
+    <ion-searchbar>
+      <ion-icon name="filter-outline" (click)="showFilter()"></ion-icon>
+    </ion-searchbar>
+  </ion-list-header>
+  
     <ion-list *ngIf="filter==true">
         <ion-chip outline color="primary" *ngIf="chipsSelected[0]==false" (click)="selectChip(0)">
           <ion-label>Pectoral</ion-label>
@@ -47,7 +51,7 @@
         <ion-chip outline color="primary" class="selected" *ngIf="chipsSelected[5]==true" (click)="selectChip(5)">
           <ion-label>Pierna</ion-label>
         </ion-chip>
-      </ion-list>
+    </ion-list>
 
 
 </ion-content>
