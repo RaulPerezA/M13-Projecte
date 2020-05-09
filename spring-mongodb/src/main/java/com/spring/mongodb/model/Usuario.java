@@ -15,11 +15,14 @@ import lombok.ToString;
 
 @Document(collection="Usuario")
 public class Usuario {
+	
 	@Id
 	private String _id;
 	private String Nombre;
 	private String Apellidos;
-	private String Email;
+	private String email;
+	private String userName;
+	private String Contraseña;
 	private Date Fecha_nacimiento;
 	private int Peso;
 	private int Altura;
@@ -47,10 +50,22 @@ public class Usuario {
 		Apellidos = apellidos;
 	}
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getContraseña() {
+		return Contraseña;
+	}
+	public void setContraseña(String contraseña) {
+		Contraseña = contraseña;
 	}
 	public Date getFecha_nacimiento() {
 		return Fecha_nacimiento;
@@ -90,27 +105,26 @@ public class Usuario {
 	}
 	
 	
-	public Usuario(String _id, String Nombre, String Apellidos, String Email, Date Fecha_nacimiento,int Peso, int Altura, String Imagen, Date Fecha_creacion, Date Fecha_modificacion) {
+	public Usuario(String Nombre, String Apellidos, String email, String userName, String Contraseña, Date Fecha_nacimiento,int Peso, int Altura, String Imagen, Date Fecha_creacion, Date Fecha_modificacion) {
 		super();
-		this._id = _id;
 		this.Nombre = Nombre;
 		this.Apellidos = Apellidos;
-		this.Email=Email;
+		this.email=email;
+		this.userName=userName;
+		this.Contraseña=Contraseña;
 		this.Fecha_nacimiento = Fecha_nacimiento;
 		this.Peso = Peso;
 		this.Altura = Altura;
 		this.Imagen = Imagen;
 		this.Fecha_creacion=Fecha_creacion;
 		this.Fecha_modificacion=Fecha_modificacion;
-		
 	}
+	
 	@Override
 	public String toString() {
-		return "Usuario [_id=" + _id + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos + ", Email=" + Email
-				+ ", Fecha_nacimiento=" + Fecha_nacimiento + ", Peso=" + Peso + ", Altura=" + Altura
-				+ ", Fecha_creacion=" + Fecha_creacion + ", Fecha_modificacion=" + Fecha_modificacion + "]";
+		return "Usuario [_id=" + _id + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos + ", email=" + email
+				+ ", userName=" + userName + ", Contraseña=" + Contraseña + ", Fecha_nacimiento=" + Fecha_nacimiento
+				+ ", Peso=" + Peso + ", Altura=" + Altura + ", Imagen=" + Imagen + ", Fecha_creacion=" + Fecha_creacion
+				+ ", Fecha_modificacion=" + Fecha_modificacion + "]";
 	}
-	
-	
-	
 }

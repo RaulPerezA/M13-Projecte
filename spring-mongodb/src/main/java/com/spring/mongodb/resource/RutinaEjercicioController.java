@@ -3,35 +3,38 @@ package com.spring.mongodb.resource;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.mongodb.model.Ejercicio;
 import com.spring.mongodb.model.RutinaEjercicio;
+import com.spring.mongodb.model.Usuario;
 import com.spring.mongodb.repository.RutinaEjercicioRepository;
-
+import com.spring.mongodb.repository.UsuarioRepository;
 
 @RestController
 public class RutinaEjercicioController {
 	@Autowired
 	private RutinaEjercicioRepository repository;
-	
-	@PostMapping("/addRutinaEjercicio")
+
+	@PostMapping("/RutinaEjercicio/add")
 	public String saveRutina(@RequestBody RutinaEjercicio Ejercicio) {
 		repository.save(Ejercicio);
-		return "Ejercicio "+Ejercicio+" añadido";
+		return "Ejercicio " + Ejercicio + " añadido";
 	}
 
-	@GetMapping("/findAllRutinaEjercicios")
-	public List<RutinaEjercicio> getRutinaEjercicios(){
+	@GetMapping("/RutinaEjercicio/findAll")
+	public List<RutinaEjercicio> getRutinaEjercicios() {
 		return repository.findAll();
 	}
-	
-	
-	@GetMapping("/findOneRutinaEjercicio/{id}")
+
+	@GetMapping("/RutinaEjercicio/findOne/{id}")
 	public Optional<RutinaEjercicio> getRutinaEjercicio(@PathVariable String id) {
 		Optional<RutinaEjercicio> Ejercicio = repository.findById(id);
 		if (Ejercicio.isPresent())
@@ -40,12 +43,32 @@ public class RutinaEjercicioController {
 			return null;
 		}
 	}
-	
-	@GetMapping("/deleteOneRutinaEjercicio/{id}")
+
+	@GetMapping("/RutinaEjercicio/deleteOne/{id}")
 	public String deleteRutinaEjercicio(@PathVariable String id) {
 		Optional<RutinaEjercicio> Ejercicio = repository.findById(id);
 		repository.deleteById(id);
-		return "Ejercicio "+Ejercicio+" eliminado";
+		return "Ejercicio " + Ejercicio + " eliminado";
+	}
+
+	/*
+	 * @GetMapping("/RutinaEjercicio/findExercisesForUser") public
+	 * List<RutinaEjercicio> getEjerciciosFiltro(@RequestParam String name) {
+	 * 
+	 * List<RutinaEjercicio> ejercicios =repository.findByNombre(name);
+	 * System.out.println(ejercicios); return ejercicios; }
+	 * 
+	 */
+
+	
+	//Con esta función haremos que devuelva todas las rutinas de los ejercicios que tiene creado un usuario.
+	@GetMapping("/RutinaEjercicio/findExercisesForUser")
+	public List<RutinaEjercicio> getEjerciciosUsuario(@RequestParam String user) {
+
+		//ME HE PASADO 6 HORAS BUSCANDO COMO SE HACIA ESTA MIERDA.
+		//POR FAVOR NO LLOREN POR MI :)
+		List<RutinaEjercicio> ejercicios = repository.findByusuario(new ObjectId(user));
+		return ejercicios;
 	}
 
 }
