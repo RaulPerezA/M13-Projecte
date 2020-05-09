@@ -12,4 +12,8 @@ export class DietsPage implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    console.log("Pagina de dietas destruida.");
+  }
+
 }

@@ -16,6 +16,10 @@ export class ContinueroutinePage implements OnInit {
    this.alert();
   }
 
+  ngOnDestroy() {
+    console.log("Continuar rutina destruido.");
+  }
+
   //Metodo que presentaria una ventana emergente al detectar si el usuario se ha dejado una rutina o ejercicio a medias.
   async alert() {
     const alert = await this.alertCCtrl.create({

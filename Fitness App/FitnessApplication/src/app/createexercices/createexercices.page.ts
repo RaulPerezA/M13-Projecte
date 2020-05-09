@@ -15,6 +15,10 @@ export class CreateexercicesPage implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    console.log("Crear ejercicios destruido.");
+  }
+
   showFilter() {
     this.filter = !this.filter;
   }
