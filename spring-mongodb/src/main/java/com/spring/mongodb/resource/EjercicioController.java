@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.mongodb.model.Ejercicio;
@@ -19,19 +20,20 @@ public class EjercicioController {
 	@Autowired
 	private EjercicioRepository repository;
 	
-	@PostMapping("/addEjercicio")
+	@PostMapping("/Ejercicio/add")
 	public String saveEjercicio(@RequestBody Ejercicio Ejercicio) {
 		repository.save(Ejercicio);
 		return "Ejercicio "+Ejercicio+" añadido";
 	}
 
-	@GetMapping("/findAllEjercicios")
+	@GetMapping("/Ejercicio/findAll")
 	public List<Ejercicio> getEjercicios(){
 		return repository.findAll();
 	}
 	
 	
-	@GetMapping("/findOneEjercicio/{id}")
+	/*
+	@GetMapping("/Ejercicio/findOne/{id}")
 	public Optional<Ejercicio> getEjercicio(@PathVariable String id) {
 		Optional<Ejercicio> Ejercicio = repository.findById(id);
 		if (Ejercicio.isPresent())
@@ -40,8 +42,19 @@ public class EjercicioController {
 			return null;
 		}
 	}
+	*/
+	@GetMapping("/Ejercicio/findOne")
+	public Optional<Ejercicio> getEjercicio(@RequestParam String nombre) {
+		Optional<Ejercicio> Ejercicio = repository.findByEjercicio(nombre);
+		if (Ejercicio.isPresent())
+			return Ejercicio;
+		else {
+			return null;
+		}
+	}
+
 	
-	@GetMapping("/deleteOneEjercicio/{id}")
+	@GetMapping("/Ejercicio/deleteOne/{id}")
 	public String deleteEjercicio(@PathVariable String id) {
 		Optional<Ejercicio> Ejercicio = repository.findById(id);
 		repository.deleteById(id);

@@ -18,20 +18,20 @@ public class AlimentoController {
 	@Autowired
 	private AlimentoRepository repository;
 	
-	@PostMapping("/addAlimento")
-	public String saveUsuario(@RequestBody Alimento Alimento) {
+	@PostMapping("/Alimento/add")
+	public String saveAlimento(@RequestBody Alimento Alimento) {
 		repository.save(Alimento);
 		return "Alimento "+Alimento+" añadido";
 	}
 
-	@GetMapping("/findAllAlimentos")
+	@GetMapping("/Alimento/findAll")
 	public List<Alimento> getAlimentos(){
 		return repository.findAll();
 	}
 	
 	
-	@GetMapping("/findOneAlimento/{id}")
-	public Optional<Alimento> getUsuario(@PathVariable String id) {
+	@GetMapping("/Alimento/findOne/{id}")
+	public Optional<Alimento> getAlimento(@PathVariable String id) {
 		Optional<Alimento> Alimento = repository.findById(id);
 		if (Alimento.isPresent())
 			return Alimento;
@@ -40,8 +40,8 @@ public class AlimentoController {
 		}
 	}
 	
-	@GetMapping("/deleteOneAlimento/{id}")
-	public String deleteUsuario(@PathVariable String id) {
+	@GetMapping("/Alimento/deleteOne/{id}")
+	public String deleteAlimento(@PathVariable String id) {
 		Optional<Alimento> Alimento = repository.findById(id);
 		repository.deleteById(id);
 		return "Alimento "+Alimento+" eliminado";
