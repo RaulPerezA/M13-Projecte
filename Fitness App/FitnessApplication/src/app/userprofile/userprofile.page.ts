@@ -15,7 +15,7 @@ export class UserprofilePage implements OnInit {
   }
 
   ngOnDestroy() {
-    console.log("Pagina destruida.");
+    console.log("Pagina de perfil destruida.");
   }
 
   editProfile() {

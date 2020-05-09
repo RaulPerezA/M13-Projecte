@@ -14,7 +14,7 @@ export class ExercicesPage implements OnInit {
 
   constructor(private network: Network, private dialogs: Dialogs) {
     
-    //Mostrar po up para informar al usuario que no tiene conexión
+    //Mostrar pop up para informar al usuario que no tiene conexión
     this.network.onDisconnect().subscribe(()=>{
       this.dialogs.alert('No hay conexión, los cambios no se guardaran.');
     });
@@ -22,6 +22,11 @@ export class ExercicesPage implements OnInit {
    }
 
   ngOnInit() {
+  }
+
+  //Puede ser que al poner el ngOnDestroy() cada vez que entre aparecera el mensaje de que no tiene conexión.
+  ngOnDestroy() {
+    console.log("Pagina de creación/modificación de ejercicio destruido.");
   }
 
   deployCreate() {

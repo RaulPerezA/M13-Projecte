@@ -12,4 +12,8 @@ export class CalculatorweightPage implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    console.log("Calculadora de peso destruida.");
+  }
+
 }
