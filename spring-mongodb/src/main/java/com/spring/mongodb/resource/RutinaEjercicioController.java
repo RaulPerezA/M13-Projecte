@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.mongodb.model.Ejercicio;
 import com.spring.mongodb.model.RutinaEjercicio;
-import com.spring.mongodb.model.Usuario;
+import com.spring.mongodb.repository.EjercicioRepository;
 import com.spring.mongodb.repository.RutinaEjercicioRepository;
-import com.spring.mongodb.repository.UsuarioRepository;
 
 @RestController
 public class RutinaEjercicioController {
 	@Autowired
 	private RutinaEjercicioRepository repository;
+	@Autowired
+	private EjercicioRepository Ejerciciorepository;
 
 	@PostMapping("/RutinaEjercicio/add")
 	public String saveRutina(@RequestBody RutinaEjercicio Ejercicio) {
@@ -50,25 +51,22 @@ public class RutinaEjercicioController {
 		repository.deleteById(id);
 		return "Ejercicio " + Ejercicio + " eliminado";
 	}
-
-	/*
-	 * @GetMapping("/RutinaEjercicio/findExercisesForUser") public
-	 * List<RutinaEjercicio> getEjerciciosFiltro(@RequestParam String name) {
-	 * 
-	 * List<RutinaEjercicio> ejercicios =repository.findByNombre(name);
-	 * System.out.println(ejercicios); return ejercicios; }
-	 * 
-	 */
-
 	
-	//Con esta función haremos que devuelva todas las rutinas de los ejercicios que tiene creado un usuario.
+	
+	/*
+	 * Devuelve una lista con todas las rutinas de los ejercicios que tiene creado un usuario. 
+	 */
 	@GetMapping("/RutinaEjercicio/findExercisesForUser")
 	public List<RutinaEjercicio> getEjerciciosUsuario(@RequestParam String user) {
-
-		//ME HE PASADO 6 HORAS BUSCANDO COMO SE HACIA ESTA MIERDA.
-		//POR FAVOR NO LLOREN POR MI :)
 		List<RutinaEjercicio> ejercicios = repository.findByusuario(new ObjectId(user));
 		return ejercicios;
 	}
-
+	
+	/*
+	 * Devuelve el ejercicio que se esta ejecutando
+	 */
+	@GetMapping("/RutinaEjercicio/findEjercicio")
+	public Optional<Ejercicio> getEjercicio(@RequestParam String ejercicio) {
+		return Ejerciciorepository.findById(ejercicio);
+	}
 }

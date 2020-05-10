@@ -18,9 +18,9 @@ import lombok.ToString;
 public class RutinaGeneral {
 	@Id
 	private String _id;
-	private String Usuario;
-	private int Num_dias;
-	private List<String> Rutinas_dias;
+	private String nombre;
+	private String usuario;
+	private List<String> rutinasDias;
 	private Date Fecha_creacion;
 	private Date Fecha_modificacion;
 	public String get_id() {
@@ -29,23 +29,23 @@ public class RutinaGeneral {
 	public void set_id(String _id) {
 		this._id = _id;
 	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	public String getUsuario() {
-		return Usuario;
+		return usuario;
 	}
 	public void setUsuario(String usuario) {
-		Usuario = usuario;
+		this.usuario = usuario;
 	}
-	public int getNum_dias() {
-		return Num_dias;
+	public List<String> getRutinasDias() {
+		return rutinasDias;
 	}
-	public void setNum_dias(int num_dias) {
-		Num_dias = num_dias;
-	}
-	public List<String> getRutinas_dias() {
-		return Rutinas_dias;
-	}
-	public void setRutinas_dias(List<String> rutinas_dias) {
-		Rutinas_dias = rutinas_dias;
+	public void setRutinasDias(List<String> rutinasDias) {
+		this.rutinasDias = rutinasDias;
 	}
 	public Date getFecha_creacion() {
 		return Fecha_creacion;
@@ -59,22 +59,22 @@ public class RutinaGeneral {
 	public void setFecha_modificacion(Date fecha_modificacion) {
 		Fecha_modificacion = fecha_modificacion;
 	}
+	public RutinaGeneral(String nombre, String usuario, List<String> rutinasDias, Date Fecha_creacion,
+			Date Fecha_modificacion) {
+		super();
+		this.nombre = nombre;
+		this.usuario = usuario;
+		this.rutinasDias = rutinasDias;
+		this.Fecha_creacion = Fecha_creacion;
+		this.Fecha_modificacion = Fecha_modificacion;
+	}
 	@Override
 	public String toString() {
-		return "RutinaGeneral [_id=" + _id + ", Usuario=" + Usuario + ", Num_dias=" + Num_dias + ", Rutinas_dias="
-				+ Rutinas_dias + ", Fecha_creacion=" + Fecha_creacion + ", Fecha_modificacion=" + Fecha_modificacion
+		return "RutinaGeneral [_id=" + _id + ", nombre=" + nombre + ", usuario=" + usuario + ", rutinasDias="
+				+ rutinasDias + ", Fecha_creacion=" + Fecha_creacion + ", Fecha_modificacion=" + Fecha_modificacion
 				+ "]";
 	}
-	public RutinaGeneral(String _id, String usuario, int num_dias, List<String> rutinas_dias, Date fecha_creacion,
-			Date fecha_modificacion) {
-		super();
-		this._id = _id;
-		Usuario = usuario;
-		Num_dias = num_dias;
-		Rutinas_dias = rutinas_dias;
-		Fecha_creacion = fecha_creacion;
-		Fecha_modificacion = fecha_modificacion;
-	}
+	
 	
 	
 }

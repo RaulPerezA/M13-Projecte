@@ -31,9 +31,6 @@ public class UsuarioController {
 			@RequestParam String UserName, @RequestParam String pw, @RequestParam String birthdate, @RequestParam int peso, 
 			@RequestParam int altura, @RequestParam String avatar) {
 
-		
-		
-		
 		Date hoy=new Date();
 		
 		DateFormat objSDF = new SimpleDateFormat("YYYY-mm-dd"); 
