@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Username</ion-title>
+    <ion-title>Username <ion-icon name="pencil-outline" (click)="editData()"></ion-icon></ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -20,36 +20,15 @@
     </div>
   </div>
 
-  <ion-card>
+  <ion-card *ngFor="let data of userData; let i = index" >
     <ion-item lines="none">
-      <ion-label>Nombre:</ion-label>
-    </ion-item>
-    </ion-card>
-    <ion-card>
-    <ion-item lines="none">
-      <ion-label>Apellidos:</ion-label>
+      <ion-label *ngIf="edit==false">{{info[i]}}: {{data}} </ion-label>
+      <ion-input placeholder="{{data}}" *ngIf="edit==true">{{info[i]}}:  </ion-input>
     </ion-item>
   </ion-card>
-  <ion-card>
-    <ion-item lines="none">
-      <ion-label>Correo:</ion-label>
-    </ion-item>
-  </ion-card>
-  <ion-card>
-    <ion-item lines="none">
-      <ion-label>Fecha:</ion-label>
-    </ion-item>
-  </ion-card>
-  <ion-card>
-    <ion-item lines="none">
-      <ion-label>Altura:</ion-label>
-    </ion-item>
-  </ion-card>
-  <ion-card>
-    <ion-item lines="none">
-      <ion-label>Peso:</ion-label>
-    </ion-item>
-  </ion-card>
-
-
+  <!-- Guarda la información editada en la base de datos -->
+  <div class="center">
+    <ion-button *ngIf="edit==true" (click)="save()">Guardar</ion-button>
+  </div>
+  
 </ion-content>

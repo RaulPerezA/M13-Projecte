@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { LoginService } from '../login.service'; 
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +12,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class HomePage {
 
+  resultLogin: Observable<any>;
   infiniteScroll: IonInfiniteScroll;
   signupView: boolean = false;
   viewPasswordLogin: boolean = false;
@@ -22,7 +25,7 @@ export class HomePage {
   //Variable para recoger la fecha y hora actual.
   today;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService) {
     this.today = new Date().toISOString();
     
     //Datos del formulario del login
@@ -84,6 +87,10 @@ export class HomePage {
 
   //Establecer pagina raiz al loguearse.
   login() {
+    this.resultLogin = this.loginService.getLogin();
+    console.log(this.resultLogin);
+   
+
     this.navCtrl.navigateRoot('/main');
     console.log(this.loginForm.value);
   }

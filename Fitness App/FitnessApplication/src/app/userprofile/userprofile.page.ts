@@ -7,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserprofilePage implements OnInit {
 
-  userData = ["NombrePrueba", "Apellido1 Apellido2", "100kg", "100m", "username","email@email.com"];
+  name: string = "NombrePrueba";
+  surnames: string = "Apellido1 Apellido2";
+  kg: string = "100kg";
+  date: string = "10/10/2020";
+  m: string = "100m";
+  email: string = "email";
+
+  userData = [this.name, this.surnames, this.kg, this.date, this.m,this.email];
+  info = ["Nombre", "Apellidos", "Fecha", "Peso", "Altura", "Email"];
+
+  edit:boolean = false;
 
   constructor() { }
 
@@ -18,13 +28,14 @@ export class UserprofilePage implements OnInit {
     console.log("Pagina de perfil destruida.");
   }
 
-  editProfile() {
+  editData() {
     console.log("Has clicado en editar perfil del usuario");
+    this.edit = !this.edit;
   }
 
-  //Volver a la página anterior
-  back() {
-
+  save() {
+    this.edit = !this.edit;
+    //Guardar datos en la base de datos
   }
 
 }
