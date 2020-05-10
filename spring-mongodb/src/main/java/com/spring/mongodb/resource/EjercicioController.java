@@ -33,17 +33,9 @@ public class EjercicioController {
 	
 	
 	/*
-	@GetMapping("/Ejercicio/findOne/{id}")
-	public Optional<Ejercicio> getEjercicio(@PathVariable String id) {
-		Optional<Ejercicio> Ejercicio = repository.findById(id);
-		if (Ejercicio.isPresent())
-			return Ejercicio;
-		else {
-			return null;
-		}
-	}
-	*/
-	@GetMapping("/Ejercicio/findOne")
+	 * Devuelve un ejercicio con el nombre que se le pasa por variable.
+	 */
+	@GetMapping("/Ejercicio/findOneNombre")
 	public Optional<Ejercicio> getEjercicio(@RequestParam String nombre) {
 		Optional<Ejercicio> Ejercicio = repository.findByEjercicio(nombre);
 		if (Ejercicio.isPresent())
@@ -52,6 +44,23 @@ public class EjercicioController {
 			return null;
 		}
 	}
+	
+	/*
+	 * Devuelve una lista de los ejercicios segun la dificultad que se le pase por parametro.
+	 */
+	@GetMapping("/Ejercicio/findDificultad")
+	public List<Ejercicio> getDificultadEjercicio(@RequestParam String dificultad) {
+		return repository.findByDificultad(dificultad);
+	}
+	
+	/*
+	 * Devuelve una lista de los ejercicios segun el grupo muscular por el que se filtre.
+	 */
+	@GetMapping("/Ejercicio/findGrupoMuscular")
+	public List<Ejercicio> getGrupoMuscularEjercicio(@RequestParam String GrupoMuscular) {
+		return repository.findByGrupoMuscular(GrupoMuscular);
+	}
+	
 
 	
 	@GetMapping("/Ejercicio/deleteOne/{id}")

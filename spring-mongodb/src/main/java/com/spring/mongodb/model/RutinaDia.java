@@ -18,8 +18,9 @@ import lombok.ToString;
 public class RutinaDia {
 	@Id
 	private String _id;
-	private String Usuario;
-	private List<String> Ejercicios;
+	private String nombre;
+	private String usuario;
+	private List<String> ejercicios;
 	private Date Fecha_creacion;
 	private Date Fecha_modificacion;
 	public String get_id() {
@@ -28,17 +29,23 @@ public class RutinaDia {
 	public void set_id(String _id) {
 		this._id = _id;
 	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	public String getUsuario() {
-		return Usuario;
+		return usuario;
 	}
 	public void setUsuario(String usuario) {
-		Usuario = usuario;
+		this.usuario = usuario;
 	}
 	public List<String> getEjercicios() {
-		return Ejercicios;
+		return ejercicios;
 	}
 	public void setEjercicios(List<String> ejercicios) {
-		Ejercicios = ejercicios;
+		this.ejercicios = ejercicios;
 	}
 	public Date getFecha_creacion() {
 		return Fecha_creacion;
@@ -52,20 +59,21 @@ public class RutinaDia {
 	public void setFecha_modificacion(Date fecha_modificacion) {
 		Fecha_modificacion = fecha_modificacion;
 	}
+	public RutinaDia(String nombre, String usuario, List<String> ejercicios, Date Fecha_creacion,
+			Date Fecha_modificacion) {
+		super();
+		this.nombre = nombre;
+		this.usuario = usuario;
+		this.ejercicios = ejercicios;
+		this.Fecha_creacion = Fecha_creacion;
+		this.Fecha_modificacion = Fecha_modificacion;
+	}
 	@Override
 	public String toString() {
-		return "RutinaDia [_id=" + _id + ", Usuario=" + Usuario + ", Ejercicios=" + Ejercicios + ", Fecha_creacion="
-				+ Fecha_creacion + ", Fecha_modificacion=" + Fecha_modificacion + "]";
+		return "RutinaDia [_id=" + _id + ", nombre=" + nombre + ", usuario=" + usuario + ", ejercicios=" + ejercicios
+				+ ", Fecha_creacion=" + Fecha_creacion + ", Fecha_modificacion=" + Fecha_modificacion + "]";
 	}
-	public RutinaDia(String _id, String usuario, List<String> ejercicios, Date fecha_creacion,
-			Date fecha_modificacion) {
-		super();
-		this._id = _id;
-		Usuario = usuario;
-		Ejercicios = ejercicios;
-		Fecha_creacion = fecha_creacion;
-		Fecha_modificacion = fecha_modificacion;
-	}
+	
 	
 	
 }
