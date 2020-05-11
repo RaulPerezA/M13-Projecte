@@ -9,11 +9,12 @@ export class LoginService {
 
   public API = 'http://localhost:9003';
   public LOGIN = this.API + '/Usuario/login';
-
+  
   constructor(private http: HttpClient) { }
 
-  getLogin() {
-    return this.http.get(this.LOGIN+"?user=Raul&pw=Raul");
+  getLogin(username:string, password:string) {
+    //username la inicial mayuscula, contraseña todo en minusculas
+    return this.http.get(this.LOGIN+"?user="+username+"&pw="+password);
   }
 
 }

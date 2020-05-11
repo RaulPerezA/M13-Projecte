@@ -12,10 +12,9 @@ export class UserprofilePage implements OnInit {
   kg: string = "100kg";
   date: string = "10/10/2020";
   m: string = "100m";
-  email: string = "email";
 
-  userData = [this.name, this.surnames, this.kg, this.date, this.m,this.email];
-  info = ["Nombre", "Apellidos", "Fecha", "Peso", "Altura", "Email"];
+  userData = [this.name, this.surnames, this.kg, this.date, this.m];
+  info = ["Nombre", "Apellidos", "Fecha", "Peso", "Altura"];
 
   edit:boolean = false;
 
