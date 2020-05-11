@@ -2,8 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { LoginService } from '../login.service'; 
+import { LoginService } from '../login.service';
+import { RegisterService } from '../register.service'; 
 import { Observable } from 'rxjs';
+import { User } from "../Objects/User";
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,7 @@ import { Observable } from 'rxjs';
 export class HomePage {
 
   resultLogin: Observable<any>;
+  resultRegister: Observable<any>;
   infiniteScroll: IonInfiniteScroll;
   signupView: boolean = false;
   viewPasswordLogin: boolean = false;
@@ -22,10 +25,11 @@ export class HomePage {
   check: boolean = false;
   loginForm: FormGroup;
   registerForm: FormGroup;
+  user:User;
   //Variable para recoger la fecha y hora actual.
   today;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService) {
     this.today = new Date().toISOString();
     
     //Datos del formulario del login
@@ -90,13 +94,9 @@ export class HomePage {
 
     //RECOGER CAMPOS DEL FORMULARIO LOGIN
     console.log("usernamemail",this.loginForm.value.emailusername);
-    
     console.log("password",this.loginForm.value.password);
+    
     //ENVIARSELOS AL METODO DEL SERVICIO PARA HACER EL LOGIN
-
-
-
-
     this.resultLogin = this.loginService.getLogin(this.loginForm.value.emailusername,this.loginForm.value.password);
     console.log(this.resultLogin);
     let promesa:Promise<any>;
@@ -112,15 +112,32 @@ export class HomePage {
     }
 
     console.log("ivan",promesa);
-
-    
     console.log(this.loginForm.value);
+  
   }
 
   //Establecer pagina raiz al registrarse.
-  register() {
-    this.navCtrl.navigateRoot('/slides');
-    console.log(this.registerForm.value.name);
+  async register() {
+    
     console.log(this.registerForm.value);
+    
+    this.user = new User(this.registerForm.value.name,this.registerForm.value.surnames,this.registerForm.value.email,this.registerForm.value.username,this.registerForm.value.password,this.registerForm.value.birthdate,this.registerForm.value.weight,this.registerForm.value.height);
+    
+    console.log("user",this.user);
+
+    this.resultRegister = this.registerService.createRegister(this.user);
+    console.log(this.resultRegister);
+    let promesaRegister:Promise<any>;
+    promesaRegister = this.resultRegister.toPromise();
+
+    if(await promesaRegister===true){
+      this.navCtrl.navigateRoot('/slides');
+    }
+    else {
+      console.log("error de registro");
+    }
+
+    console.log("registro",promesaRegister);
+
   }
 }
