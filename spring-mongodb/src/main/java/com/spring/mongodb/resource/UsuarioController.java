@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +62,7 @@ public class UsuarioController {
 	
 	
 	// login
+	@CrossOrigin(origins = "http://localhost:8100/")
 	@GetMapping("/Usuario/login")
 	public @ResponseBody boolean login(@RequestParam String user, @RequestParam String pw) {
 		boolean b;
@@ -79,23 +81,18 @@ public class UsuarioController {
 		} 
 		
 		return false;
-		
-		
-/*		
-		Optional<Usuario> u = repository.findById(user);
-		if (u.isPresent()) {
-			b = (u.get().getContraseña().equals(pw) ? true : false);
-			return b;
-		} else {
-			return false;
-		}
-*/
 	}
 	
-	@GetMapping("/Usuario/findAll")
-	public List<Usuario> getUsuarios(){
-		return repository.findAll();
+	
+	/*
+	 * En la siguiente función añadir los campos para editar un usuario.
+	 */
+	@GetMapping("/Usuario/editUser")
+	public Boolean editUser(){
+		return true;
 	}
+	
+	
 	
 	
 	@GetMapping("/Usuario/findOne/{id}")
@@ -108,6 +105,11 @@ public class UsuarioController {
 		}
 	}
 
+	
+	@GetMapping("/Usuario/findAll")
+	public List<Usuario> getUsuarios(){
+		return repository.findAll();
+	}
 	
 	
 	@GetMapping("/Usuario/deleteOne/{id}")

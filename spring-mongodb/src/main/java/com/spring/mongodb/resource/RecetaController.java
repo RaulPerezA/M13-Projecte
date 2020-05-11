@@ -30,7 +30,7 @@ public class RecetaController {
 	}
 	
 	@GetMapping("/Receta/findOne/{id}")
-	public Optional<Receta> getUsuario(@PathVariable String id) {
+	public Optional<Receta> getReceta(@PathVariable String id) {
 		Optional<Receta> receta = repository.findById(id);
 		if (receta.isPresent())
 			return receta;
