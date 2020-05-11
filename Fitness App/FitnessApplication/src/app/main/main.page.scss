@@ -1,0 +1,28 @@
+:root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+  }
+
+  ion-toolbar {
+    --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
+    background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
+    color: white;
+  }
+
+  ion-menu {
+    --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
+    background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
+    
+  }
+
+  .body-app {
+    --background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
+  }
+
+  h2 {
+    color: white;
+  }
+
+ img {
+   padding: 20px 20px 20px 20px;
+ }

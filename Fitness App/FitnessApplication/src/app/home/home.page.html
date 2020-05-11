@@ -1,0 +1,140 @@
+<ion-content>
+  <div class="sign-container gradient-1">
+    <div class="header">
+      <div class="title ion-text-center">
+        <img src="./assets/icon/fitnesslogo.png">
+      </div>
+    </div>
+
+  <!-- FORMULARIO DE LOGIN PARA EL USUARIO -->
+  <div class="login-container">
+  <form [formGroup]="loginForm">
+    <ion-list lines="none" class="form fade-in">
+      <ion-item>
+        <ion-label>Email/Username</ion-label>
+        <!-- Campo para introducir el correo -->
+        <ion-input formControlName="emailusername" class="ion-text-right"></ion-input>
+        <ion-icon src="/assets/icon/email.svg" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>Password</ion-label>
+        <!-- Campo para introducir la contraseña -->
+        <ion-input formControlName="password" class="ion-text-right" [type]="passwordTypeLogin" clearOnEdit="false"></ion-input>
+        <!-- Icono candado para el input de la contraseña -->
+        <ion-button (click)="toggleViewPasswordLogin()">
+          <ion-icon slot="end" name="eye-off" class="ion-icon-password" *ngIf="viewPasswordLogin==false"></ion-icon>
+          <ion-icon slot="end" name="eye" class="ion-icon-password"  *ngIf="viewPasswordLogin==true"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-item class="item-checkbox">
+        <ion-checkbox color="primary" unchecked slot="start"></ion-checkbox>
+        <ion-label>Recordar credenciales</ion-label>
+      </ion-item>
+    </ion-list>
+  </form>
+    <div class="ion-text-center fade-in">
+      <ion-button class="login-button" (click)="login()">
+        Login
+      </ion-button>  
+    </div>
+  </div>
+
+  
+  <!-- FORMULARIO DE REGISTRO DE USUARIO -->
+
+    <div class="sign-up-container2 gradient-2" [ngClass]="{'active':signupView}" *ngIf="signupView==false">
+      
+      <div class="toggle-text ion-text-center" tappable (click)="toggleSignUpView()">
+        <span *ngIf="!signupView">Register</span>
+        <span *ngIf="signupView">Login</span>
+        <br>
+        <ion-icon name="arrow-up" *ngIf="!signupView"></ion-icon>
+        <ion-icon name="arrow-down" *ngIf="signupView"></ion-icon>
+      </div>
+    </div>
+
+    <div class="sign-up-container gradient-2" [ngClass]="{'active':signupView}" *ngIf="signupView==true">
+      
+      <div class="toggle-text ion-text-center" tappable (click)="toggleSignUpView()">
+        <span *ngIf="!signupView">Register</span>
+        <span *ngIf="signupView">Login</span>
+        <br>
+        <ion-icon name="arrow-up" *ngIf="!signupView"></ion-icon>
+        <ion-icon name="arrow-down" *ngIf="signupView"></ion-icon>
+      </div> 
+
+      <form [formGroup]="registerForm">
+      <ion-list lines="none" class="form" [ngClass]="{'fade-in':signupView, 'fade-out':!signupView}">
+        <ion-item>
+          <ion-label>Name</ion-label>
+          <!-- Campo para introducir el nombre -->
+          <ion-input formControlName="name" class="ion-text-right"></ion-input>
+          <ion-icon slot="end" name="person"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label>Surnames</ion-label>
+          <!-- Campo para introducir los apellidos -->
+          <ion-input formControlName="surnames" class="ion-text-right"></ion-input>
+          <ion-icon slot="end" name="person"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <!-- Seleccion de fecha de nacimiento por parte del usuario -->
+          <ion-datetime formControlName="birthdate" placeholder="Birthdate" [max]="today" class="birthdate"></ion-datetime>
+          <ion-icon slot="end" name="calendar-outline"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label>Weight</ion-label>
+          <!-- Campo para introducir el peso de la persona -->
+          <ion-input formControlName="weight" class="ion-text-right"></ion-input>
+          <ion-icon slot="end"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label>Height</ion-label>
+          <!-- Campo para introducir la altura de la persona -->
+          <ion-input formControlName="height" class="ion-text-right"></ion-input>
+          <ion-icon slot="end"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label>Username</ion-label>
+          <!-- Campo para introducir la altura de la persona -->
+          <ion-input formControlName="username" class="ion-text-right"></ion-input>
+          <ion-icon slot="end" name="person"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label>Email</ion-label>
+          <!-- Campo para introducir el correo -->
+          <ion-input formControlName="email" class="ion-text-right"></ion-input>
+          <ion-icon src="/assets/icon/email.svg" slot="end"></ion-icon>
+        </ion-item>
+        <ion-item>
+          <ion-label>Password</ion-label>
+          <!-- Campo para introducir la contraseña -->
+          <ion-input formControlName="password" class="ion-text-right" [type]="passwordTypeRegister" clearOnEdit="false"></ion-input>
+          <!-- Icono candado para el input de la contraseña -->
+          <ion-button (click)="toggleViewPasswordRegister()">
+            <ion-icon slot="end" name="eye-off" class="ion-icon-password" *ngIf="viewPasswordRegister==false"></ion-icon>
+            <ion-icon slot="end" name="eye" class="ion-icon-password"  *ngIf="viewPasswordRegister==true"></ion-icon>
+          </ion-button>
+          <!--<ion-icon slot="end" name="eye"></ion-icon>-->
+        </ion-item>
+        <ion-item class="item-checkbox">
+          <ion-checkbox color="primary" unchecked slot="start" (click)="checked()"></ion-checkbox>
+          <ion-label>Aceptar terminos y condiciones</ion-label>
+        </ion-item>
+      </ion-list>
+      </form>
+
+      <div class="ion-text-center" [ngClass]="{'fade-in':signupView, 'fade-out':!signupView}">
+        <!-- Activar boton si los terminos y condiciones se han aceptado. -->
+        <ion-button class="login-button" routerLink="/slides" *ngIf="check==true" [class.button-disabled]="false" (click)="register()">
+          Register
+        </ion-button>
+        <!-- Desactivar boton si los terminos y condiciones no se han aceptado. -->
+        <ion-button class="login-button" *ngIf="check==false" [class.button-disabled]="true">
+          Register
+        </ion-button>     
+      </div>
+
+    </div>
+  </div>
+</ion-content>
