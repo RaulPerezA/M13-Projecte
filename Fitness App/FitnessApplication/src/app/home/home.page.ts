@@ -5,7 +5,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { LoginService } from '../login.service';
 import { RegisterService } from '../register.service'; 
 import { Observable } from 'rxjs';
-import { User } from "../Objects/User";
+import { User } from '../Objects/User';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,7 @@ export class HomePage {
   //Variable para recoger la fecha y hora actual.
   today;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage) {
     this.today = new Date().toISOString();
     
     //Datos del formulario del login
@@ -123,6 +124,8 @@ export class HomePage {
     
     this.user = new User(this.registerForm.value.name,this.registerForm.value.surnames,this.registerForm.value.email,this.registerForm.value.username,this.registerForm.value.password,this.registerForm.value.birthdate,this.registerForm.value.weight,this.registerForm.value.height);
     
+    this.storage.set('user',this.user);
+
     console.log("user",this.user);
 
     this.resultRegister = this.registerService.createRegister(this.user);
