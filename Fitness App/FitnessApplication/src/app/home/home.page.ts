@@ -86,12 +86,34 @@ export class HomePage {
   }
 
   //Establecer pagina raiz al loguearse.
-  login() {
-    this.resultLogin = this.loginService.getLogin();
-    console.log(this.resultLogin);
-   
+  async login() {
 
-    this.navCtrl.navigateRoot('/main');
+    //RECOGER CAMPOS DEL FORMULARIO LOGIN
+    console.log("usernamemail",this.loginForm.value.emailusername);
+    
+    console.log("password",this.loginForm.value.password);
+    //ENVIARSELOS AL METODO DEL SERVICIO PARA HACER EL LOGIN
+
+
+
+
+    this.resultLogin = this.loginService.getLogin(this.loginForm.value.emailusername,this.loginForm.value.password);
+    console.log(this.resultLogin);
+    let promesa:Promise<any>;
+    promesa = this.resultLogin.toPromise();
+    
+    //COMPROBAR SI EL LOGIN ES CORRECTO, SI ES ASÍ SE LE REDIRECCIONARA A LA PANTALLA DEL MAIN(RUTINAS Y ALIMENTOS)
+    if(await promesa==true){
+      console.log("HA DEVUELTRO TRUE");
+      this.navCtrl.navigateRoot('/main');
+    }
+    else {
+      console.log("HA DEVUELTO FALSE");
+    }
+
+    console.log("ivan",promesa);
+
+    
     console.log(this.loginForm.value);
   }
 
