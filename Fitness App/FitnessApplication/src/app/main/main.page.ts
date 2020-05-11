@@ -24,6 +24,10 @@ export class MainPage implements OnInit {
     console.log("Pagina main destruida.");
   }
 
+  ionViewDidEnter() {
+    console.log("Entramos");
+  }
+
   //Funcion para hacer que los slides cambien automaticamente
   autoSlide = {
     loop: true,
@@ -33,9 +37,10 @@ export class MainPage implements OnInit {
 
   //Funcion que permite seguir haciendo el slice de forma automatica aunque el usuario haga el slice de forma manual.
   slideChanged(){
+    console.log("AutoPlay");
     this.slideDiets.startAutoplay();
-    this.slideExercices.startAutoplay()
-  }
+    this.slideExercices.startAutoplay();
+   }
 
   //Funcion que lleva al apartado de ejercicios al clicar en un slide.
   goExercises() {
@@ -54,7 +59,7 @@ export class MainPage implements OnInit {
     this.menuCtrl.close();
   }
 
-  //Llamamos a la funcion ngOnDestroy para que al volver a entrar en la pagina mainla vuelva a crear.
+  //Llamamos a la funcion ngOnDestroy para que al volver a entrar en la pagina main la vuelva a crear esto solo se implementara en la opción del menú de cerrar sesion.
   destroy() {
     this.ngOnDestroy();
   }

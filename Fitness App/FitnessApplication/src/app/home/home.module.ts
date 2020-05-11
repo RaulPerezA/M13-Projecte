@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 import { HomePageRoutingModule } from './home-routing.module';
 
 
@@ -14,8 +15,8 @@ import { HomePageRoutingModule } from './home-routing.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    ],
   declarations: [HomePage]
 })
 export class HomePageModule {}
