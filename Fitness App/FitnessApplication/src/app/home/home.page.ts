@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ɵConsole } from '@angular/core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -15,6 +15,9 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
 
+  datos:any;
+  email:string;
+  dataLoginUser:Observable<any>;
   resultLogin: Observable<any>;
   resultRegister: Observable<any>;
   infiniteScroll: IonInfiniteScroll;
@@ -106,14 +109,26 @@ export class HomePage {
     //COMPROBAR SI EL LOGIN ES CORRECTO, SI ES ASÍ SE LE REDIRECCIONARA A LA PANTALLA DEL MAIN(RUTINAS Y ALIMENTOS)
     if(await promesa==true){
       console.log("HA DEVUELTRO TRUE");
+
+      //Obtener los datos del usuario logueado.
+      this.email = this.loginForm.value.emailusername;
+      this.dataLoginUser = this.loginService.getLoginUser(this.email);
+
+      let datosUser:Promise<any>;
+      datosUser = this.dataLoginUser.toPromise();
+      console.log("datosUser",datosUser);
+
+      //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
+      datosUser.then(datos => {
+        this.datos = datos;
+        this.storage.set('user',datos);
+      });
+      
       this.navCtrl.navigateRoot('/main');
     }
     else {
       console.log("HA DEVUELTO FALSE");
     }
-
-    console.log("ivan",promesa);
-    console.log(this.loginForm.value);
   
   }
 
@@ -123,10 +138,11 @@ export class HomePage {
     console.log(this.registerForm.value);
     
     this.user = new User(this.registerForm.value.name,this.registerForm.value.surnames,this.registerForm.value.email,this.registerForm.value.username,this.registerForm.value.password,this.registerForm.value.birthdate,this.registerForm.value.weight,this.registerForm.value.height);
-    
+
+    //Guardar datos del formulario en el storage.
     this.storage.set('user',this.user);
 
-    console.log("user",this.user);
+    console.log("RegisterStorage",this.user);
 
     this.resultRegister = this.registerService.createRegister(this.user);
     console.log(this.resultRegister);

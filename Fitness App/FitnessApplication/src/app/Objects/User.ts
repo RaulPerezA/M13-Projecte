@@ -1,28 +1,29 @@
 export class User {
-	private name:string;
-	private surnames:string;
+	private nombre:string;
+	private apellidos:string;
 	private email:string;
 	private userName:string;
-	private password:string;
-	private birthdate:string = new Date().toISOString();
-	private weight:number;    
-	private height:number;  
+	private contraseña:string;
+	private fecha_nacimiento:string = new Date().toISOString();
+	private peso:number;    
+    private altura:number;  
+ 
     constructor(name:string, surnames:string, email:string, userName:string, password:string, birthdate:string, peso:number, altura:number){
-        this.name = name;
-        this.surnames = surnames;
+        this.nombre = name;
+        this.apellidos = surnames;
         this.email = email;
         this.userName = userName;
-        this.password = password;
-        this.birthdate = birthdate;
-        this.weight = peso;    
-        this.height = altura; 
+        this.contraseña = password;
+        this.fecha_nacimiento = birthdate;
+        this.peso = peso;    
+        this.altura = altura; 
     }
 
     public getName():string{
-        return this.name;
+        return this.nombre;
     }
     public getSurnames():string{
-        return this.surnames;
+        return this.apellidos;
     }
     public getEmail():string{
         return this.email;
@@ -31,15 +32,15 @@ export class User {
         return this.userName;
     }
     public getPassword():string{
-        return this.password;
+        return this.contraseña;
     }
     public getBirthdate():string{
-        return this.birthdate;
+        return this.fecha_nacimiento;
     }
     public getWeight():number{
-        return this.weight;
+        return this.peso;
     }
     public getHeight():number{
-        return this.height;
+        return this.altura;
     }
 }
