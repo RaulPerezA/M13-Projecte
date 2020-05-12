@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +14,7 @@ export class MainPage implements OnInit {
   @ViewChild("slideDiets",null) slideDiets: IonSlides;
   @ViewChild("slideExercices",null) slideExercices: IonSlides;
 
-  constructor(private router: Router, private menuCtrl: MenuController) { }
+  constructor(private router: Router, private menuCtrl: MenuController, private storage:Storage) { }
 
   ngOnInit() {
     //Iniciar funcion que hace que los slides cambien automaticamente.
@@ -61,6 +62,7 @@ export class MainPage implements OnInit {
 
   //Llamamos a la funcion ngOnDestroy para que al volver a entrar en la pagina main la vuelva a crear esto solo se implementara en la opción del menú de cerrar sesion.
   destroy() {
+    this.storage.remove('user');
     this.ngOnDestroy();
   }
 

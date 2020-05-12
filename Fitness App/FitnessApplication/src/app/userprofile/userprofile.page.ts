@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChange } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { LoginService } from '../login.service';
+import { compileInjector } from '@angular/compiler';
+import { User } from '../Objects/User';
 
 @Component({
   selector: 'app-userprofile',
@@ -7,20 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserprofilePage implements OnInit {
 
-  name: string = "NombrePrueba";
-  surnames: string = "Apellido1 Apellido2";
-  kg: string = "100kg";
-  date: string = "10/10/2020";
-  m: string = "100m";
-
-  userData = [this.name, this.surnames, this.kg, this.date, this.m];
-  info = ["Nombre", "Apellidos", "Fecha", "Peso", "Altura"];
+  user:User;
+  username:String;
+  userData = [];
+  info = ["Nombre", "Apellidos", "Peso", "Altura"];
 
   edit:boolean = false;
 
-  constructor() { }
+  constructor(private storage:Storage) { }
 
   ngOnInit() {
+    //Acceder al storage para obtener los datos del usuario.
+    this.storage.get('user').then((usuario)=>{
+      console.log('usuario',usuario);
+      this.user = new User(usuario.nombre, usuario.apellidos, usuario.email, usuario.userName, usuario.contraseña, usuario.fecha_nacimiento, usuario.peso, usuario.altura);
+      this.username = this.user.getUsername();
+      this.userData = [this.user.getName(), this.user.getSurnames(), this.user.getWeight(), this.user.getHeight()];
+    })
   }
 
   ngOnDestroy() {
