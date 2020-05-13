@@ -44,14 +44,14 @@ export class HomePage {
     
     //Datos del formulario de registro
     this.registerForm = this.formBuilder.group({
-      name: [''],
-      surnames: [''],
-      birthdate: [''],
-      weight: [''],
-      height: [''],
-      username: [''],
-      email: [''],
-      password: ['']
+      name: ['',[Validators.required]],
+      surnames: ['',[Validators.required]],
+      birthdate: ['',[Validators.required]],
+      weight: ['',[Validators.required]],
+      height: ['',[Validators.required]],
+      username: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(8)]],
+      email: ['',[Validators.required,Validators.email]],
+      password: ['',[Validators.required]]
     });
   }
   

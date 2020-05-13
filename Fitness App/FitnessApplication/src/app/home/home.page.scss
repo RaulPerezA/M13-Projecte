@@ -123,6 +123,11 @@
   color: #FFF;
 }
 
+.login-button-error {
+  --background: rgb(224, 35, 35);
+  color: #FFF;
+}
+
 .fade-in {
   animation: fadein 2s;
 }
@@ -155,4 +160,10 @@
 
 .birthdate {
   color: white;
+}
+
+.errors {
+  color: red;
+  text-align: center;
+  font-family: "Arial", Helvetica, sans-serif;
 }

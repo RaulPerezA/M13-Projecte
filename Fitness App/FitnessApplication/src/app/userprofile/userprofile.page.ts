@@ -15,7 +15,6 @@ export class UserprofilePage implements OnInit {
   username:String;
   userData = [];
   info = ["Nombre", "Apellidos", "Peso", "Altura"];
-
   edit:boolean = false;
 
   constructor(private storage:Storage) { }
