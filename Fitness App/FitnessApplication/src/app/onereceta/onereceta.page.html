@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nombre de la Receta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div class="header">
+  </div>
+  <div class="flex">
+    <div class="border-blue">
+      <div class="border-white">
+        <div class="img-box">
+          <img src="./assets/adidas.jpg">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-text color="black">
+    <h1>Aquí ira la descripción del producto cuando se recoja de la base de datos</h1>
+  </ion-text>
+
+  <p>Alimentos que se han utilizado para la receta:</p>
+
+ <!-- Listado de los alimentos que implementara la receta. -->
+  <ion-item *ngFor="let receta of recetaData; let i = index" color="transparent">
+    <ion-text color="black">
+      <p click={}>{{receta}}</p>
+    </ion-text>
+    <!--<ion-input placeholder="{{receta}}">{{info[i]}}:  </ion-input>-->
+  </ion-item>
+  
+
+  
+</ion-content>
