@@ -12,6 +12,7 @@ export class OnerecetaPage implements OnInit {
 
   receta:Receta;
   recetaData=[];
+  promise:Promise<any>;
 
   constructor(private storage:Storage, public recetaService: RecetaService) { }
 
@@ -22,19 +23,19 @@ export class OnerecetaPage implements OnInit {
      // this.receta = new Receta(receta.receta, receta.alimentos, receta.explicacion, receta.tipoReceta, receta.calorias);
       this.recetaData = ["manzana", "pera", "platano", "naranja"];
     })
-  }
-  ionViewDidLoad(){
-
+    console.log("there?");
+    this.promise=this.recetaService.getRecetas();
+    
+    console.log(this.promise);
+    /*
     this.recetaService.getRecetas().then((data) => {
+      console.log("aaa");
       console.log(data);
       this.receta = data;
-    });
-
+    });*/
   }
 
   ngOnDestroy() {
     console.log("Pagina de la receta destruida.");
   }
-
-
 }

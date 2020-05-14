@@ -14,13 +14,16 @@ export class RecetaService {
   }
 
   getRecetas(){
-
+    console.log("pasa 1");
     if (this.data) {
+      console.log("pasa 2");
+      
       return Promise.resolve(this.data);
     }
-
-    this.observable=this.http.get('http://localhost:3000/todasRecetas');
-
+    
+    this.observable=this.http.get('http://localhost:8080/todasRecetas');
+    console.log("pasa 3", this.observable);
+    
     return this.observable.toPromise();
     /*
     return new Promise(resolve => {

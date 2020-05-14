@@ -7,13 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { OnerecetaPageRoutingModule } from './onereceta-routing.module';
 
 import { OnerecetaPage } from './onereceta.page';
+import { HttpClientModule} from "@angular/common/http";
+
+//import { RecetaService } from '../receta.service';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    OnerecetaPageRoutingModule
+    OnerecetaPageRoutingModule,
+    HttpClientModule
+ //   RecetaService
   ],
   declarations: [OnerecetaPage]
 })
