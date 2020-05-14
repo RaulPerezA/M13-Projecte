@@ -120,6 +120,7 @@ public class Usuario {
 		this.Fecha_modificacion=Fecha_modificacion;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "Usuario [_id=" + _id + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos + ", email=" + email
