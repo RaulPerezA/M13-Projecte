@@ -143,6 +143,7 @@
         </ion-item>
         <div class="errors" *ngIf="registerForm.get('password').errors && registerForm.get('password').dirty">
           <p *ngIf="registerForm.get('password').hasError('required')">Contraseña requerida</p>
+          <p *ngIf="registerForm.get('password').hasError('minlength')">La contraseña tiene que tener minimo 6 caracteres</p>
         </div>
         <ion-item class="item-checkbox">
           <ion-checkbox color="primary" unchecked slot="start" (click)="checked()"></ion-checkbox>

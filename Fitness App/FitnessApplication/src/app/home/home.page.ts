@@ -51,7 +51,7 @@ export class HomePage {
       height: ['',[Validators.required]],
       username: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(8)]],
       email: ['',[Validators.required,Validators.email]],
-      password: ['',[Validators.required]]
+      password: ['',[Validators.required,Validators.minLength(6)]]
     });
   }
   
