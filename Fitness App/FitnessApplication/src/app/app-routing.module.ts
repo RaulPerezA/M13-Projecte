@@ -32,6 +32,14 @@ const routes: Routes = [
     loadChildren: () => import('./diets/diets.module').then( m => m.DietsPageModule)
   },
   {
+    path: 'onereceta',
+    loadChildren: () => import('./onereceta/onereceta.module').then( m => m.OnerecetaPageModule)
+  },
+  {
+    path: 'onealiment',
+    loadChildren: () => import('./onealiment/onealiment.module').then( m => m.OnealimentPageModule)
+  },
+  {
     path: 'help',
     loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
   },

@@ -1,6 +1,8 @@
 package com.spring.mongodb.resource;
 
+
 import java.text.DateFormat;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -141,6 +141,7 @@ public class UsuarioController {
 		return repository.findAll();
 	}
 
+
 	@GetMapping("/Usuario/findOne/{id}")
 	public Optional<Usuario> getUsuario(@PathVariable String id) {
 		Optional<Usuario> user = repository.findById(id);
@@ -162,6 +163,7 @@ public class UsuarioController {
 			return null;
 		}
 	}
+
 
 	@GetMapping("/Usuario/deleteOne/{id}")
 	public String deleteUsuario(@PathVariable String id) {
