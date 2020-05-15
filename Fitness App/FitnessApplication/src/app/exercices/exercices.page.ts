@@ -9,9 +9,10 @@ import { Dialogs } from '@ionic-native/dialogs/ngx';
 })
 export class ExercicesPage implements OnInit {
 
-  create: boolean = false;
-  modify:boolean = false;
-
+  createExercice: boolean = false;
+  createDiary: boolean = false;
+  createGeneral: boolean = false;
+  
   constructor(private network: Network, private dialogs: Dialogs) {
     
     //Mostrar pop up para informar al usuario que no tiene conexión
@@ -29,14 +30,19 @@ export class ExercicesPage implements OnInit {
     console.log("Pagina de creación/modificación de ejercicio destruido.");
   }
 
-  deployCreate() {
-    this.create = !this.create;
+  createExercices() {
+    this.createExercice = !this.createExercice;
     console.log("Creación de rutinas desplegada.");
   }
 
-  deployModify() {
-    this.modify = !this.modify;
-    console.log("Modificación de rutinas desplegada.");
+  createDiaris() {
+    this.createDiary = !this.createDiary;
+    console.log("Creación de rutinas desplegada.");
+  }
+
+  createGenerals() {
+    this.createGeneral = !this.createGeneral;
+    console.log("Creación de rutinas desplegada.");
   }
 
 }
