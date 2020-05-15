@@ -14,6 +14,9 @@ export class MainPage implements OnInit {
   @ViewChild("slideDiets",null) slideDiets: IonSlides;
   @ViewChild("slideExercices",null) slideExercices: IonSlides;
 
+
+  nSlide:number;
+
   constructor(private router: Router, private menuCtrl: MenuController, private storage:Storage) { }
 
   ngOnInit() {
@@ -27,6 +30,8 @@ export class MainPage implements OnInit {
 
   ionViewDidEnter() {
     console.log("Entramos");
+    
+    
   }
 
   //Funcion para hacer que los slides cambien automaticamente

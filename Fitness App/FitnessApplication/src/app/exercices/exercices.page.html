@@ -10,41 +10,49 @@
 <ion-content>
   <div>
     <ion-list>
-      <ion-item (click)="deployCreate()">
-        ¿Que tipo de rutina quieres crear?
-        <ion-icon slot="end" name="arrow-down-outline" *ngIf="create==false"></ion-icon>
-        <ion-icon slot="end" name="arrow-up-outline" *ngIf="create==true"></ion-icon>
-      </ion-item>
-      <ion-item *ngIf="create==true" routerLink="/createexercices">
+      <ion-item (click)="createExercices()">
         Rutina de ejercicios
+        <ion-icon slot="end" name="arrow-down-outline" *ngIf="createExercice==false"></ion-icon>
+        <ion-icon slot="end" name="arrow-up-outline" *ngIf="createExercice==true"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="createExercice==true" routerLink="/createexercices">
+        Crear
         <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       </ion-item>
-      <ion-item *ngIf="create==true">
-        Rutina diaria
-        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-      </ion-item>
-      <ion-item *ngIf="create==true">
-        Rutina general
+      <ion-item *ngIf="createExercice==true">
+        Modificar
         <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       </ion-item>
     </ion-list>
     
     <ion-list>
-      <ion-item (click)="deployModify()">
-        ¿Que tipo de rutina quieres modificar?
-        <ion-icon slot="end" name="arrow-down-outline" *ngIf="modify==false"></ion-icon>
-        <ion-icon slot="end" name="arrow-up-outline" *ngIf="modify==true"></ion-icon>
-      </ion-item>
-      <ion-item *ngIf="modify==true">
-        Rutina de ejercicios
-        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-      </ion-item>
-      <ion-item *ngIf="modify==true">
+      <ion-item (click)="createDiaris()">
         Rutina diaria
+        <ion-icon slot="end" name="arrow-down-outline" *ngIf="createDiary==false"></ion-icon>
+        <ion-icon slot="end" name="arrow-up-outline" *ngIf="createDiary==true"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="createDiary==true">
+        Crear
         <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       </ion-item>
-      <ion-item *ngIf="modify==true">
+      <ion-item *ngIf="createDiary==true">
+        Modificar
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-item (click)="createGenerals()">
         Rutina general
+        <ion-icon slot="end" name="arrow-down-outline" *ngIf="createGeneral==false"></ion-icon>
+        <ion-icon slot="end" name="arrow-up-outline" *ngIf="createGeneral==true"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="createGeneral==true">
+        Crear
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="createGeneral==true">
+        Modificar
         <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       </ion-item>
     </ion-list>
