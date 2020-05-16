@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { AlertController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-main',
@@ -17,7 +19,7 @@ export class MainPage implements OnInit {
 
   nSlide:number;
 
-  constructor(private router: Router, private menuCtrl: MenuController, private storage:Storage) { }
+  constructor(private router: Router, private menuCtrl: MenuController, private storage:Storage, private alertCtrl: AlertController, private alertCtrl2: AlertController ,private navCtrl: NavController) { }
 
   ngOnInit() {
     //Iniciar funcion que hace que los slides cambien automaticamente.
@@ -80,5 +82,63 @@ export class MainPage implements OnInit {
     this.storage.remove('user');
     this.ngOnDestroy();
   }
+
+  //Mostrar pop up
+  async alert() {
+    const alert = await this.alertCtrl.create({
+      subHeader: 'Has dejado una rutina a medias',
+      message: '¿Quieres continuar con la rutina?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (option) => {
+            console.log("Cancelar");
+            this.alert2();
+          }
+        },
+        {
+          text: 'Continuar',
+          role: 'continue',
+          handler: (option) => {
+            console.log("Continuar");
+            this.navCtrl.navigateRoot('/continueroutine');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async alert2() {
+
+    const alert = await this.alertCtrl2.create({
+      subHeader: '¿Quieres seleccionar otra rutina?',
+      message: 'Será redireccionado a la pàgina de rutinas generales.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (option) => {
+            console.log("Cancelar");
+          }
+        },
+        {
+          text: 'Continuar',
+          role: 'continue',
+          handler: (option) => {
+            console.log("Continuar");
+            //this.navCtrl.navigateRoot('/exercices');
+            this.navCtrl.navigateForward('/exercices');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+
 
 }
