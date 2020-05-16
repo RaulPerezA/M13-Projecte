@@ -34,7 +34,7 @@
   </form>
     <div class="ion-text-center fade-in">
       <ion-button class="login-button" (click)="login()">
-        Loguearse
+        Login
       </ion-button>  
     </div>
   </div>
@@ -45,8 +45,8 @@
     <div class="sign-up-container2 gradient-2" [ngClass]="{'active':signupView}" *ngIf="signupView==false">
       
       <div class="toggle-text ion-text-center" tappable (click)="toggleSignUpView()">
-        <span *ngIf="!signupView">Registrarse</span>
-        <span *ngIf="signupView">Loguearse</span>
+        <span *ngIf="!signupView">Register</span>
+        <span *ngIf="signupView">Login</span>
         <br>
         <ion-icon name="arrow-up" *ngIf="!signupView"></ion-icon>
         <ion-icon name="arrow-down" *ngIf="signupView"></ion-icon>
@@ -56,8 +56,8 @@
     <div class="sign-up-container gradient-2" [ngClass]="{'active':signupView}" *ngIf="signupView==true">
       
       <div class="toggle-text ion-text-center" tappable (click)="toggleSignUpView()">
-        <span *ngIf="!signupView">Registrarse</span>
-        <span *ngIf="signupView">Loguearse</span>
+        <span *ngIf="!signupView">Register</span>
+        <span *ngIf="signupView">Login</span>
         <br>
         <ion-icon name="arrow-up" *ngIf="!signupView"></ion-icon>
         <ion-icon name="arrow-down" *ngIf="signupView"></ion-icon>
@@ -155,14 +155,14 @@
       <div class="ion-text-center" [ngClass]="{'fade-in':signupView, 'fade-out':!signupView}">
         <!-- Activar boton si los terminos y condiciones se han aceptado.  routerLink="/slides"-->
         <ion-button class="login-button" *ngIf="check==true && registerForm.valid" [class.button-disabled]="false" (click)="register()">
-          Registrarse
+          Register
         </ion-button>
         <ion-button class="login-button" *ngIf="check==false && registerForm.valid" [class.button-disabled]="true">
-          Registrarse
+          Register
         </ion-button>
         <!-- Desactivar boton si los terminos y condiciones no se han aceptado. -->
          <ion-button class="login-button-error" *ngIf="check==false && !registerForm.valid || check==true && !registerForm.valid" [class.button-disabled]="true">
-          Registrarse
+          Register
         </ion-button>    
       </div>
     </div>

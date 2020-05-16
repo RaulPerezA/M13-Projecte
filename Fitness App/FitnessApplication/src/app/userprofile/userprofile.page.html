@@ -14,18 +14,20 @@
     <div class="border-blue">
       <div class="border-white">
         <div class="img-box">
-          <img src="./assets/adidas.jpg">
+          <img src="{{image}}" (click)="selectImage()">
         </div>
       </div>
     </div>
   </div>
 
+<form [formGroup]="formedit">
   <ion-card *ngFor="let data of userData; let i = index" >
     <ion-item lines="none">
       <ion-label *ngIf="edit==false">{{info[i]}}: {{data}} </ion-label>
-      <ion-input placeholder="{{data}}" *ngIf="edit==true">{{info[i]}}:  </ion-input>
+      <ion-input formControlName="{{placeholders[i]}}" placeholder="{{data}}" *ngIf="edit==true">{{info[i]}}:  </ion-input>
     </ion-item>
   </ion-card>
+</form>
   <!-- Guarda la información editada en la base de datos -->
   <div class="center">
     <ion-button *ngIf="edit==true" (click)="save()">Guardar</ion-button>
