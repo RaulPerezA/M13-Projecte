@@ -1,11 +1,11 @@
 export class Receta {
 	private receta:string;
-	private alimentos:Array<string>;
+	private alimentos:[];
 	private explicacion:string;
 	private tipoReceta:string;
 	private calorias:string;
  
-    constructor(receta:string, alimentos:Array<string>, explicacion:string, tipoReceta:string, calorias:string){
+    constructor(receta:string, alimentos:[], explicacion:string, tipoReceta:string, calorias:string){
         this.receta = receta;
         this.alimentos = alimentos;
         this.explicacion = explicacion;
@@ -16,7 +16,7 @@ export class Receta {
     public getReceta():string{
         return this.receta;
     }
-    public getAlimentos():Array<string>{
+    public getAlimentos():[]{
         return this.alimentos;
     }
     public getExplicacion():string{
