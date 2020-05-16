@@ -15,7 +15,7 @@ export class InitroutinePage implements OnInit {
   percent: BehaviorSubject<number> = new BehaviorSubject(100);
   timer:number;
   interval;
-
+  tempo:boolean = false;
   startDuration = 5;
   circleR = circleR;
   circleDasharray = circleDasharray;
@@ -38,7 +38,8 @@ export class InitroutinePage implements OnInit {
 
   stopTimer(){
     clearInterval(this.interval);
-    this.time.next('00:00');
+  //  this.time.next('00:00');
+  //PONER QUE CUANDO LE DE AL INICIAR DE NUEVO SE QUEDE CON EL MISMO TIEMPO QUE CON EL QUE HA DADO AL STOP.
     this.state = 'stop';
   }
 
@@ -64,6 +65,12 @@ export class InitroutinePage implements OnInit {
     
     --this.timer;
     if(this.timer<-1){
+      if(this.tempo){
+        this.tempo=false;
+      }
+      else{
+        this.tempo=true;
+      }
       this.startTimer(this.startDuration);
     }
   }
