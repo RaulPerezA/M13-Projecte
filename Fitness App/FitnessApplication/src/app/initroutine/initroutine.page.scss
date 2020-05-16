@@ -1,0 +1,21 @@
+ion-content {
+    --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
+    background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
+    color: white;
+}
+#video{
+    margin:auto;
+    text-align: center;
+}
+#progress-circle {
+    margin-top: 50px;
+    transform: rotate(90deg);
+}
+.timer-text {
+    transform: rotate(-90deg);
+    transform-origin:center;
+    font-size:36px;
+    text-anchor: middle;
+    font-weight: 600;
+    fill: #333;
+}
