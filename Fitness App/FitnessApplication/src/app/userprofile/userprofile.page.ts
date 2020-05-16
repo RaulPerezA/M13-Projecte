@@ -14,6 +14,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class UserprofilePage implements OnInit {
 
+  image:string="./assets/adidas.jpg";
   observer:Observable<any>;
   user:User;
   username:String;
@@ -151,9 +152,6 @@ export class UserprofilePage implements OnInit {
       this.persistData(this.formedit.value.name, this.formedit.value.surnames, this.formedit.value.height, this.formedit.value.weight);
     }
 
-
-
-    
     //this.observer = this.userService.editUser(this.username.toString(), this.formedit.value.name, this.formedit.value.surnames, this.formedit.value.height, this.formedit.value.weight);
     this.observer.toPromise().then(variable => {
       console.log("variable",variable);
@@ -167,6 +165,10 @@ export class UserprofilePage implements OnInit {
     this.user = new User(name, surnames, this.user.getEmail().toString(), this.username.toString(), this.user.getPassword().toString(), this.user.getBirthdate(), weight,height);
     this.storage.set('user',this.user);
 
+  }
+
+  selectImage() {
+    console.log("hola");
   }
 
 }
