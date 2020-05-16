@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Nombre de la Receta</ion-title>
+    <ion-title>{{recetaNombre}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,19 +21,23 @@
   </div>
 
   <ion-text color="black">
-    <h1>Aquí ira la descripción del producto cuando se recoja de la base de datos</h1>
-  </ion-text>
+    <h1>Explicación:</h1>
+    <p>{{recetaExpl}}</p>
+    
+    <h1>Calorias:</h1><p>{{recetaCalorias}}</p>
 
-  <p>Alimentos que se han utilizado para la receta:</p>
+  
+
+  <h1>Alimentos que se han utilizado para la receta:</h1>
 
  <!-- Listado de los alimentos que implementara la receta. -->
-  <ion-item *ngFor="let receta of recetaData; let i = index" color="transparent">
+  <ion-item *ngFor="let receta of alimentosData" color="transparent">
     <ion-text color="black">
       <p click={}>{{receta}}</p>
     </ion-text>
     <!--<ion-input placeholder="{{receta}}">{{info[i]}}:  </ion-input>-->
   </ion-item>
   
-
+</ion-text>
   
 </ion-content>

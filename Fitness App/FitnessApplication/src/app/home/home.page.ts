@@ -7,6 +7,8 @@ import { RegisterService } from '../register.service';
 import { Observable } from 'rxjs';
 import { User } from '../Objects/User';
 import { Storage } from '@ionic/storage';
+import { Receta } from '../Objects/Receta';
+import { RecipesService } from '../recipes.service'; 
 
 @Component({
   selector: 'app-home',
@@ -30,10 +32,13 @@ export class HomePage {
   loginForm: FormGroup;
   registerForm: FormGroup;
   user:User;
+  resultReceta: Observable<any>;
+  recetas:Array<Receta>;
+
   //Variable para recoger la fecha y hora actual.
   today;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService) {
     this.today = new Date().toISOString();
     
     //Datos del formulario del login
@@ -123,7 +128,7 @@ export class HomePage {
         this.datos = datos;
         this.storage.set('user',datos);
       });
-      
+      this.recipes();
       this.navCtrl.navigateRoot('/main');
     }
     else {
@@ -150,6 +155,7 @@ export class HomePage {
     promesaRegister = this.resultRegister.toPromise();
 
     if(await promesaRegister===true){
+      this.recipes();
       this.navCtrl.navigateRoot('/slides');
     }
     else {
@@ -158,5 +164,24 @@ export class HomePage {
 
     console.log("registro",promesaRegister);
 
+  }
+
+  //Devolver todas las recetas al iniciar la sesion
+  async recipes() {
+    
+    console.log("queremos conseguir las recetas.");
+    
+    this.resultReceta = this.recipesService.createRecetas();
+    console.log(this.resultReceta);
+    let promesa:Promise<any>;
+    promesa = this.resultReceta.toPromise();
+    
+    console.log("datos recetas",promesa);
+
+    //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
+    promesa.then(datos => {
+      this.datos = datos;
+      this.storage.set('recetas',datos);
+    });
   }
 }

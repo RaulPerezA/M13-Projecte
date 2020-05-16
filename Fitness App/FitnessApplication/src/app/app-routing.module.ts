@@ -54,7 +54,11 @@ const routes: Routes = [
   {
     path: 'createexercices',
     loadChildren: () => import('./createexercices/createexercices.module').then( m => m.CreateexercicesPageModule)
+  },  {
+    path: 'initroutine',
+    loadChildren: () => import('./initroutine/initroutine.module').then( m => m.InitroutinePageModule)
   },
+
 ];
 
 @NgModule({

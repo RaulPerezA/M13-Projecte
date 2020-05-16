@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>NombreDelEjercicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p id="video">Video</p>
+  <div class="flex">
+    <div class="border-blue">
+      <div class="border-white">
+        <div class="img-box">
+          <img src="./assets/adidas.jpg">
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-text *ngIf="tempo === false">Descansando...</ion-text>
+  <ion-text *ngIf="tempo === true">Ejercitando...</ion-text>
+  <ion-row class="ion-justify-content-center">
+
+    <svg id="progress-circle" width="50vh" height="50vh" viewBox="0 0 200 200">
+      <linearGradient id="linearColors1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ddd6f3"></stop>
+        <stop offset="100%" stop-color="#faaca8"></stop>
+      </linearGradient>
+      <circle cx="50%" cy="50%" [attr.r]= "circleR" fill="none" stroke="#f3f3f3" stroke-width="12"/>
+      <circle cx="50%" cy="50%" [attr.r]= "circleR" fill="none" stroke="url(#linearColors1)" stroke-width="12" stroke-linecap="round" [attr.stroke-dasharray]="circleDasharray" [attr.stroke-dashoffset]="percentageOffset(percent | async)" />
+
+      <text x="50%" y="55%" class="timer-text">{{ time | async }}</text> 
+    </svg>
+  </ion-row>
+</ion-content>
+<ion-footer class="footer">
+  <ion-button *ngIf="state === 'stop'" expand="block" color="primary" (click)="startTimer(startDuration)">Start</ion-button>
+  <ion-button *ngIf="state === 'start'" expand="block" color="danger" (click)="stopTimer()">Stop</ion-button>
+</ion-footer>
+
