@@ -19,10 +19,11 @@ import lombok.ToString;
 public class Receta {
 	@Id
 	private String _id;
-	private String Nombre_receta;
-	private List<String> Alimentos;
-	private String Explicacion;
-	private int Calorias;
+	private String receta;
+	private List<String> alimentos;
+	private String explicacion;
+	private String tipoReceta;
+	private String calorias;
 	private Date Fecha_creacion;
 	private Date Fecha_modificacion;
 	public String get_id() {
@@ -31,29 +32,35 @@ public class Receta {
 	public void set_id(String _id) {
 		this._id = _id;
 	}
-	public String getNombre_receta() {
-		return Nombre_receta;
+	public String getReceta() {
+		return receta;
 	}
-	public void setNombre_receta(String nombre_receta) {
-		Nombre_receta = nombre_receta;
+	public void setReceta(String receta) {
+		this.receta = receta;
 	}
 	public List<String> getAlimentos() {
-		return Alimentos;
+		return alimentos;
 	}
 	public void setAlimentos(List<String> alimentos) {
-		Alimentos = alimentos;
+		this.alimentos = alimentos;
 	}
 	public String getExplicacion() {
-		return Explicacion;
+		return explicacion;
 	}
 	public void setExplicacion(String explicacion) {
-		Explicacion = explicacion;
+		this.explicacion = explicacion;
 	}
-	public int getCalorias() {
-		return Calorias;
+	public String getTipoReceta() {
+		return tipoReceta;
 	}
-	public void setCalorias(int calorias) {
-		Calorias = calorias;
+	public void setTipoReceta(String tipoReceta) {
+		this.tipoReceta = tipoReceta;
+	}
+	public String getCalorias() {
+		return calorias;
+	}
+	public void setCalorias(String calorias) {
+		this.calorias = calorias;
 	}
 	public Date getFecha_creacion() {
 		return Fecha_creacion;
@@ -67,23 +74,24 @@ public class Receta {
 	public void setFecha_modificacion(Date fecha_modificacion) {
 		Fecha_modificacion = fecha_modificacion;
 	}
+	public Receta(String receta, List<String> alimentos, String explicacion, String tipoReceta, String calorias,
+			Date Fecha_creacion, Date Fecha_modificacion) {
+		super();
+		this.receta = receta;
+		this.alimentos = alimentos;
+		this.explicacion = explicacion;
+		this.tipoReceta = tipoReceta;
+		this.calorias = calorias;
+		this.Fecha_creacion = Fecha_creacion;
+		this.Fecha_modificacion = Fecha_modificacion;
+	}
 	@Override
 	public String toString() {
-		return "Receta [_id=" + _id + ", Nombre_receta=" + Nombre_receta + ", Alimentos=" + Alimentos + ", Explicacion="
-				+ Explicacion + ", Calorias=" + Calorias + ", Fecha_creacion=" + Fecha_creacion
+		return "Receta [_id=" + _id + ", receta=" + receta + ", alimentos=" + alimentos + ", explicacion=" + explicacion
+				+ ", tipoReceta=" + tipoReceta + ", calorias=" + calorias + ", Fecha_creacion=" + Fecha_creacion
 				+ ", Fecha_modificacion=" + Fecha_modificacion + "]";
 	}
-	public Receta(String _id, String nombre_receta, List<String> alimentos, String explicacion, int calorias,
-			Date fecha_creacion, Date fecha_modificacion) {
-		super();
-		this._id = _id;
-		Nombre_receta = nombre_receta;
-		Alimentos = alimentos;
-		Explicacion = explicacion;
-		Calorias = calorias;
-		Fecha_creacion = fecha_creacion;
-		Fecha_modificacion = fecha_modificacion;
-	}
+	
 	
 	
 	
