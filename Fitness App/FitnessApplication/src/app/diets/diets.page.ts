@@ -37,7 +37,8 @@ export class DietsPage implements OnInit {
   select(index:number) {
     console.log("number",index);
     this.storage.set('recetaEnter',this.recetasAll[index]);
-    this.navCtrl.navigateRoot('/onereceta');
+    //this.navCtrl.navigateRoot('/onereceta');
+    this.navCtrl.navigateForward('/onereceta');
   }
 
 }
