@@ -28,9 +28,14 @@ export class MainPage implements OnInit {
     console.log("Pagina main destruida.");
   }
 
+  ionViewWillLeave() {
+    console.log("Vamos a salir");
+    this.slidersStop();
+  }
+
   ionViewDidEnter() {
     console.log("Entramos");
-    
+    this.slideChanged();
     
   }
 
@@ -46,6 +51,11 @@ export class MainPage implements OnInit {
     console.log("AutoPlay");
     this.slideDiets.startAutoplay();
     this.slideExercices.startAutoplay();
+   }
+
+   slidersStop() {
+     this.slideDiets.stopAutoplay();
+     this.slideExercices.stopAutoplay();
    }
 
   //Funcion que lleva al apartado de ejercicios al clicar en un slide.
