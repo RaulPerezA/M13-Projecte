@@ -9,6 +9,8 @@ import { User } from '../Objects/User';
 import { Storage } from '@ionic/storage';
 import { Receta } from '../Objects/Receta';
 import { RecipesService } from '../recipes.service'; 
+import { Rutina } from '../Objects/Rutina';
+import { RoutineService } from '../routine.service'; 
 
 @Component({
   selector: 'app-home',
@@ -34,11 +36,13 @@ export class HomePage {
   user:User;
   resultReceta: Observable<any>;
   recetas:Array<Receta>;
+  resultRutina: Observable<any>;
+  rutinas:Array<Rutina>;
 
   //Variable para recoger la fecha y hora actual.
   today;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService, private routineService:RoutineService) {
     this.today = new Date().toISOString();
     
     //Datos del formulario del login
@@ -129,6 +133,7 @@ export class HomePage {
         this.storage.set('user',datos);
       });
       this.recipes();
+      this.routines(this.email);
       this.navCtrl.navigateRoot('/main');
     }
     else {
@@ -156,6 +161,7 @@ export class HomePage {
 
     if(await promesaRegister===true){
       this.recipes();
+      this.routines(this.user.getUsername());
       this.navCtrl.navigateRoot('/slides');
     }
     else {
@@ -182,6 +188,25 @@ export class HomePage {
     promesa.then(datos => {
       this.datos = datos;
       this.storage.set('recetas',datos);
+    });
+  }
+
+   //Devolver todas las rutinas de un solo USUARIO
+   async routines(userName:string) {
+    //OJOOOOO!!!! puede recibir userName o el email, segun lo que se ponga en el login!!
+    console.log("queremos conseguir las rutinas.");
+    
+    this.resultRutina = this.routineService.createRutinas(userName);
+    console.log(this.resultRutina);
+    let promesa:Promise<any>;
+    promesa = this.resultRutina.toPromise();
+    
+    console.log("datos rutinas",promesa);
+
+    //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
+    promesa.then(datos => {
+      this.datos = datos;
+      this.storage.set('rutinas',datos);
     });
   }
 }
