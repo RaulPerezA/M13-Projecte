@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.spring.mongodb.model.RutinaDia;
 
-
-public interface RutinaDiaRepository extends MongoRepository<RutinaDia, String> {
-	List<RutinaDia> findByusuario(ObjectId usu);
+public interface RutinaDiasRepository extends MongoRepository<RutinaDia, String> {
+	
 }
