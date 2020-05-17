@@ -9,5 +9,4 @@ public class RutinaDiaServiceBD {
 	@Autowired
 	private RutinaDiasRepository repositori;
 }
-	
 
