@@ -1,5 +1,6 @@
 package com.spring.mongodb.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,15 +15,15 @@ import lombok.ToString;
 @Setter
 @ToString
 
-@Document(collection="RutinaDia")
+@Document(collection="Rutina")
 public class RutinaDia {
 	@Id
 	private String _id;
 	private String nombre;
-	private String usuario;
-	private List<String> ejercicios;
-	private Date Fecha_creacion;
-	private Date Fecha_modificacion;
+	private String userName;
+	private ArrayList<RutinaDias> rutinasDias;
+	private Date fechaCreacion;
+	private Date fechaModificacion;
 	public String get_id() {
 		return _id;
 	}
@@ -35,43 +36,39 @@ public class RutinaDia {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getUsuario() {
-		return usuario;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public List<String> getEjercicios() {
-		return ejercicios;
+	public ArrayList<RutinaDias> getRutinasDias() {
+		return rutinasDias;
 	}
-	public void setEjercicios(List<String> ejercicios) {
-		this.ejercicios = ejercicios;
+	public void setRutinasDias(ArrayList<RutinaDias> rutinasDias) {
+		this.rutinasDias = rutinasDias;
 	}
-	public Date getFecha_creacion() {
-		return Fecha_creacion;
+	public Date getFechaCreacion() {
+		return fechaCreacion;
 	}
-	public void setFecha_creacion(Date fecha_creacion) {
-		Fecha_creacion = fecha_creacion;
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
-	public Date getFecha_modificacion() {
-		return Fecha_modificacion;
+	public Date getFechaModificacion() {
+		return fechaModificacion;
 	}
-	public void setFecha_modificacion(Date fecha_modificacion) {
-		Fecha_modificacion = fecha_modificacion;
+	public void setFechaModificacion(Date fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
 	}
-	public RutinaDia(String nombre, String usuario, List<String> ejercicios, Date Fecha_creacion,
-			Date Fecha_modificacion) {
+	public RutinaDia(String _id, String nombre, String userName, ArrayList<RutinaDias> rutinasDias, Date fechaCreacion,
+			Date fechaModificacion) {
 		super();
+		this._id = _id;
 		this.nombre = nombre;
-		this.usuario = usuario;
-		this.ejercicios = ejercicios;
-		this.Fecha_creacion = Fecha_creacion;
-		this.Fecha_modificacion = Fecha_modificacion;
-	}
-	@Override
-	public String toString() {
-		return "RutinaDia [_id=" + _id + ", nombre=" + nombre + ", usuario=" + usuario + ", ejercicios=" + ejercicios
-				+ ", Fecha_creacion=" + Fecha_creacion + ", Fecha_modificacion=" + Fecha_modificacion + "]";
+		this.userName = userName;
+		this.rutinasDias = rutinasDias;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaModificacion = fechaModificacion;
 	}
 	
 	
