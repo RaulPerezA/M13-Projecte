@@ -53,5 +53,12 @@
         </ion-chip>
     </ion-list>
 
+    <ion-list>
+      <ion-card *ngFor="let i of exercices" (click)="confexercice(i)">
+        <img src="./assets/adidas.jpg">
+        <ion-item>{{i}}</ion-item>
+      </ion-card>    
+
+    </ion-list>
 
 </ion-content>

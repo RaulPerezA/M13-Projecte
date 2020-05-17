@@ -35,7 +35,7 @@
         Crear
         <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       </ion-item>
-      <ion-item *ngIf="createDiary==true">
+      <ion-item *ngIf="createDiary==true" (click)="modifydaily()">
         Modificar
         <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       </ion-item>
@@ -47,7 +47,7 @@
         <ion-icon slot="end" name="arrow-down-outline" *ngIf="createGeneral==false"></ion-icon>
         <ion-icon slot="end" name="arrow-up-outline" *ngIf="createGeneral==true"></ion-icon>
       </ion-item>
-      <ion-item *ngIf="createGeneral==true">
+      <ion-item *ngIf="createGeneral==true" (click)="redirectCGeneral()">
         Crear
         <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       </ion-item>
