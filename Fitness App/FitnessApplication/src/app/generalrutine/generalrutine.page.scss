@@ -4,14 +4,21 @@ ion-content {
     color: white;
 }
 
-.img-box {
-    padding: 20px 20px 20px 20px;
+h2 {
+    text-align: center;
+    color: white;
 }
 
-h1 {
-    margin-left: 10px;
+ion-card {
+    margin-top: 20px;
+    color: black;
 }
 
-p {
-    margin-left: 10px;
+div {
+    text-align: center;
 }
+
+.item-checkbox {
+    --background: none;
+    align-items: center;
+  }
