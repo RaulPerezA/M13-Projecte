@@ -1,0 +1,169 @@
+//PRUEBA PARA QUE EL TECLADO NO SUBA LOS ELEMENTOS
+.scroll-content {
+  padding-bottom: 0 !important;
+}
+
+.sign-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .header {
+      flex: 1;
+      .title {
+          padding-top: 70px;
+          img {
+              margin: 0 auto;
+              width: 200px;
+          }
+      }
+  }
+  .login-container {
+      flex: 2;
+  }
+
+  .form {
+      --background: none;
+      background: none;
+      max-width: 320px;
+      margin: 0 auto;
+
+      ion-item {
+          --background: rgb(38, 94, 167);
+          --border-radius: 4px;
+          --border-color: none;
+          --highlight-height: 0;
+          color: #FAFAFA;
+          margin-bottom: 15px;
+          
+          ion-icon {
+              color: #FAFAFA;
+          }
+      }
+
+      .item-checkbox {
+        --background: none;
+      }
+
+  }
+
+  .sign-up-container {
+      position: absolute;
+      bottom: 0;
+      height: 70px;
+      width: 100%;
+      padding-top: 10px;
+      transition: all 1s;
+      border-radius: 85% 85% 0 0 / 30%;
+      overflow: hidden;
+      //Scroll para desplazarse a través del formulario de registro.
+      overflow-y: scroll;
+
+      //ALTURA DEL DESPLEGABLE DE REGISTRO DE USUARIO
+      &.active {
+          height: 80%;
+      }
+
+      .toggle-text {
+          color: #FAFAFA;
+          font-size: 16px;
+          margin-bottom: 60px;
+      }
+
+      .form {
+          ion-item {
+            --background: rgb(38, 94, 167);
+          }
+          .item-checkbox {
+            --background: none;
+          }
+      }
+  }
+
+  .sign-up-container2 {
+    position: absolute;
+    bottom: 0;
+    height: 70px;
+    width: 100%;
+    padding-top: 10px;
+    transition: all 1s;
+    border-radius: 85% 85% 0 0 / 30%;
+    overflow: hidden;
+
+    .toggle-text {
+        color: #FAFAFA;
+        font-size: 16px;
+        margin-bottom: 60px;
+    }
+
+    .form {
+        ion-item {
+            --background: rgb(38, 158, 167);
+        }
+        .item-checkbox {
+          --background: none;
+        }
+    }
+}
+
+}
+
+.gradient-1 {
+  --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
+  background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
+}
+.gradient-2 {
+  --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
+  background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
+}
+
+.login-button {
+  --background: rgb(35, 133, 224);
+  color: #FFF;
+}
+
+.login-button-error {
+  --background: rgb(224, 35, 35);
+  color: #FFF;
+}
+
+.fade-in {
+  animation: fadein 2s;
+}
+
+.fade-out {
+  animation: fadeout 1s;
+}
+
+@keyframes fadein {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+  }
+}
+
+.ion-icon-password {
+  margin: 0 auto;
+}
+
+.birthdate {
+  color: white;
+}
+
+.errors {
+  color: red;
+  text-align: center;
+  font-family: "Arial", Helvetica, sans-serif;
+}

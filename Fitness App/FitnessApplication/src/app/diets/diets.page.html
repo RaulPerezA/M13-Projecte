@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Recetas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let data of recetasArr;  let i = index" >
+    <ion-item lines="none" (click)="select(i)" >
+      <!-- {{recetasAll[i]}} -->
+
+      <ion-text>{{data}}</ion-text>
+    </ion-item>
+  </ion-card>
+  
+
+</ion-content>

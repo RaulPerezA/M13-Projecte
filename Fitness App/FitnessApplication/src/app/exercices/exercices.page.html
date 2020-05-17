@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crea/Modifica tu rutina</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-list>
+      <ion-item (click)="createExercices()">
+        Rutina de ejercicios
+        <ion-icon slot="end" name="arrow-down-outline" *ngIf="createExercice==false"></ion-icon>
+        <ion-icon slot="end" name="arrow-up-outline" *ngIf="createExercice==true"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="createExercice==true" routerLink="/createexercices">
+        Crear
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="createExercice==true">
+        Modificar
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
+    
+    <ion-list>
+      <ion-item (click)="createDiaris()">
+        Rutina diaria
+        <ion-icon slot="end" name="arrow-down-outline" *ngIf="createDiary==false"></ion-icon>
+        <ion-icon slot="end" name="arrow-up-outline" *ngIf="createDiary==true"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="createDiary==true">
+        Crear
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="createDiary==true" (click)="modifydaily()">
+        Modificar
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-item (click)="createGenerals()">
+        Rutina general
+        <ion-icon slot="end" name="arrow-down-outline" *ngIf="createGeneral==false"></ion-icon>
+        <ion-icon slot="end" name="arrow-up-outline" *ngIf="createGeneral==true"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="createGeneral==true" (click)="redirectCGeneral()">
+        Crear
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="createGeneral==true">
+        Modificar
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

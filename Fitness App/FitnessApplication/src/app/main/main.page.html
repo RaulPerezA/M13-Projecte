@@ -1,0 +1,108 @@
+<!-- Menú lateral -->
+<ion-app>
+    <ion-menu side="start" content-id="main-content">
+      <ion-header>
+        <ion-toolbar translucent>
+          <ion-title>Menu Fit</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+      <!-- Opciones del menú lateral -->
+        <ion-list>
+        <!-- Opcion 1 -->
+          <ion-item routerLink="/userprofile" (click)="closeMenu()">
+            <ion-icon name="mail" slot="start"></ion-icon>
+            <ion-label>Perfil</ion-label>
+          </ion-item>
+          <!-- Opcion 2 -->
+          <ion-item routerLink="/calculatorweight" (click)="closeMenu()">
+            <ion-icon name="calculator" slot="start"></ion-icon>
+            <ion-label>Calculadora de peso</ion-label>
+          </ion-item>
+          <!-- Opcion 3 -->
+          <ion-item routerLink="/help" (click)="closeMenu()">
+            <ion-icon name="trash" slot="start"></ion-icon>
+            <ion-label>Ayuda</ion-label>
+          </ion-item>
+          <!-- Opcion 4 -->
+          <ion-item routerLink="/home" (click)="destroy()" (click)="closeMenu()">
+            <ion-icon name="warning" slot="start"></ion-icon>
+            <ion-label>Salir</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    
+    <div class="ion-page" id="main-content">
+      <!-- Header de la página -->
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>Fitness App</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="body-app">
+        <!-- Carrusel de continuar tu rutina -->
+        <ion-item (click)="alert()">
+          <ion-label>Continuar rutina</ion-label>
+          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-item>
+
+
+
+        <!-- Carrusel de imagenes de ejercicios -->
+        <div>
+          <!-- Galeria de imagenes con un pequeño titulo y descripción -->
+          <ion-slides [options]="autoSlide" (ionSlideTouchEnd)="slideChanged()" (click)="goExercises()" #slideExercices>
+            <ion-slide>
+              <div class="slide1">
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Crea tus propias rutinas</h2>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide1">
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Planifica tus entrenamientos diarios</h2>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide1">
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Personaliza los ejercicios a tu gusto</h2>
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </div>
+
+        <!-- Carrusel de imagenes de dietas -->
+        <div>
+          <!-- Galeria de imagenes con un pequeño titulo y descripción -->
+          <ion-slides [options]="autoSlide" (ionSlideTouchEnd)="slideChanged()" (click)="goFoods()" #slideDiets>
+            <ion-slide>
+              <div class="slide1">
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Explora los alimentos</h2>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide1">
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Todo tipo de información alimenticia</h2>
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="slide1">
+                <img src="./assets/imagenprueba.png"/>
+                <h2>Recetas faciles y asequibles</h2>
+              </div>
+            </ion-slide>
+          </ion-slides>
+        </div>
+      </ion-content>
+    </div>
+</ion-app>

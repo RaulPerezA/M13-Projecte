@@ -1,0 +1,40 @@
+ion-slides {
+    height: 100%;
+    --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
+    background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
+    color: white;
+}
+
+ion-toolbar {
+    --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
+    background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
+    color: white;
+}
+
+.slide1, .slide2, .slide3, .slide4 {
+    p {
+        color: white;
+    }
+}
+
+.swiper-slide {
+    display: block;
+}
+
+.swiper-slide h2 {
+    margin-top: 2.8rem;
+}
+
+.swiper-slide img {
+    max-height: 50%;
+    max-width: 80%;
+    margin: 60px 0 40px;
+    pointer-events: none;
+}
+
+p {
+    padding: 0 40px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ion-color-step-600, #60646b);
+  }
