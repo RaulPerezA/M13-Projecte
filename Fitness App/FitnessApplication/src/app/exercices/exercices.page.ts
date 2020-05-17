@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Network } from '@ionic-native/network/ngx';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-exercices',
@@ -13,7 +14,7 @@ export class ExercicesPage implements OnInit {
   createDiary: boolean = false;
   createGeneral: boolean = false;
   
-  constructor(private network: Network, private dialogs: Dialogs) {
+  constructor(private network: Network, private dialogs: Dialogs, private navCtrl: NavController) {
     
     //Mostrar pop up para informar al usuario que no tiene conexión
     this.network.onDisconnect().subscribe(()=>{
@@ -43,6 +44,14 @@ export class ExercicesPage implements OnInit {
   createGenerals() {
     this.createGeneral = !this.createGeneral;
     console.log("Creación de rutinas desplegada.");
+  }
+
+  redirectCGeneral() {
+    this.navCtrl.navigateForward('/generalrutine');
+  }
+
+  modifydaily() {
+    this.navCtrl.navigateForward('/modifydailyrutine');
   }
 
 }

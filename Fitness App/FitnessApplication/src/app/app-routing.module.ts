@@ -58,6 +58,26 @@ const routes: Routes = [
     path: 'initroutine',
     loadChildren: () => import('./initroutine/initroutine.module').then( m => m.InitroutinePageModule)
   },
+  {
+    path: 'generalrutine',
+    loadChildren: () => import('./generalrutine/generalrutine.module').then( m => m.GeneralrutinePageModule)
+  },
+  {
+    path: 'modifydailyrutine',
+    loadChildren: () => import('./modifydailyrutine/modifydailyrutine.module').then( m => m.ModifydailyrutinePageModule)
+  },
+  {
+    path: 'contentgeneralrutine',
+    loadChildren: () => import('./contentgeneralrutine/contentgeneralrutine.module').then( m => m.ContentgeneralrutinePageModule)
+  },
+  {
+    path: 'editdailyrutine',
+    loadChildren: () => import('./editdailyrutine/editdailyrutine.module').then( m => m.EditdailyrutinePageModule)
+  },
+  {
+    path: 'exercice',
+    loadChildren: () => import('./exercice/exercice.module').then( m => m.ExercicePageModule)
+  },
 
 ];
 
