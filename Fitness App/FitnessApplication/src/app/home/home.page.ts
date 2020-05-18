@@ -191,9 +191,8 @@ export class HomePage {
     });
   }
 
-   //Devolver todas las rutinas de un solo USUARIO
-   async routines(userName:string) {
-    //OJOOOOO!!!! puede recibir userName o el email, segun lo que se ponga en el login!!
+  //Devolver todas las rutinas de un solo USUARIO
+  async routines(userName:string) {
     console.log("queremos conseguir las rutinas.");
     
     this.resultRutina = this.routineService.createRutinas(userName);
