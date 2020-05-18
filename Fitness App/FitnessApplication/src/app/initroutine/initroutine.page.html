@@ -32,7 +32,7 @@
   </ion-row>
 </ion-content>
 <ion-footer class="footer">
-  <ion-button *ngIf="state === 'stop'" expand="block" color="primary" (click)="startTimer(startDuration)">Start</ion-button>
+  <ion-button *ngIf="state === 'stop'" expand="block" color="primary" (click)="comenzarSesion();startTimer(startDuration)">Start</ion-button>
   <ion-button *ngIf="state === 'start'" expand="block" color="danger" (click)="stopTimer()">Stop</ion-button>
 </ion-footer>
 

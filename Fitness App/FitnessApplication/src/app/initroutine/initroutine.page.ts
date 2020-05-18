@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { MaxLengthValidator } from '@angular/forms';
+import { Storage } from '@ionic/storage';
+import { ExerciseService } from '../exercise.service';
+import { Ejercicio } from '../Objects/Ejercicio';
+import { RutinaDia } from '../Objects/RutinaDia';
+import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
 
 const circleR = 80;
 const circleDasharray = 2 + Math.PI * circleR;
@@ -11,6 +16,14 @@ const circleDasharray = 2 + Math.PI * circleR;
   styleUrls: ['./initroutine.page.scss'],
 })
 export class InitroutinePage implements OnInit {
+
+  ejercicio:Ejercicio;
+  rutinaDia:RutinaDia;
+  rutinaEjercicio:RutinaEjercicio;
+  posRutEjercicio:Number = 0;
+  posEjercicio:Number = 0;
+
+  //implements para el time
   time: BehaviorSubject<string> =new BehaviorSubject('00:00');
   percent: BehaviorSubject<number> = new BehaviorSubject(100);
   timer:number;
@@ -21,10 +34,26 @@ export class InitroutinePage implements OnInit {
   circleDasharray = circleDasharray;
   state:'start' | 'stop' = 'stop';
 
-  constructor() { }
+  constructor(private storage:Storage) { }
 
   ngOnInit() {
+    this.crearRutina();
   }
+
+  crearRutina(){
+    this.storage.get('RealizarEjercicios').then((RealizarEjercicios)=>{
+      console.log('ejercicios',RealizarEjercicios);
+      this.rutinaDia= new RutinaDia(RealizarEjercicios.nombre, RealizarEjercicios.ejercicios);
+    });
+  }
+
+  comenzarSesion(){
+    console.log("AQUI IRAN LA SERIES DE EJERCICIOS");
+
+    //la idea es hacer un for de todas las rutinas de ejercicios, por cada for habra otro for para cada ejercicio
+    
+  }
+
 
   startTimer(duration:number){
     this.state= 'start';

@@ -157,7 +157,8 @@ public class UsuarioController {
 	public Optional<Usuario> getUsuarioEmail(@RequestParam String email) {
 		System.out.println("Pasa por el email " + email);
 		Optional<Usuario> user = repository.findByEmail(email);
-		if (user.isPresent())
+		Optional<Usuario> userName = repository.findByuserName(email);
+		if (user.isPresent() || userName.isPresent())
 			return user;
 		else {
 			return null;

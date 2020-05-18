@@ -22,6 +22,8 @@ public class RutinaDia {
 	private String nombre;
 	private String userName;
 	private ArrayList<RutinaDias> rutinasDias;
+	private boolean activa;
+	private int diaSeguimiento;
 	private Date fechaCreacion;
 	private Date fechaModificacion;
 	public String get_id() {
@@ -48,6 +50,18 @@ public class RutinaDia {
 	public void setRutinasDias(ArrayList<RutinaDias> rutinasDias) {
 		this.rutinasDias = rutinasDias;
 	}
+	public boolean isActiva() {
+		return activa;
+	}
+	public void setActiva(boolean activa) {
+		this.activa = activa;
+	}
+	public int getDiaSeguimiento() {
+		return diaSeguimiento;
+	}
+	public void setDiaSeguimiento(int diaSeguimiento) {
+		this.diaSeguimiento = diaSeguimiento;
+	}
 	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
@@ -60,13 +74,15 @@ public class RutinaDia {
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
-	public RutinaDia(String _id, String nombre, String userName, ArrayList<RutinaDias> rutinasDias, Date fechaCreacion,
+	public RutinaDia(String _id, String nombre, String userName, ArrayList<RutinaDias> rutinasDias, boolean activa, int diaSeguimiento, Date fechaCreacion,
 			Date fechaModificacion) {
 		super();
 		this._id = _id;
 		this.nombre = nombre;
 		this.userName = userName;
 		this.rutinasDias = rutinasDias;
+		this.activa=activa;
+		this.diaSeguimiento=diaSeguimiento;
 		this.fechaCreacion = fechaCreacion;
 		this.fechaModificacion = fechaModificacion;
 	}
