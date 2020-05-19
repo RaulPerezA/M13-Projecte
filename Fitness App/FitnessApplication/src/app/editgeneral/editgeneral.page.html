@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>¿Que rutina diaria quieres modificar?</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card *ngFor="let i of daily">{{i}}<ion-icon name="pencil-outline" (click)="editDaily()"></ion-icon></ion-card>
+  <ion-fab-button size="small" (click)="addDaily()">+</ion-fab-button>
+</ion-content>

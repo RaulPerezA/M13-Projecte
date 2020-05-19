@@ -117,6 +117,7 @@ export class UserprofilePage implements OnInit {
 
     else if(this.formedit.value.surnames=="" && this.formedit.value.height=="") {
       console.log("los apellidos y altura estan vacios");
+      console.log("username",this.username);
       this.observer = this.userService.editUser(this.username.toString(), this.formedit.value.name, this.user.getSurnames().toString(), this.user.getHeight(), this.formedit.value.weight);
       this.persistData(this.formedit.value.name, this.user.getSurnames().toString(), this.user.getHeight(), this.formedit.value.weight);
     }
@@ -156,6 +157,9 @@ export class UserprofilePage implements OnInit {
     this.observer.toPromise().then(variable => {
       console.log("variable",variable);
     });
+
+    //Limpiar campos del formulario
+    this.formedit.reset();
 
   }
 
