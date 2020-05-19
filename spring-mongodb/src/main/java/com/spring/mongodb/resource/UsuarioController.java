@@ -109,32 +109,37 @@ public class UsuarioController {
 	}
 
 	// Editar usuario
-	@CrossOrigin(origins = "http://localhost:8100")
-	@GetMapping("/Usuario/edituser")
-	public @ResponseBody boolean editUser(@RequestParam String usuario) {
+		@CrossOrigin(origins = "http://localhost:8100")
+		@GetMapping("/Usuario/edituser")
+		public @ResponseBody boolean editUser(@RequestParam String usuario, @RequestParam String nombre, @RequestParam String apellidos,
+				@RequestParam int altura, @RequestParam int peso) {
 
-		System.out.println("Pasa por el edit User");
+			System.out.println("Pasa por el edit User");
+			System.out.println("Usuario " + usuario);
+			
+			Optional<Usuario> uname = repository.findByuserName(usuario);
 
-		Optional<Usuario> uname = repository.findByuserName(usuario);
-		
-		System.out.println(uname.get());
-		if (uname.isPresent()) {
-			System.out.println("Usuario encontrado.");
-			uname.get().setAltura(50);
 			System.out.println(uname.get());
-			Usuario user = uname.get();
-			repository.save(user);
-			return true;
+			if (uname.isPresent()) {
+				System.out.println("Usuario encontrado.");
+				uname.get().setNombre(nombre);
+				uname.get().setApellidos(apellidos);
+				uname.get().setAltura(altura);
+				uname.get().setPeso(peso);
+				System.out.println(uname.get());
+				Usuario user = uname.get();
+				repository.save(user);
+				return true;
+			}
+
+			return false;
+
+			/*
+			 * Optional<Usuario> u = repository.findById(user); if (u.isPresent()) { b =
+			 * (u.get().getContraseña().equals(pw) ? true : false); return b; } else {
+			 * return false; }
+			 */
 		}
-
-		return false;
-
-		/*
-		 * Optional<Usuario> u = repository.findById(user); if (u.isPresent()) { b =
-		 * (u.get().getContraseña().equals(pw) ? true : false); return b; } else {
-		 * return false; }
-		 */
-	}
 
 	@GetMapping("/Usuario/findAll")
 	public List<Usuario> getUsuarios() {
@@ -157,8 +162,11 @@ public class UsuarioController {
 	public Optional<Usuario> getUsuarioEmail(@RequestParam String email) {
 		System.out.println("Pasa por el email " + email);
 		Optional<Usuario> user = repository.findByEmail(email);
+		Optional<Usuario> username = repository.findByuserName(email);
 		if (user.isPresent())
 			return user;
+		else if(username.isPresent())
+			return username;
 		else {
 			return null;
 		}
