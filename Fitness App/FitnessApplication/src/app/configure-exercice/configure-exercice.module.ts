@@ -4,18 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { CalculatorweightPageRoutingModule } from './calculatorweight-routing.module';
+import { ConfigureExercicePageRoutingModule } from './configure-exercice-routing.module';
 
-import { CalculatorweightPage } from './calculatorweight.page';
+import { ConfigureExercicePage } from './configure-exercice.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CalculatorweightPageRoutingModule,
+    ConfigureExercicePageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [CalculatorweightPage]
+  declarations: [ConfigureExercicePage]
 })
-export class CalculatorweightPageModule {}
+export class ConfigureExercicePageModule {}

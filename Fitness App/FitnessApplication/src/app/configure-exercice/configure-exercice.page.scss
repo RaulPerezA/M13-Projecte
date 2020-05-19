@@ -1,28 +1,23 @@
-ion-content {
+ ion-content {
     --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
     background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
     color: white;
 }
 
-ion-input {
+h2 {
     color: black;
-}
-
-form {
-    display: flex;
-    align-items: center;
     text-align: center;
 }
 
-ion-card {
-    width: 40%;
+p {
     color: black;
+    text-align: center;
 }
 
 div {
     text-align: center;
 }
 
-.card {
-    width: 50%;
+ion-input {
+    text-align: center;
 }
