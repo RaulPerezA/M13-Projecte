@@ -28,5 +28,5 @@ public class RutinaDias {
 		return "RutinaDias [nombre=" + nombre + ", ejercicios=" + ejercicios + "]";
 	}
 	
-	
 }
+
