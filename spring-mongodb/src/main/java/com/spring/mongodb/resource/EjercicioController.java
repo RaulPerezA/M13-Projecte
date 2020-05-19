@@ -27,8 +27,10 @@ public class EjercicioController {
 		return "Ejercicio "+Ejercicio+" añadido";
 	}
 
+	@CrossOrigin(origins = "http://localhost:8100")
 	@GetMapping("/Ejercicio/findAll")
 	public List<Ejercicio> getEjercicios(){
+		System.out.println("recoge los ejercicios");
 		return repository.findAll();
 	}
 	

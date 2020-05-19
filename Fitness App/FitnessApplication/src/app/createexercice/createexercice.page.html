@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-input placeholder="Nombre de la rutina"></ion-input>
+  <ion-input placeholder="Nombre de la rutina"> </ion-input>
   <ion-list-header>
     <ion-searchbar>
       <ion-icon name="filter-outline" (click)="showFilter()"></ion-icon>
@@ -56,10 +56,13 @@
 
     <ion-list>
       <ion-card *ngFor="let i of exercices" (click)="confexercice(i)">
+        <!-- <img src="{{i.imagen}}"> -->
         <img src="./assets/adidas.jpg">
-        <ion-item>{{i}}</ion-item>
+        <ion-item>{{i.ejercicio}}</ion-item>
       </ion-card>    
 
     </ion-list>
-  <ion-button>Crear</ion-button>
+  <div>
+    <ion-button>Crear</ion-button>
+  </div>
 </ion-content>
