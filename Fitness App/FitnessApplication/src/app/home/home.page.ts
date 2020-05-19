@@ -9,6 +9,8 @@ import { User } from '../Objects/User';
 import { Storage } from '@ionic/storage';
 import { Receta } from '../Objects/Receta';
 import { RecipesService } from '../recipes.service'; 
+import { Rutina } from '../Objects/Rutina';
+import { RoutineService } from '../routine.service'; 
 
 @Component({
   selector: 'app-home',
@@ -17,8 +19,12 @@ import { RecipesService } from '../recipes.service';
 })
 export class HomePage {
 
+  username:string;
+  password:string;
+  credentials:string;
   datos:any;
   email:string;
+  chain:string;
   dataLoginUser:Observable<any>;
   resultLogin: Observable<any>;
   resultRegister: Observable<any>;
@@ -34,11 +40,14 @@ export class HomePage {
   user:User;
   resultReceta: Observable<any>;
   recetas:Array<Receta>;
+  resultRutina: Observable<any>;
+  rutinas:Array<Rutina>;
+  save:boolean = false;
 
   //Variable para recoger la fecha y hora actual.
   today;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage,  private recipesService:RecipesService, private routineService:RoutineService) {
     this.today = new Date().toISOString();
     
     //Datos del formulario del login
@@ -60,6 +69,33 @@ export class HomePage {
     });
   }
   
+  ngOnInit() {
+    console.log("hola");
+    this.save = this.loginService.getSaveCredentials(); 
+    console.log("this.save",this.save);
+
+    if(this.save==true) {
+      
+      this.storage.get('credentials').then(credenciales => {
+        let splitChain = credenciales.split(" ");
+        this.username = splitChain[0];
+        this.password = splitChain[1];
+      });
+      console.log("chain",this.chain);
+      //let splitChain = this.chain.split(" ");
+      //this.username = splitChain[0];
+      //this.password = splitChain[1];
+    }
+    else {
+      this.username="";
+      this.password="";
+    }
+
+    this.loginService.resetCredentials();
+
+  }
+
+
   ngOnDestroy(){
     console.log("Se ha destruido la pagina de loguin y registro");
   }
@@ -115,6 +151,10 @@ export class HomePage {
     if(await promesa==true){
       console.log("HA DEVUELTRO TRUE");
 
+      //Guardar datos del formulario de login para usarlos si quiere mantener las credenciales
+      this.credentials = this.loginForm.value.emailusername + " " + this.loginForm.value.password;
+      this.storage.set('credentials',this.credentials);
+
       //Obtener los datos del usuario logueado.
       this.email = this.loginForm.value.emailusername;
       this.dataLoginUser = this.loginService.getLoginUser(this.email);
@@ -126,9 +166,11 @@ export class HomePage {
       //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
       datosUser.then(datos => {
         this.datos = datos;
+        console.log("this.datos",this.datos);
         this.storage.set('user',datos);
       });
       this.recipes();
+      this.routines(this.email);
       this.navCtrl.navigateRoot('/main');
     }
     else {
@@ -156,6 +198,7 @@ export class HomePage {
 
     if(await promesaRegister===true){
       this.recipes();
+      this.routines(this.user.getUsername());
       this.navCtrl.navigateRoot('/slides');
     }
     else {
@@ -184,4 +227,29 @@ export class HomePage {
       this.storage.set('recetas',datos);
     });
   }
+
+  //Devolver todas las rutinas de un solo USUARIO
+  async routines(userName:string) {
+    console.log("queremos conseguir las rutinas.");
+    
+    this.resultRutina = this.routineService.createRutinas(userName);
+    console.log(this.resultRutina);
+    let promesa:Promise<any>;
+    promesa = this.resultRutina.toPromise();
+    
+    console.log("datos rutinas",promesa);
+
+    //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
+    promesa.then(datos => {
+      this.datos = datos;
+      this.storage.set('rutinas',datos);
+    });
+  }
+
+  saveCredentials() {
+      
+    this.loginService.saveCredentials();
+  
+  }
+
 }

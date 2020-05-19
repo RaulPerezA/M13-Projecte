@@ -54,30 +54,47 @@ const routes: Routes = [
   {
     path: 'createexercices',
     loadChildren: () => import('./createexercices/createexercices.module').then( m => m.CreateexercicesPageModule)
-  },  {
+  },
+  {
     path: 'initroutine',
     loadChildren: () => import('./initroutine/initroutine.module').then( m => m.InitroutinePageModule)
+  },  {
+    path: 'listgenerals',
+    loadChildren: () => import('./listgenerals/listgenerals.module').then( m => m.ListgeneralsPageModule)
   },
   {
-    path: 'generalrutine',
-    loadChildren: () => import('./generalrutine/generalrutine.module').then( m => m.GeneralrutinePageModule)
+    path: 'addgeneral',
+    loadChildren: () => import('./addgeneral/addgeneral.module').then( m => m.AddgeneralPageModule)
   },
   {
-    path: 'modifydailyrutine',
-    loadChildren: () => import('./modifydailyrutine/modifydailyrutine.module').then( m => m.ModifydailyrutinePageModule)
+    path: 'dailyrutine',
+    loadChildren: () => import('./dailyrutine/dailyrutine.module').then( m => m.DailyrutinePageModule)
   },
   {
-    path: 'contentgeneralrutine',
-    loadChildren: () => import('./contentgeneralrutine/contentgeneralrutine.module').then( m => m.ContentgeneralrutinePageModule)
+    path: 'editdaily',
+    loadChildren: () => import('./editdaily/editdaily.module').then( m => m.EditdailyPageModule)
   },
   {
-    path: 'editdailyrutine',
-    loadChildren: () => import('./editdailyrutine/editdailyrutine.module').then( m => m.EditdailyrutinePageModule)
+    path: 'editgeneral',
+    loadChildren: () => import('./editgeneral/editgeneral.module').then( m => m.EditgeneralPageModule)
   },
   {
-    path: 'exercice',
-    loadChildren: () => import('./exercice/exercice.module').then( m => m.ExercicePageModule)
+    path: 'add-exercice',
+    loadChildren: () => import('./add-exercice/add-exercice.module').then( m => m.AddExercicePageModule)
   },
+  {
+    path: 'add-daily',
+    loadChildren: () => import('./add-daily/add-daily.module').then( m => m.AddDailyPageModule)
+  },
+  {
+    path: 'listexercice',
+    loadChildren: () => import('./listexercice/listexercice.module').then( m => m.ListexercicePageModule)
+  },
+  {
+    path: 'createexercice',
+    loadChildren: () => import('./createexercice/createexercice.module').then( m => m.CreateexercicePageModule)
+  }
+
 
 ];
 

@@ -11,7 +11,8 @@ export class LoginService {
   public API = 'http://localhost:9003';
   public LOGIN = this.API + '/Usuario/login';
   public USERDATA = this.API + '/Usuario/findOneEmail';
-  
+  private credentials: boolean = false;
+
   constructor(private http: HttpClient) { }
 
   getLogin(username:string, password:string) {
@@ -23,6 +24,19 @@ export class LoginService {
     //username la inicial mayuscula, contraseña todo en minusculas
     console.log("Pasa por aqui");
     return this.http.get(this.USERDATA+"?email="+email);
+  }
+
+  saveCredentials(){
+    this.credentials = !this.credentials;
+    console.log("credentialsService",this.credentials);
+  }
+
+  resetCredentials() {
+    this.credentials = false;
+  }
+
+  getSaveCredentials() {
+    return this.credentials;
   }
 
 }

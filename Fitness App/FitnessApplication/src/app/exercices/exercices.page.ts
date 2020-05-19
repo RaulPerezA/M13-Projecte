@@ -9,10 +9,6 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./exercices.page.scss'],
 })
 export class ExercicesPage implements OnInit {
-
-  createExercice: boolean = false;
-  createDiary: boolean = false;
-  createGeneral: boolean = false;
   
   constructor(private network: Network, private dialogs: Dialogs, private navCtrl: NavController) {
     
@@ -31,27 +27,16 @@ export class ExercicesPage implements OnInit {
     console.log("Pagina de creación/modificación de ejercicio destruido.");
   }
 
-  createExercices() {
-    this.createExercice = !this.createExercice;
-    console.log("Creación de rutinas desplegada.");
+  listGenerals() {
+    this.navCtrl.navigateForward('/listgenerals');
   }
 
-  createDiaris() {
-    this.createDiary = !this.createDiary;
-    console.log("Creación de rutinas desplegada.");
+  dailyRutine() {
+    this.navCtrl.navigateForward('/dailyrutine');
   }
 
-  createGenerals() {
-    this.createGeneral = !this.createGeneral;
-    console.log("Creación de rutinas desplegada.");
-  }
-
-  redirectCGeneral() {
-    this.navCtrl.navigateForward('/generalrutine');
-  }
-
-  modifydaily() {
-    this.navCtrl.navigateForward('/modifydailyrutine');
+  listExercice() {
+    this.navCtrl.navigateForward('/listexercice');
   }
 
 }

@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Rutinas generales</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let i of generals">{{i}}<ion-icon name="pencil-outline"></ion-icon><ion-checkbox></ion-checkbox></ion-card>
+  <ion-fab-button size="small" (click)="addGeneral()">+</ion-fab-button>
+</ion-content>
