@@ -42,12 +42,17 @@ export class HomePage {
   recetas:Array<Receta>;
   resultRutina: Observable<any>;
   rutinas:Array<Rutina>;
+
   save:boolean = false;
+
 
   //Variable para recoger la fecha y hora actual.
   today;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage,  private recipesService:RecipesService, private routineService:RoutineService) {
+
+
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService, private routineService:RoutineService) {
+
     this.today = new Date().toISOString();
     
     //Datos del formulario del login
@@ -245,6 +250,7 @@ export class HomePage {
       this.storage.set('rutinas',datos);
     });
   }
+
 
   saveCredentials() {
       
