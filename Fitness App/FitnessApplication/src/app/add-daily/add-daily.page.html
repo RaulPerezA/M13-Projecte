@@ -8,7 +8,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-input placeholder="Nombre de la rutina"></ion-input>
-  <p>Lista de rutinas de ejercicios ha añadir (seran rutinas de ejercicios ya creadas)</p>
-  <ion-button>Crear</ion-button>
+  <form [formGroup]="formDaily">
+    <ion-input placeholder="Nombre de la rutina" formControlName="name"></ion-input>
+  </form>
+  <ion-button (click)="listExercice()">Crear</ion-button>
 </ion-content>

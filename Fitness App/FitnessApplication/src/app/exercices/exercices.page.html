@@ -9,10 +9,9 @@
 
 <ion-content>
   <div>
-    
-      <ion-card (click)="listGenerals()">Rutina general</ion-card>
-      <ion-card (click)="dailyRutine()">Rutina diaria</ion-card>
-      <ion-card (click)="listExercice()">Rutina de ejercicios</ion-card>
-    
+
+    <ion-card *ngFor="let i of numeros">Rutina general {{i}}</ion-card>
+    <ion-fab-button size="small" (click)="(addGeneral())">+</ion-fab-button>
+
   </div>
 </ion-content>
