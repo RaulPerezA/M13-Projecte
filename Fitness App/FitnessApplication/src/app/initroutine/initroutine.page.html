@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>NombreDelEjercicio</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{titulo}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,8 +18,8 @@
       </div>
     </div>
   </div>
-  <ion-text *ngIf="tempo === false">Descansando...</ion-text>
-  <ion-text *ngIf="tempo === true">Ejercitando...</ion-text>
+ <!-- <ion-text *ngIf="tempo === false">Descansando...</ion-text>
+  <ion-text *ngIf="tempo === true">Ejercitando...</ion-text>-->
   <ion-row class="ion-justify-content-center">
 
     <svg id="progress-circle" width="50vh" height="50vh" viewBox="0 0 200 200">
@@ -32,7 +35,7 @@
   </ion-row>
 </ion-content>
 <ion-footer class="footer">
-  <ion-button *ngIf="state === 'stop'" expand="block" color="primary" (click)="comenzarSesion();startTimer(startDuration)">Start</ion-button>
+  <ion-button *ngIf="state === 'stop'" expand="block" color="primary" (click)="startTimer(numSec);">Start</ion-button>
   <ion-button *ngIf="state === 'start'" expand="block" color="danger" (click)="stopTimer()">Stop</ion-button>
 </ion-footer>
 

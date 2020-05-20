@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { MaxLengthValidator } from '@angular/forms';
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs';
+import { timer } from 'rxjs';
 import { ExerciseService } from '../exercise.service';
 import { Ejercicio } from '../Objects/Ejercicio';
 import { RutinaDia } from '../Objects/RutinaDia';
@@ -17,45 +19,121 @@ const circleDasharray = 2 + Math.PI * circleR;
 })
 export class InitroutinePage implements OnInit {
 
+  //variables para recoger los datos necesarios los quales pondremos en la pantalla.
+  titulo:string;
+  imagen:string;
+  video:string;
+  titulos:string[]=[];
+  imagenes:string[]=[];
+  videos:string[]=[];
+  aux:string;
+
+  //Con estas variables controlaremos las series y el tiempo por serie
   ejercicio:Ejercicio;
   rutinaDia:RutinaDia;
   rutinaEjercicio:RutinaEjercicio;
-  posRutEjercicio:Number = 0;
-  posEjercicio:Number = 0;
+  resultEjercicio: Observable<any>;
+  rutinasEjercicios:RutinaEjercicio[]=[];
+  rutinas:number[]=[];
+  series:number=0;
+  seriesPorEjercicio:number[]=[];
+  posicion:number=0;
+  posicionSerie:number=0;
+  posicionEjercicio:number=0;
+  numSec:number=0;
+  
 
   //implements para el time
   time: BehaviorSubject<string> =new BehaviorSubject('00:00');
   percent: BehaviorSubject<number> = new BehaviorSubject(100);
   timer:number;
+  secStop:string;
   interval;
-  tempo:boolean = false;
-  startDuration = 5;
+  startDuration;
   circleR = circleR;
   circleDasharray = circleDasharray;
   state:'start' | 'stop' = 'stop';
 
-  constructor(private storage:Storage) { }
+  constructor(private storage:Storage, private exerciseService:ExerciseService ) { }
 
   ngOnInit() {
-    this.crearRutina();
-  }
-
-  crearRutina(){
     this.storage.get('RealizarEjercicios').then((RealizarEjercicios)=>{
       console.log('ejercicios',RealizarEjercicios);
       this.rutinaDia= new RutinaDia(RealizarEjercicios.nombre, RealizarEjercicios.ejercicios);
+      for(let ex of this.rutinaDia.getRutinaEjercicios()){
+        this.rutinaEjercicio=new RutinaEjercicio(ex['nombre'], ex['ejercicio'], ex['series'], ex['modoEjercitar'], ex['repeticionesSerie'], ex['segundosSerie'], ex['segundosDescanso']);
+        this.rutinasEjercicios.push(this.rutinaEjercicio);
+       // this.resultEjercicio = this.exerciseService.createExercise(this.rutinaEjercicio.getEjercicio());
+      }
+
+      
+
+      for (let i=0;i<this.rutinasEjercicios.length;i++){
+        this.rutinaEjercicio=this.rutinasEjercicios[i];
+        this.resultEjercicio = this.exerciseService.createExercise(this.rutinaEjercicio.getEjercicio());
+        let promesa:Promise<any>;
+        promesa = this.resultEjercicio.toPromise();
+        
+        promesa.then(datos => {
+          this.ejercicio=new Ejercicio(datos.ejercicio,datos.imagen, datos.video, datos.descripcion, datos.dificultad, datos.especificacion, datos.grupoMuscular);
+          this.titulos.push(this.ejercicio.getEjercicio());
+          this.imagenes.push(this.ejercicio.getImagen());
+          this.videos.push(this.ejercicio.getVideo());
+          this.titulo=this.titulos[0];
+          this.imagen=this.imagenes[0];
+          this.video=this.videos[0];
+        });
+        for(let j=0;j<this.rutinaEjercicio.getSeries();j++){
+         // this.startTimer(this.rutinaEjercicio.getSegundosSerie());
+          //this.startTimer(this.rutinaEjercicio.getSegundosDescanso());
+          this.rutinas.push(this.rutinaEjercicio.getSegundosSerie());
+          if (i==this.rutinasEjercicios.length-1 && j==this.rutinaEjercicio.getSeries()-1){
+            this.series=this.series+1;
+          }
+          else{
+            this.rutinas.push(this.rutinaEjercicio.getSegundosDescanso());
+            this.series=this.series+2;
+          }
+        }
+        this.seriesPorEjercicio.push(this.series);
+      }
+      this.numSec=this.rutinas[0];
+      console.log(this.seriesPorEjercicio);
+      console.log(this.seriesPorEjercicio[0]);
+      console.log(this.seriesPorEjercicio[1]);
+      console.log(this.titulos);
+      console.log(this.titulos[0]);
+      console.log(this.imagenes);
+      console.log(this.videos);
+      console.log(this.rutinas);
     });
   }
 
-  comenzarSesion(){
-    console.log("AQUI IRAN LA SERIES DE EJERCICIOS");
 
-    //la idea es hacer un for de todas las rutinas de ejercicios, por cada for habra otro for para cada ejercicio
-    
-  }
 
+  /*
+  this.resultEjercicio = this.exerciseService.createExercise(this.rutinaEjercicio.getEjercicio());
+      console.log(this.resultEjercicio);
+      let promesa:Promise<any>;
+      promesa = this.resultEjercicio.toPromise();
+      
+      promesa.then(datos => {
+        this.ejercicio=new Ejercicio(datos.ejercicio,datos.imagen, datos.video, datos.descripcion, datos.dificultad, datos.especificacion, datos.grupoMuscular);
+        console.log('EJERCICIO'+this.ejercicio.getDificultad());
+        console.log('EJERCICIO QUE ESTA REALIZANDO'+this.ejercicio);
+        //this.arrayEjercicios.push(this.ejercicio);
+      });
+      
+if(this.rutinaEjercicio.getModoEjercitar()==="tiempo"){
+
+        }
+
+  
+  */
+   
 
   startTimer(duration:number){
+    console.log("duration"+duration);
     this.state= 'start';
     clearInterval(this.interval);
     this.timer = duration;
@@ -67,6 +145,8 @@ export class InitroutinePage implements OnInit {
 
   stopTimer(){
     clearInterval(this.interval);
+    this.secStop=this.time.value;
+
   //  this.time.next('00:00');
   //PONER QUE CUANDO LE DE AL INICIAR DE NUEVO SE QUEDE CON EL MISMO TIEMPO QUE CON EL QUE HA DADO AL STOP.
     this.state = 'stop';
@@ -87,20 +167,35 @@ export class InitroutinePage implements OnInit {
 
     const text =minutes + ':' + seconds;
     this.time.next(text);
-
     const totalTime = this.startDuration;
     const percentage = ((totalTime - this.timer) / totalTime) * 100;
     this.percent.next(percentage);
     
     --this.timer;
     if(this.timer<-1){
-      if(this.tempo){
-        this.tempo=false;
+      this.posicion++;
+      if(this.posicion==this.rutinas.length){
+        this.rutinaAcabada();
       }
       else{
-        this.tempo=true;
+        console.log(this.seriesPorEjercicio[this.posicionSerie]);
+        console.log(this.posicion);
+        if(this.seriesPorEjercicio[this.posicionSerie]==this.posicion){
+          this.posicionEjercicio++;
+          this.titulo=this.titulos[this.posicionEjercicio];
+          this.imagen=this.imagenes[this.posicionEjercicio];
+          this.video=this.videos[this.posicionEjercicio];
+          this.posicionSerie++;
+        }
+        this.startTimer(this.rutinas[this.posicion]);
       }
-      this.startTimer(this.startDuration);
     }
   }
+
+  rutinaAcabada(){
+    this.time.next('00:00');
+    console.log("DIA FINALIZADO");
+  }
+
+
 }
