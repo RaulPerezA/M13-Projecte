@@ -10,9 +10,8 @@
 <ion-content>
   <ion-input placeholder="Nombre de la rutina"> </ion-input>
   <ion-list-header>
-    <ion-searchbar>
-      <ion-icon name="filter-outline" (click)="showFilter()"></ion-icon>
-    </ion-searchbar>
+    <ion-searchbar id="searchbar"></ion-searchbar>
+    <ion-icon src="./assets/icon/simbolo.svg" (click)="showFilter()"></ion-icon>
   </ion-list-header>
   
     <ion-list *ngIf="filter==true">

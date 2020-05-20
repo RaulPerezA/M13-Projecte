@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FormGroup, FormBuilder, FormControl, Validators, Form } from '@angular/forms';
-
+import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
 
 @Component({
   selector: 'app-configure-exercice',
@@ -10,6 +10,8 @@ import { FormGroup, FormBuilder, FormControl, Validators, Form } from '@angular/
 })
 export class ConfigureExercicePage implements OnInit {
 
+  arrayEjercicios:Array<RutinaEjercicio>;
+  rutinaEjercicio:RutinaEjercicio;
   title:string;
   description:string;
   level:string;
@@ -18,6 +20,8 @@ export class ConfigureExercicePage implements OnInit {
   timeBoolean:boolean=false;
   exerciceForm:FormGroup;
   modo:string = "repeticiones";
+  repsActive:boolean = false;
+  timeActive:boolean = false;
 
   constructor(private storage:Storage, private formBuildeR: FormBuilder) {
 
@@ -34,8 +38,11 @@ export class ConfigureExercicePage implements OnInit {
 
   ngOnInit() {
 
+    this.arrayEjercicios = new Array<RutinaEjercicio>();
     this.timeBoolean = false;
     this.seriesBoolean = true;
+    this.repsActive = false;
+    this.timeActive = false;
 
     this.storage.get('exercice').then( ejercicio => {
       console.log("exercice",ejercicio);
@@ -52,6 +59,8 @@ export class ConfigureExercicePage implements OnInit {
 
   reps() {
     
+    this.repsActive = true;
+    this.timeActive = false;
     this.modo = "repeticiones";
     this.seriesBoolean = true;
     this.timeBoolean = false;
@@ -61,6 +70,8 @@ export class ConfigureExercicePage implements OnInit {
 
   time() {
     
+    this.timeActive = true;
+    this.repsActive = false;
     this.modo = "tiempo";
     this.timeBoolean = true;
     this.seriesBoolean = false;
@@ -77,7 +88,10 @@ export class ConfigureExercicePage implements OnInit {
       this.exerciceForm.value.modo = 'repeticiones';
     }
         
-    console.log("modify",this.exerciceForm.value);
+    this.rutinaEjercicio = new RutinaEjercicio(this.exerciceForm.value.name, this.title, this.exerciceForm.value.series, this.exerciceForm.value.modo, this.exerciceForm.value.repeticiones, this.exerciceForm.value.segundos, this.exerciceForm.value.descanso);
+    console.log("this.rutinaEjercicio",this.rutinaEjercicio);
+    this.arrayEjercicios.push(this.rutinaEjercicio);
+    console.log("array",this.arrayEjercicios);
   }
 
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-daily',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddDailyPage implements OnInit {
 
-  constructor() { }
+  formDaily: FormGroup;
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder) { 
+
+    this.formDaily = this.formBuilder.group({
+      name: ['',Validators.required]
+    });
+
+  }
 
   ngOnInit() {
+  }
+
+  listExercice() {
+    console.log(this.formDaily.value);
+    this.navCtrl.navigateForward('listexercice');
   }
 
 }

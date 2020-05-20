@@ -8,7 +8,6 @@
 </ion-header>
 
 <ion-content>
-
   <ion-card>
     <img src="./assets/adidas.jpg">
     <h2><b>{{title}}</b></h2>
@@ -20,9 +19,12 @@
   <ion-card>
     
   <form [formGroup]="exerciceForm">
+  <h2>Selecciona un modo</h2>
     <div>
-      <ion-button (click)="reps()" value="repeticiones">Repeticiones</ion-button>
-      <ion-button (click)="time()" value="tiempo">Tiempo</ion-button>
+      <ion-button (click)="reps()" value="repeticiones" *ngIf="repsActive==true" color="secondary">Repeticiones</ion-button>
+      <ion-button (click)="reps()" value="repeticiones" *ngIf="repsActive==false">Repeticiones</ion-button>
+      <ion-button (click)="time()" value="tiempo" *ngIf="timeActive==true" color="secondary">Tiempo</ion-button>
+      <ion-button (click)="time()" value="tiempo" *ngIf="timeActive==false">Tiempo</ion-button>
     </div>
     
     <ion-card>

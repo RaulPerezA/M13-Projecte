@@ -10,6 +10,8 @@ import { NavController } from '@ionic/angular';
 })
 export class ExercicesPage implements OnInit {
   
+  numeros:number[]=[1,2,3,4,5,6,7,8,9,10];
+
   constructor(private network: Network, private dialogs: Dialogs, private navCtrl: NavController) {
     
     //Mostrar pop up para informar al usuario que no tiene conexión
@@ -27,16 +29,8 @@ export class ExercicesPage implements OnInit {
     console.log("Pagina de creación/modificación de ejercicio destruido.");
   }
 
-  listGenerals() {
-    this.navCtrl.navigateForward('/listgenerals');
-  }
-
-  dailyRutine() {
-    this.navCtrl.navigateForward('/dailyrutine');
-  }
-
-  listExercice() {
-    this.navCtrl.navigateForward('/listexercice');
+  addGeneral() {
+    this.navCtrl.navigateForward('/addgeneral');
   }
 
 }
