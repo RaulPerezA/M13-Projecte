@@ -14,8 +14,8 @@ export class ExerciseService {
   constructor(private http: HttpClient) { }
 
   
-  //Devuelve todas las rutinas de un usuario
-  createRutinas(idEjercicio:string) {
+  //Devuelve un ejercicio el qual se le pasa la id
+  createExercise(idEjercicio:string) {
     //return this.http.get(this.RUTINAS);
     //CUANDO SE CREE EL METODO EN SPRING HABRÁ QUE PONERLO ASI:
     return this.http.get(this.EJERCICIO+"?nombre="+idEjercicio);
