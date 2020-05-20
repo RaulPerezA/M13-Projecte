@@ -51,6 +51,7 @@ export class InitroutinePage implements OnInit {
   interval;
   startDuration;
   circleR = circleR;
+  tempo:boolean=true;
   circleDasharray = circleDasharray;
   state:'start' | 'stop' = 'stop';
 
@@ -107,6 +108,8 @@ export class InitroutinePage implements OnInit {
       console.log(this.videos);
       console.log(this.rutinas);
     });
+
+    
   }
 
 
@@ -146,9 +149,14 @@ if(this.rutinaEjercicio.getModoEjercitar()==="tiempo"){
   stopTimer(){
     clearInterval(this.interval);
     this.secStop=this.time.value;
-
-  //  this.time.next('00:00');
-  //PONER QUE CUANDO LE DE AL INICIAR DE NUEVO SE QUEDE CON EL MISMO TIEMPO QUE CON EL QUE HA DADO AL STOP.
+    console.log(this.secStop);
+    let sep = this.secStop.split(":");
+    let minutes = sep[0];
+    let seconds = sep[1];
+    let minutes2=Number(minutes);
+    let seconds2=Number(seconds);
+    this.numSec=(60*minutes2)+seconds2;
+    console.log(this.numSec);
     this.state = 'stop';
   }
 
@@ -172,15 +180,27 @@ if(this.rutinaEjercicio.getModoEjercitar()==="tiempo"){
     this.percent.next(percentage);
     
     --this.timer;
+    if(this.timer==0){
+      let audio = new Audio();
+      audio.src = "./assets/finish_time.wav";
+      audio.play();
+    }
     if(this.timer<-1){
       this.posicion++;
       if(this.posicion==this.rutinas.length){
         this.rutinaAcabada();
       }
       else{
+        if (this.tempo==true){
+          this.tempo=false;
+        }
+        else{
+          this.tempo=true;
+        }
         console.log(this.seriesPorEjercicio[this.posicionSerie]);
         console.log(this.posicion);
-        if(this.seriesPorEjercicio[this.posicionSerie]==this.posicion){
+        if(this.seriesPorEjercicio[this.posicionSerie]==this.posicion+1){
+          console.log("SIGUIENTE EJERCICIO");
           this.posicionEjercicio++;
           this.titulo=this.titulos[this.posicionEjercicio];
           this.imagen=this.imagenes[this.posicionEjercicio];
