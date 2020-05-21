@@ -74,10 +74,9 @@ public class RutinaDia {
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
-	public RutinaDia(String _id, String nombre, String userName, ArrayList<RutinaDias> rutinasDias, boolean activa, int diaSeguimiento, Date fechaCreacion,
+	public RutinaDia(String nombre, String userName, ArrayList<RutinaDias> rutinasDias, boolean activa, int diaSeguimiento, Date fechaCreacion,
 			Date fechaModificacion) {
 		super();
-		this._id = _id;
 		this.nombre = nombre;
 		this.userName = userName;
 		this.rutinasDias = rutinasDias;
