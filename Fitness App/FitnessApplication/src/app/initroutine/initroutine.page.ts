@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { MaxLengthValidator } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
-import { timer } from 'rxjs';
+import { Router } from '@angular/router';
 import { ExerciseService } from '../exercise.service';
 import { Ejercicio } from '../Objects/Ejercicio';
 import { RutinaDia } from '../Objects/RutinaDia';
 import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
+import { AlertController } from '@ionic/angular';
 
 const circleR = 80;
 const circleDasharray = 2 + Math.PI * circleR;
@@ -26,7 +26,6 @@ export class InitroutinePage implements OnInit {
   titulos:string[]=[];
   imagenes:string[]=[];
   videos:string[]=[];
-  aux:string;
 
   //Con estas variables controlaremos las series y el tiempo por serie
   ejercicio:Ejercicio;
@@ -55,7 +54,7 @@ export class InitroutinePage implements OnInit {
   circleDasharray = circleDasharray;
   state:'start' | 'stop' = 'stop';
 
-  constructor(private storage:Storage, private exerciseService:ExerciseService ) { }
+  constructor(private storage:Storage, private router: Router, private exerciseService:ExerciseService, private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.storage.get('RealizarEjercicios').then((RealizarEjercicios)=>{
@@ -63,47 +62,48 @@ export class InitroutinePage implements OnInit {
       this.rutinaDia= new RutinaDia(RealizarEjercicios.nombre, RealizarEjercicios.ejercicios);
       for(let ex of this.rutinaDia.getRutinaEjercicios()){
         this.rutinaEjercicio=new RutinaEjercicio(ex['nombre'], ex['ejercicio'], ex['series'], ex['modoEjercitar'], ex['repeticionesSerie'], ex['segundosSerie'], ex['segundosDescanso']);
-        this.rutinasEjercicios.push(this.rutinaEjercicio);
+        //this.rutinasEjercicios.push(this.rutinaEjercicio);
        // this.resultEjercicio = this.exerciseService.createExercise(this.rutinaEjercicio.getEjercicio());
-      }
+ //     }
 
       
 
-      for (let i=0;i<this.rutinasEjercicios.length;i++){
-        this.rutinaEjercicio=this.rutinasEjercicios[i];
-        this.resultEjercicio = this.exerciseService.createExercise(this.rutinaEjercicio.getEjercicio());
-        let promesa:Promise<any>;
-        promesa = this.resultEjercicio.toPromise();
-        
-        promesa.then(datos => {
-          this.ejercicio=new Ejercicio(datos.ejercicio,datos.imagen, datos.video, datos.descripcion, datos.dificultad, datos.especificacion, datos.grupoMuscular);
-          this.titulos.push(this.ejercicio.getEjercicio());
-          this.imagenes.push(this.ejercicio.getImagen());
-          this.videos.push(this.ejercicio.getVideo());
-          this.titulo=this.titulos[0];
-          this.imagen=this.imagenes[0];
-          this.video=this.videos[0];
-        });
-        for(let j=0;j<this.rutinaEjercicio.getSeries();j++){
-         // this.startTimer(this.rutinaEjercicio.getSegundosSerie());
-          //this.startTimer(this.rutinaEjercicio.getSegundosDescanso());
-          this.rutinas.push(this.rutinaEjercicio.getSegundosSerie());
-          if (i==this.rutinasEjercicios.length-1 && j==this.rutinaEjercicio.getSeries()-1){
-            this.series=this.series+1;
-          }
-          else{
+    //  for (let i=0;i<this.rutinasEjercicios.length;i++){
+   //     setTimeout( ()=>{
+       //   this.rutinaEjercicio=this.rutinasEjercicios[i];
+          this.resultEjercicio = this.exerciseService.createExercise(this.rutinaEjercicio.getEjercicio());
+          let promesa:Promise<any>;
+          promesa = this.resultEjercicio.toPromise();
+          promesa.then(datos => {
+            this.ejercicio=new Ejercicio(datos.ejercicio,datos.imagen, datos.video, datos.descripcion, datos.dificultad, datos.especificacion, datos.grupoMuscular);
+            
+            this.titulos.push(this.ejercicio.getEjercicio());
+            this.imagenes.push(this.ejercicio.getImagen());
+            this.videos.push(this.ejercicio.getVideo());
+            this.titulo=this.titulos[0];
+            this.imagen=this.imagenes[0];
+            this.video=this.videos[0];
+          });
+          for(let j=0;j<this.rutinaEjercicio.getSeries();j++){
+          // this.startTimer(this.rutinaEjercicio.getSegundosSerie());
+            //this.startTimer(this.rutinaEjercicio.getSegundosDescanso());
+            this.rutinas.push(this.rutinaEjercicio.getSegundosSerie());
+          /* if (i==this.rutinasEjercicios.length-1 && j==this.rutinaEjercicio.getSeries()-1){
+              this.series=this.series+1;
+            }
+            else{
+            */
             this.rutinas.push(this.rutinaEjercicio.getSegundosDescanso());
             this.series=this.series+2;
+            //}
           }
-        }
-        this.seriesPorEjercicio.push(this.series);
+          this.seriesPorEjercicio.push(this.series);
+          this.numSec=this.rutinas[0];
+       // }, 1);
       }
-      this.numSec=this.rutinas[0];
+    
       console.log(this.seriesPorEjercicio);
-      console.log(this.seriesPorEjercicio[0]);
-      console.log(this.seriesPorEjercicio[1]);
       console.log(this.titulos);
-      console.log(this.titulos[0]);
       console.log(this.imagenes);
       console.log(this.videos);
       console.log(this.rutinas);
@@ -112,6 +112,9 @@ export class InitroutinePage implements OnInit {
     
   }
 
+  ngOnDestroy(){
+    console.log("Se ha destruido la pagina de continuar rutina");
+  }
 
 
   /*
@@ -180,14 +183,14 @@ if(this.rutinaEjercicio.getModoEjercitar()==="tiempo"){
     this.percent.next(percentage);
     
     --this.timer;
-    if(this.timer==0){
+    if(this.timer==-1){
       let audio = new Audio();
       audio.src = "./assets/finish_time.wav";
       audio.play();
     }
     if(this.timer<-1){
       this.posicion++;
-      if(this.posicion==this.rutinas.length){
+      if(this.posicion==this.rutinas.length-1){
         this.rutinaAcabada();
       }
       else{
@@ -207,14 +210,41 @@ if(this.rutinaEjercicio.getModoEjercitar()==="tiempo"){
           this.video=this.videos[this.posicionEjercicio];
           this.posicionSerie++;
         }
+       
         this.startTimer(this.rutinas[this.posicion]);
       }
     }
   }
 
   rutinaAcabada(){
+    this.tempo=false;
+    this.titulo="TERMINADO"
     this.time.next('00:00');
     console.log("DIA FINALIZADO");
+    this.alert();
+    setTimeout( ()=>{
+      this.router.navigateByUrl('/main');
+    }, 5000);
+
+  }
+  //Mostrar pop up
+  async alert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Has terminado la rutina '+this.rutinaDia.getNombre(),
+      message: 'Serás redireccionado a la página inicial.',
+      cssClass: 'custom-ok',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'OK',
+          handler: (option) => {
+           console.log("Se ha terminado!");
+          }
+        }
+      ]
+    });
+    alert.dismiss();
+    await alert.present();
   }
 
 
