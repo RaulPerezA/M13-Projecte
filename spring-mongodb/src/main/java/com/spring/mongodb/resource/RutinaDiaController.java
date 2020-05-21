@@ -1,5 +1,7 @@
 package com.spring.mongodb.resource;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,7 +75,33 @@ public class RutinaDiaController {
 		return null;
 	}
 	
-	
+	@CrossOrigin(origins = "http://localhost:8100")
+	@GetMapping(path ="/rutina/createGeneral")
+	public @ResponseBody RutinaDia createGeneral(@RequestParam String user, @RequestParam String nombre, @RequestParam boolean activa){
+		
+		boolean activated = false;
+		
+		List<RutinaDia> rutinasUser= repository.findByUserName(user);
+		
+		for (RutinaDia rutinaDia : rutinasUser) {
+			if(rutinaDia.isActiva()) {
+				activated=true;
+			}
+		}
+		
+		if(activated==true) {
+			activa=false;
+		}
+		
+		Date hoy = new Date();
+		ArrayList<RutinaDias> rutinaDias = new ArrayList<RutinaDias>();
+		
+		
+		
+		RutinaDia rDia = new RutinaDia(nombre,user,rutinaDias,activa,0,hoy,hoy);
+		repository.save(rDia);
+		return rDia;
+	}
 	
 	
 
