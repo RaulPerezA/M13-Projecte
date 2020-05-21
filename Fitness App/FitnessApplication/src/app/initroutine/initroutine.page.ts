@@ -29,6 +29,7 @@ export class InitroutinePage implements OnInit {
 
   //Con estas variables controlaremos las series y el tiempo por serie
   ejercicio:Ejercicio;
+  ejercicios:Ejercicio[];
   rutinaDia:RutinaDia;
   rutinaEjercicio:RutinaEjercicio;
   resultEjercicio: Observable<any>;
@@ -57,20 +58,40 @@ export class InitroutinePage implements OnInit {
   constructor(private storage:Storage, private router: Router, private exerciseService:ExerciseService, private alertCtrl: AlertController) { }
 
   ngOnInit() {
+
+    this.storage.get('EjerciciosARealizar').then((eje)=>{
+      this.ejercicios=eje;
+      console.log(this.ejercicios);
+      
+      for(let i of this.ejercicios) {
+        //this.ejercicio=new Ejercicio();
+        this.ejercicio=i;
+        console.log(i['ejercicio']);
+        console.log(this.ejercicio);
+        this.titulos.push(i['ejercicio']);
+        this.imagenes.push(i['imagen']);
+        this.videos.push(i['video']);
+      }
+    });
+
     this.storage.get('RealizarEjercicios').then((RealizarEjercicios)=>{
       console.log('ejercicios',RealizarEjercicios);
-      this.rutinaDia= new RutinaDia(RealizarEjercicios.nombre, RealizarEjercicios.ejercicios);
-      for(let ex of this.rutinaDia.getRutinaEjercicios()){
+      //this.rutinaDia= new RutinaDia(RealizarEjercicios.nombre, RealizarEjercicios.ejercicios);
+      //for(let ex of this.rutinaDia.getRutinaEjercicios()){
+      for(let ex of RealizarEjercicios){
         this.rutinaEjercicio=new RutinaEjercicio(ex['nombre'], ex['ejercicio'], ex['series'], ex['modoEjercitar'], ex['repeticionesSerie'], ex['segundosSerie'], ex['segundosDescanso']);
         //this.rutinasEjercicios.push(this.rutinaEjercicio);
        // this.resultEjercicio = this.exerciseService.createExercise(this.rutinaEjercicio.getEjercicio());
- //     }
+      //     }
 
       
 
-    //  for (let i=0;i<this.rutinasEjercicios.length;i++){
-   //     setTimeout( ()=>{
-       //   this.rutinaEjercicio=this.rutinasEjercicios[i];
+          //  for (let i=0;i<this.rutinasEjercicios.length;i++){
+        //   this.rutinaEjercicio=this.rutinasEjercicios[i];
+
+
+      /*
+      //si falla descomentar
           this.resultEjercicio = this.exerciseService.createExercise(this.rutinaEjercicio.getEjercicio());
           let promesa:Promise<any>;
           promesa = this.resultEjercicio.toPromise();
@@ -84,29 +105,36 @@ export class InitroutinePage implements OnInit {
             this.imagen=this.imagenes[0];
             this.video=this.videos[0];
           });
-          for(let j=0;j<this.rutinaEjercicio.getSeries();j++){
-          // this.startTimer(this.rutinaEjercicio.getSegundosSerie());
-            //this.startTimer(this.rutinaEjercicio.getSegundosDescanso());
-            this.rutinas.push(this.rutinaEjercicio.getSegundosSerie());
-          /* if (i==this.rutinasEjercicios.length-1 && j==this.rutinaEjercicio.getSeries()-1){
-              this.series=this.series+1;
-            }
-            else{
             */
-            this.rutinas.push(this.rutinaEjercicio.getSegundosDescanso());
-            this.series=this.series+2;
-            //}
-          }
-          this.seriesPorEjercicio.push(this.series);
-          this.numSec=this.rutinas[0];
-       // }, 1);
+
+
+
+           
+            for(let j=0;j<this.rutinaEjercicio.getSeries();j++){
+            // this.startTimer(this.rutinaEjercicio.getSegundosSerie());
+              //this.startTimer(this.rutinaEjercicio.getSegundosDescanso());
+              this.rutinas.push(this.rutinaEjercicio.getSegundosSerie());
+            /* if (i==this.rutinasEjercicios.length-1 && j==this.rutinaEjercicio.getSeries()-1){
+                this.series=this.series+1;
+              }
+              else{
+              */
+              this.rutinas.push(this.rutinaEjercicio.getSegundosDescanso());
+              this.series=this.series+2;
+              //}
+            }
+            this.seriesPorEjercicio.push(this.series);
+            this.numSec=this.rutinas[0];
+            this.titulo=this.titulos[0];
+            this.imagen=this.imagenes[0];
+            this.video=this.videos[0];
       }
     
-      console.log(this.seriesPorEjercicio);
-      console.log(this.titulos);
-      console.log(this.imagenes);
-      console.log(this.videos);
-      console.log(this.rutinas);
+      console.log("seriesPorEjercicio"+this.seriesPorEjercicio);
+      console.log("titol"+this.titulos);
+      console.log("img"+this.imagenes);
+      console.log("videos"+this.videos);
+      console.log("rut"+this.rutinas);
     });
 
     
