@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
 
 @Component({
   selector: 'app-add-daily',
@@ -10,10 +11,12 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 export class AddDailyPage implements OnInit {
 
   formDaily: FormGroup;
+  ejercicios:Array<RutinaEjercicio> = [];
   constructor(private navCtrl: NavController, private formBuilder: FormBuilder) { 
 
     this.formDaily = this.formBuilder.group({
-      name: ['',Validators.required]
+      name: ['',Validators.required],
+      ejercicios: [this.ejercicios]
     });
 
   }
