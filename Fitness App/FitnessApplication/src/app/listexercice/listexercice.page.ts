@@ -16,6 +16,7 @@ export class ListexercicePage implements OnInit {
   }
 
   createExercice() {
+    console.log("createexercice");
     this.navCtrl.navigateForward('/createexercice');
   }
 

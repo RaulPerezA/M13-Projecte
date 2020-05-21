@@ -4,18 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { AddgeneralPageRoutingModule } from './addgeneral-routing.module';
+import { ConfigureExercicePageRoutingModule } from './configure-exercice-routing.module';
 
-import { AddgeneralPage } from './addgeneral.page';
+import { ConfigureExercicePage } from './configure-exercice.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddgeneralPageRoutingModule,
+    ConfigureExercicePageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [AddgeneralPage]
+  declarations: [ConfigureExercicePage]
 })
-export class AddgeneralPageModule {}
+export class ConfigureExercicePageModule {}

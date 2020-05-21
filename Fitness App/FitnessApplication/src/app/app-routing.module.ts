@@ -52,13 +52,10 @@ const routes: Routes = [
     loadChildren: () => import('./continueroutine/continueroutine.module').then( m => m.ContinueroutinePageModule)
   },
   {
-    path: 'createexercices',
-    loadChildren: () => import('./createexercices/createexercices.module').then( m => m.CreateexercicesPageModule)
-  },
-  {
     path: 'initroutine',
     loadChildren: () => import('./initroutine/initroutine.module').then( m => m.InitroutinePageModule)
-  },  {
+  },
+  {
     path: 'listgenerals',
     loadChildren: () => import('./listgenerals/listgenerals.module').then( m => m.ListgeneralsPageModule)
   },
@@ -93,7 +90,11 @@ const routes: Routes = [
   {
     path: 'createexercice',
     loadChildren: () => import('./createexercice/createexercice.module').then( m => m.CreateexercicePageModule)
+  },  {
+    path: 'configure-exercice',
+    loadChildren: () => import('./configure-exercice/configure-exercice.module').then( m => m.ConfigureExercicePageModule)
   }
+
 
 
 ];

@@ -10,6 +10,7 @@ export class ExerciseService {
 
   public API = 'http://localhost:9003';
   public EJERCICIO = this.API + '/Ejercicio/findOneEjercicio';
+  public EJERCICIOS = this.API + '/Ejercicio/findAll';
 
   constructor(private http: HttpClient) { }
 
@@ -20,4 +21,11 @@ export class ExerciseService {
     //CUANDO SE CREE EL METODO EN SPRING HABRÁ QUE PONERLO ASI:
     return this.http.get(this.EJERCICIO+"?nombre="+idEjercicio);
   }
+
+  getAllExercices() {
+    console.log("ejerciciooooos");
+    return this.http.get(this.EJERCICIOS);
+  }
+
+
 }
