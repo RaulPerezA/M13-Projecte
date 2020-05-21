@@ -7,6 +7,10 @@ import { Rutina } from '../Objects/Rutina';
 import { RutinaDia } from '../Objects/RutinaDia';
 import { RoutineService } from '../routine.service';
 import { User } from '../Objects/User';
+import { ExerciseService } from '../exercise.service';
+import { Ejercicio } from '../Objects/Ejercicio';
+import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-continueroutine',
@@ -18,12 +22,17 @@ export class ContinueroutinePage implements OnInit {
   datos:any;
   resultRutina: Observable<any>;
   resultRutinaDia: Observable<any>;
+  resultEjercicio: Observable<any>;
   rutinas:Array<Rutina>;
   user:User;
   rutina:Rutina;
   rutinaDia:RutinaDia;
+  rutinaEjercicio:RutinaEjercicio;
+  rutinaEjercicios:RutinaEjercicio[]=[];
+  ejercicio:Ejercicio;
+  ejercicios:Ejercicio[]=[];
 
-  constructor(private navCtrl: NavController, private alertCCtrl: AlertController,  private storage:Storage, private routineService:RoutineService) { }
+  constructor(private navCtrl: NavController, private router: Router, private alertCCtrl: AlertController,  private storage:Storage, private routineService:RoutineService, private exerciseService:ExerciseService) { }
 
   ngOnInit() {
    
@@ -61,13 +70,31 @@ export class ContinueroutinePage implements OnInit {
         let promesa2:Promise<any>;
         promesa2 = this.resultRutinaDia.toPromise();
 
-        console.log("datos rutina que toca hacer hoy",promesa);
-
         promesa2.then(datos => {
           this.datos = datos;
           this.rutinaDia = new RutinaDia(datos.nombre, datos.ejercicios);
-          this.storage.set('RealizarEjercicios',this.rutinaDia);
-          console.log('RealizarEjercicios',this.rutinaDia);
+          for(let ex of this.rutinaDia.getRutinaEjercicios()){
+            this.rutinaEjercicio=new RutinaEjercicio(ex['nombre'], ex['ejercicio'], ex['series'], ex['modoEjercitar'], ex['repeticionesSerie'], ex['segundosSerie'], ex['segundosDescanso']);
+            this.rutinaEjercicios.push(this.rutinaEjercicio);
+            this.resultEjercicio = this.exerciseService.createExercise(this.rutinaEjercicio.getEjercicio());
+            let promesa3:Promise<any>;
+            promesa3 = this.resultEjercicio.toPromise();
+            promesa3.then(datos => {
+              this.ejercicio=new Ejercicio(datos.ejercicio,datos.imagen, datos.video, datos.descripcion, datos.dificultad, datos.especificacion, datos.grupoMuscular);
+              console.log(this.ejercicio)
+              this.ejercicios.push(this.ejercicio);
+            });
+          }
+          
+          
+          //console.log('RealizarEjercicios',this.rutinaDia);
+          setTimeout( ()=>{
+            console.log("ejercicios en continue"+this.ejercicios);
+            console.log("rutina ejercicios en continue"+this.rutinaEjercicios);
+            this.storage.set('RealizarEjercicios',this.rutinaEjercicios);
+            this.storage.set('EjerciciosARealizar',this.ejercicios);
+            this.navCtrl.navigateRoot('/initroutine');
+          }, 10000);
         });
 
       });
@@ -87,6 +114,5 @@ export class ContinueroutinePage implements OnInit {
       this.storage.set('rutinaActiva',datos);
     });
   */
-    this.navCtrl.navigateRoot('/initroutine');
   }
 }

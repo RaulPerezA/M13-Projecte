@@ -11,6 +11,8 @@ import { Receta } from '../Objects/Receta';
 import { RecipesService } from '../recipes.service'; 
 import { Rutina } from '../Objects/Rutina';
 import { RoutineService } from '../routine.service'; 
+import { Ejercicio } from '../Objects/Ejercicio';
+import { ExerciseService } from '../exercise.service';
 
 @Component({
   selector: 'app-home',
@@ -42,6 +44,9 @@ export class HomePage {
   recetas:Array<Receta>;
   resultRutina: Observable<any>;
   rutinas:Array<Rutina>;
+  resultEjercicio: Observable<any>;
+  ejercicios:Ejercicio[]=[];
+  ejercicio:Ejercicio;
 
   save:boolean = false;
 
@@ -51,7 +56,7 @@ export class HomePage {
 
 
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService, private routineService:RoutineService) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService, private routineService:RoutineService, private exerciseService:ExerciseService) {
 
     this.today = new Date().toISOString();
     
@@ -176,6 +181,7 @@ export class HomePage {
       });
       this.recipes();
       this.routines(this.email);
+      this.exercises();
       this.navCtrl.navigateRoot('/main');
     }
     else {
@@ -204,6 +210,7 @@ export class HomePage {
     if(await promesaRegister===true){
       this.recipes();
       this.routines(this.user.getUsername());
+      this.exercises();
       this.navCtrl.navigateRoot('/slides');
     }
     else {
@@ -249,6 +256,29 @@ export class HomePage {
       this.datos = datos;
       this.storage.set('rutinas',datos);
     });
+  }
+  
+  
+  //Devolver todos los ejercicios
+  async exercises() {
+    console.log("queremos conseguir los ejercicios.");
+    this.resultEjercicio = this.exerciseService.getAllExercices();
+   
+    this.resultEjercicio.toPromise().then(ejercicios => {
+      console.log(ejercicios);
+      
+      for(let i of ejercicios) {
+
+        console.log("i",i);
+        this.ejercicio = new Ejercicio(i.ejercicio, i.imagen, i.video, i.descripcion, i.dificultad, i.especificacion, i.grupoMuscular);
+
+        this.ejercicios.push(this.ejercicio);
+      }
+    this.storage.set('ejercicios',this.ejercicios);  
+    });
+  
+    
+    
   }
 
 
