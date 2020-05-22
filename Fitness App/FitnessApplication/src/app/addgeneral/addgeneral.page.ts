@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class AddgeneralPage implements OnInit {
 
+  _idGeneral:string;
   observer:Observable<any>;
   user:string;
   generalForm:FormGroup;
@@ -53,7 +54,15 @@ export class AddgeneralPage implements OnInit {
     
     let promesa:Promise<any>;
     promesa = this.observer.toPromise();
-    console.log("promesa",promesa);
+    promesa.then(values => {
+      this.storage.set('idGeneral',values._id);
+    });
+
+   
+    this.storage.get('idGeneral').then(id => {
+      console.log("idGeneral",id);
+    });
+
     if(await promesa!=null){
       this.navCtrl.navigateForward('/editgeneral');
     }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FormGroup, FormBuilder, FormControl, Validators, Form } from '@angular/forms';
 import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
+import { CreateExerciceService } from '../create-exercice.service';
 
 @Component({
   selector: 'app-configure-exercice',
@@ -23,7 +24,7 @@ export class ConfigureExercicePage implements OnInit {
   repsActive:boolean = false;
   timeActive:boolean = false;
 
-  constructor(private storage:Storage, private formBuildeR: FormBuilder) {
+  constructor(private storage:Storage, private formBuildeR: FormBuilder, private createExerciceService:CreateExerciceService) {
 
     this.exerciceForm = this.formBuildeR.group({
         name: ['', Validators.required],
@@ -56,6 +57,17 @@ export class ConfigureExercicePage implements OnInit {
       console.log("username",username);
     });
   }
+
+  ionViewWillLeave() {
+    console.log("Nos vamos a ir");
+   
+    if(this.rutinaEjercicio!=null){
+      
+      this.createExerciceService.createExercice(this.rutinaEjercicio);
+    }
+    
+  }
+
 
   reps() {
     

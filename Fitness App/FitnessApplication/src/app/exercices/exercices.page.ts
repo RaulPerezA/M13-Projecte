@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Network } from '@ionic-native/network/ngx';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { Rutina } from '../Objects/Rutina';
 
 @Component({
   selector: 'app-exercices',
@@ -10,9 +12,9 @@ import { NavController } from '@ionic/angular';
 })
 export class ExercicesPage implements OnInit {
   
-  numeros:number[]=[1,2,3,4,5,6,7,8,9,10];
-
-  constructor(private network: Network, private dialogs: Dialogs, private navCtrl: NavController) {
+  //numeros:number[]=[1,2,3,4,5,6,7,8,9,10];
+  rutinas:Array<Rutina>;
+  constructor(private network: Network, private dialogs: Dialogs, private navCtrl: NavController, private storage:Storage) {
     
     //Mostrar pop up para informar al usuario que no tiene conexión
     this.network.onDisconnect().subscribe(()=>{
@@ -22,6 +24,19 @@ export class ExercicesPage implements OnInit {
    }
 
   ngOnInit() {
+
+    this.rutinas = new Array<Rutina>();
+
+    this.storage.get('rutinas').then(rutinas => {
+      console.log("rutina",rutinas);
+      
+      for(let r of rutinas){
+        this.rutinas.push(r);
+      }
+
+    });
+    
+
   }
 
   //Puede ser que al poner el ngOnDestroy() cada vez que entre aparecera el mensaje de que no tiene conexión.
