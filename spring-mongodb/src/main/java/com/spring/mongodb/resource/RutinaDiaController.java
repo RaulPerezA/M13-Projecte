@@ -104,5 +104,33 @@ public class RutinaDiaController {
 	}
 	
 	
+	/*
+	 * Cambia y devuelve un dia mas de seguimiento de entrenamiento
+	 */
+	@CrossOrigin(origins = "http://localhost:8100")
+	@GetMapping(path ="/rutina/cambiarDia")
+	public @ResponseBody RutinaDia getChangeDay(@RequestParam String user){
+
+		List<RutinaDia> rutinasUser= repository.findByUserName(user);
+		
+		for (RutinaDia rd: rutinasUser) {
+			if(rd.isActiva()) { 
+				System.out.println(rd.getDiaSeguimiento());
+				System.out.println(rd.getRutinasDias().size());
+				if(rd.getDiaSeguimiento()+1<rd.getRutinasDias().size()) {
+					rd.setDiaSeguimiento(rd.getDiaSeguimiento()+1);
+				}
+				else {
+					rd.setDiaSeguimiento(0);					
+				}
+				repository.save(rd);
+				return rd;
+			}
+			
+		}
+		return null;
+	}
+	
+	
 
 }

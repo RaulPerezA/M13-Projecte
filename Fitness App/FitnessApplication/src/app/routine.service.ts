@@ -13,6 +13,7 @@ export class RoutineService {
   public RUTINASUSUARIO = this.API + '/rutina/findRutinasUser';
   public RUTINAUSUARIOACTIVA = this.API + '/rutina/findRutinaUserActiva';
   public RUTINAACTUAL = this.API + '/rutina/findDiaEjercicio';
+  public CAMBIARDIA = this.API + '/rutina/cambiarDia';
 
   constructor(private http: HttpClient) { }
 
@@ -32,6 +33,10 @@ export class RoutineService {
   //Devuelve el día que tiene que hacer el ejercicio
   rutinaDia(userName:string, posicion:Number){
     return this.http.get(this.RUTINAACTUAL+"?user="+userName+"&posicion="+posicion);
+  }
+  
+  cambiarDia(userName:string){
+    return this.http.get(this.CAMBIARDIA+"?user="+userName);
   }
 
 }

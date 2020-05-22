@@ -270,7 +270,7 @@ export class HomePage {
       for(let i of ejercicios) {
 
         console.log("i",i);
-        this.ejercicio = new Ejercicio(i.ejercicio, i.imagen, i.video, i.descripcion, i.dificultad, i.especificacion, i.grupoMuscular);
+        this.ejercicio = new Ejercicio(i._id, i.ejercicio, i.imagen, i.video, i.descripcion, i.dificultad, i.especificacion, i.grupoMuscular);
 
         this.ejercicios.push(this.ejercicio);
       }
