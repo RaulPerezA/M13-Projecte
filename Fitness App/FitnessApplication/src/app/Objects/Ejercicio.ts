@@ -8,8 +8,8 @@ export class Ejercicio {
 	private especificacion:string;
 	private grupoMuscular:string;
  
-    constructor(ejercicio:string, imagen:string, video:string, descripcion:string, dificultad:string, especificacion:string, grupoMuscular:string){
-
+    constructor(_id:string, ejercicio:string, imagen:string, video:string, descripcion:string, dificultad:string, especificacion:string, grupoMuscular:string){
+        this._id=_id;
         this.ejercicio = ejercicio;
         this.imagen = imagen;
         this.video = video;
@@ -19,6 +19,9 @@ export class Ejercicio {
         this.grupoMuscular = grupoMuscular;
     }
 
+    public get_Id():string{
+        return this._id;
+    }
     public getEjercicio():string{
         return this.ejercicio;
     }
