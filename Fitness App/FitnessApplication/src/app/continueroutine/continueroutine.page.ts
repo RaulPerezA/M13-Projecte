@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 
 
-
 @Component({
   selector: 'app-continueroutine',
   templateUrl: './continueroutine.page.html',
@@ -36,7 +35,7 @@ export class ContinueroutinePage implements OnInit {
   ejercicios:Ejercicio[]=[];
   diaEntrenamiento:string;
 
-  constructor(private navCtrl: NavController, private router: Router, private alertCCtrl: AlertController,  private storage:Storage, private routineService:RoutineService, private exerciseService:ExerciseService, private loadingController: LoadingController) { }
+  constructor(private navCtrl: NavController, private router: Router, private alertCCtrl: AlertController,  private storage:Storage, private routineService:RoutineService, private exerciseService:ExerciseService, private loadingController: LoadingController, private alertCtrl: AlertController) { }
 
   ngOnInit() {
     console.log("queremos conseguir la rutina activa.");
@@ -84,18 +83,22 @@ export class ContinueroutinePage implements OnInit {
     console.log("Continuar rutina destruido.");
   }
 
-  //Devolver la rutina que esta activa
+  //Comprueba si hay rutinas de ejercicios creadas, guarda en el storage las rutinas y va a realizar los ejercicios si hay alguna rutina creada.
   routineActive() {
-    this.presentLoading();
-    //console.log('RealizarEjercicios',this.rutinaDia);
-    setTimeout( ()=>{
-      console.log("ejercicios en continue"+this.ejercicios);
-      console.log("rutina ejercicios en continue"+this.rutinaEjercicios);
-      this.storage.set("rutinaDia", this.rutinaDia);
-      this.storage.set('RealizarEjercicios',this.rutinaEjercicios);
-      this.storage.set('EjerciciosARealizar',this.ejercicios);
-      this.navCtrl.navigateRoot('/initroutine');
-    }, 5000);
+    if(this.rutinaEjercicios.length>0){
+      this.presentLoading();
+      setTimeout( ()=>{
+        console.log("ejercicios en continue"+this.ejercicios);
+        console.log("rutina ejercicios en continue"+this.rutinaEjercicios);
+        this.storage.set("rutinaDia", this.rutinaDia);
+        this.storage.set('RealizarEjercicios',this.rutinaEjercicios);
+        this.storage.set('EjerciciosARealizar',this.ejercicios);
+        this.navCtrl.navigateRoot('/initroutine');
+      }, 5000);
+    }
+    else{
+      this.alertSinRutinasEjercicios();
+    }
   }
 
   pasarDia(){
@@ -140,7 +143,7 @@ export class ContinueroutinePage implements OnInit {
 
   async presentLoading() {
     const loading = await this.loadingController.create({
-      message: 'Cargando rutina...',
+      message: 'CARGANDO...',
       duration: 5000
     });
     await loading.present();
@@ -148,4 +151,20 @@ export class ContinueroutinePage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
   }
+
+
+  async alertSinRutinasEjercicios(){
+    const alert = await this.alertCtrl.create({
+      header: 'No tienes ningun ejercicio creado para la rutina seleccionada',
+      message: 'Cambia de dia o crea nuevas rutinas de ejercicios',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'ok',
+        }
+      ]
+    });
+    await alert.present();
+  }
+
 }

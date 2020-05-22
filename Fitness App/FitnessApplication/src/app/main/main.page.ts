@@ -1,10 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { IonSlides } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AlertController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
+import { User } from '../Objects/User';
+import { Rutina } from '../Objects/Rutina';
+import { RoutineService } from '../routine.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-main',
@@ -16,10 +21,12 @@ export class MainPage implements OnInit {
   @ViewChild("slideDiets",null) slideDiets: IonSlides;
   @ViewChild("slideExercices",null) slideExercices: IonSlides;
 
-
+  resultRutina: Observable<any>;
+  user:User;
+  rutina:Rutina;
   nSlide:number;
 
-  constructor(private router: Router, private menuCtrl: MenuController, private storage:Storage, private alertCtrl: AlertController, private alertCtrl2: AlertController ,private navCtrl: NavController) { }
+  constructor(private router: Router, private menuCtrl: MenuController, private storage:Storage, private alertCtrl: AlertController, private alertCtrl2: AlertController, private routineService:RoutineService, private navCtrl: NavController, private loadingController: LoadingController) { }
 
   ngOnInit() {
     //Iniciar funcion que hace que los slides cambien automaticamente.
@@ -86,8 +93,8 @@ export class MainPage implements OnInit {
   //Mostrar pop up
   async alert() {
     const alert = await this.alertCtrl.create({
-      subHeader: 'Has dejado una rutina a medias',
-      message: '¿Quieres continuar con la rutina?',
+      header: '¿Quieres continuar con la rutina?',
+      //message: '¿Quieres continuar con la rutina?',
       buttons: [
         {
           text: 'Cancelar',
@@ -103,7 +110,32 @@ export class MainPage implements OnInit {
           role: 'continue',
           handler: (option) => {
             console.log("Continuar");
-            this.navCtrl.navigateRoot('/continueroutine');
+            this.storage.get('user').then((usuario)=>{
+              console.log('usuario',usuario);
+              this.user = new User(usuario.nombre, usuario.apellidos, usuario.email, usuario.userName, usuario.contraseña, usuario.fecha_nacimiento, usuario.peso, usuario.altura);
+              this.resultRutina = this.routineService.rutinaActiva(this.user.getUsername());
+              console.log(this.resultRutina);
+              let promesa:Promise<any>;
+              promesa = this.resultRutina.toPromise();
+        
+              //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
+              promesa.then(datos => {
+                console.log("datos"+datos);
+                if(datos==null){
+                  this.alertSinRutinasDias();
+                }
+                else{
+                  this.rutina = new Rutina(datos.nombre, datos.userName, datos.rutinasDias, datos.activa, datos.diaSeguimiento, datos.fechaCreacion, datos.fechaModificacion);
+                  if(this.rutina.getRutinaDias().length>0){
+                    this.presentLoading();
+                    this.navCtrl.navigateRoot('/continueroutine');
+                  }
+                  else{
+                    this.alertSinRutinasDias();
+                  }
+                }
+              });
+            });
           }
         }
       ]
@@ -114,7 +146,7 @@ export class MainPage implements OnInit {
   async alert2() {
 
     const alert = await this.alertCtrl2.create({
-      subHeader: '¿Quieres seleccionar otra rutina?',
+      subHeader: '¿Quieres seleccionar otra rutina como activa?',
       message: 'Será redireccionado a la pàgina de rutinas generales.',
       buttons: [
         {
@@ -139,6 +171,43 @@ export class MainPage implements OnInit {
     await alert.present();
   }
 
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'CARGANDO...',
+      duration: 5000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
+  async alertSinRutinasDias(){
+    const alert = await this.alertCtrl2.create({
+      header: 'No tienes rutinas creadas para continuar',
+      message: 'Quieres crear ahora una rutina?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (option) => {
+            console.log("Cancelar");
+          }
+        },
+        {
+          text: 'Continuar',
+          role: 'continue',
+          handler: (option) => {
+            console.log("Continuar");
+            //Redireccionar a crear rutina dia.
+            this.navCtrl.navigateForward('/exercices');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
 
 }

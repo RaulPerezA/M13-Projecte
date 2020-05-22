@@ -164,16 +164,16 @@ public class RutinaDiaController {
 	@GetMapping(path = "/rutina/cambiarDia")
 	public @ResponseBody RutinaDia getChangeDay(@RequestParam String user) {
 
-		List<RutinaDia> rutinasUser = repository.findByUserName(user);
 
-		for (RutinaDia rd : rutinasUser) {
-			if (rd.isActiva()) {
-				System.out.println(rd.getDiaSeguimiento());
-				System.out.println(rd.getRutinasDias().size());
-				if (rd.getDiaSeguimiento() + 1 < rd.getRutinasDias().size()) {
-					rd.setDiaSeguimiento(rd.getDiaSeguimiento() + 1);
-				} else {
-					rd.setDiaSeguimiento(0);
+		List<RutinaDia> rutinasUser= repository.findByUserName(user);
+		
+		for (RutinaDia rd: rutinasUser) {
+			if(rd.isActiva()) { 
+				if(rd.getDiaSeguimiento()+1<rd.getRutinasDias().size()) {
+					rd.setDiaSeguimiento(rd.getDiaSeguimiento()+1);
+				}
+				else {
+					rd.setDiaSeguimiento(0);					
 				}
 				repository.save(rd);
 				return rd;
