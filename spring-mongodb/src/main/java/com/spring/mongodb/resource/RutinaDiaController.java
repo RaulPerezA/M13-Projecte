@@ -115,8 +115,6 @@ public class RutinaDiaController {
 		
 		for (RutinaDia rd: rutinasUser) {
 			if(rd.isActiva()) { 
-				System.out.println(rd.getDiaSeguimiento());
-				System.out.println(rd.getRutinasDias().size());
 				if(rd.getDiaSeguimiento()+1<rd.getRutinasDias().size()) {
 					rd.setDiaSeguimiento(rd.getDiaSeguimiento()+1);
 				}

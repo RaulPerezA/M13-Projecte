@@ -45,6 +45,7 @@ export class InitroutinePage implements OnInit {
   posicionSerie:number=0;
   posicionEjercicio:number=0;
   numSec:number=0;
+  acabada:boolean=false;
   
 
   //implements para el time
@@ -163,6 +164,7 @@ export class InitroutinePage implements OnInit {
     if(this.timer<-1){
       this.posicion++;
       if(this.posicion==this.rutinas.length-1){
+        this.acabada=true;
         this.rutinaAcabada();
       }
       else{
@@ -191,7 +193,6 @@ export class InitroutinePage implements OnInit {
   rutinaAcabada(){
     this.tempo=false;
     this.titulo="TERMINADO"
-    this.time.next('00:00');
     console.log("DIA FINALIZADO");
     this.storage.get('user').then((usuario)=>{
       

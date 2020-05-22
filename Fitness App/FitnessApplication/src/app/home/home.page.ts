@@ -13,6 +13,7 @@ import { Rutina } from '../Objects/Rutina';
 import { RoutineService } from '../routine.service'; 
 import { Ejercicio } from '../Objects/Ejercicio';
 import { ExerciseService } from '../exercise.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -56,7 +57,7 @@ export class HomePage {
 
 
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService, private routineService:RoutineService, private exerciseService:ExerciseService) {
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService, private routineService:RoutineService, private exerciseService:ExerciseService, private loadingController: LoadingController) {
 
     this.today = new Date().toISOString();
     
@@ -179,6 +180,7 @@ export class HomePage {
         console.log("this.datos",this.datos);
         this.storage.set('user',datos);
       });
+      this.presentLoading();
       this.recipes();
       this.routines(this.email);
       this.exercises();
@@ -208,6 +210,7 @@ export class HomePage {
     promesaRegister = this.resultRegister.toPromise();
 
     if(await promesaRegister===true){
+      this.presentLoading();
       this.recipes();
       this.routines(this.user.getUsername());
       this.exercises();
@@ -281,6 +284,16 @@ export class HomePage {
     
   }
 
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'CARGANDO...',
+      duration: 5000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
 
   saveCredentials() {
       
