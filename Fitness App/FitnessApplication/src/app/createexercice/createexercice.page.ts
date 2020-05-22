@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
 import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-
+import { CreateExerciceService } from '../create-exercice.service';
 
 @Component({
   selector: 'app-createexercice',
@@ -15,6 +15,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class CreateexercicePage implements OnInit {
 
+  idGeneral:string;
   textoBuscar:string;
   filter: boolean = false;
   chipsSelected: boolean[] = [false,false,false,false,false,false];
@@ -25,7 +26,7 @@ export class CreateexercicePage implements OnInit {
   ejercicios:Array<RutinaEjercicio> = [];
   rEjercicio:FormGroup;
 
-  constructor(private exerciceService: ExerciseService, private storage:Storage, private navCtrl:NavController, private formBuilder:FormBuilder) {
+  constructor(private exerciceService: ExerciseService, private storage:Storage, private navCtrl:NavController, private formBuilder:FormBuilder, private createExerciceService:CreateExerciceService) {
 
     this.rEjercicio = this.formBuilder.group({
      ejercicios: [this.ejercicios]  
@@ -44,7 +45,7 @@ export class CreateexercicePage implements OnInit {
       for(let i of ejercicios) {
 
         console.log("i",i);
-        this.ejercicio = new Ejercicio(i.ejercicio, i.imagen, i.video, i.descripcion, i.dificultad, i.especificacion, i.grupoMuscular);
+        this.ejercicio = new Ejercicio(i._id,i.ejercicio, i.imagen, i.video, i.descripcion, i.dificultad, i.especificacion, i.grupoMuscular);
 
         this.exercices.push(this.ejercicio);
 
@@ -52,6 +53,11 @@ export class CreateexercicePage implements OnInit {
 
     });
 
+  }
+
+  ionViewWillEnter() {
+    console.log("Vamos a entrar");
+    this.ejercicios.push(this.createExerciceService.getExercice());
   }
 
   ngOnDestroy() {}
@@ -77,7 +83,31 @@ export class CreateexercicePage implements OnInit {
   }
 
   create() {
-    console.log("this.rEjercicio",this.rEjercicio.value);    
+      
+    //Eliminar elemento undefined del array.
+    this.ejercicios.reverse();
+    for(let i of this.ejercicios){
+      if(i===undefined){
+        console.log("undefined");
+        this.ejercicios.pop();
+      }
+      else {
+        console.log(i);
+      }
+    }
+    this.ejercicios.reverse();
+    console.log("this.ejercicios",this.ejercicios);
+
+    //Guardar array de ejercicios en la BD
+    this.storage.get('idGeneral').then(id => {
+      let observable:Observable<any>;
+      observable = this.createExerciceService.saveExercices(id,this.ejercicios);
+      observable.toPromise().then( datos => {
+       console.log("datos",datos);
+      });
+    });
+    
+    
   }
 
 }
