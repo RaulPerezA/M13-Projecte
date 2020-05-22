@@ -9,6 +9,6 @@
 
 
 <ion-content>
-  <ion-card *ngFor="let i of exercices">{{i}}<ion-icon name="pencil-outline" (click)="editDaily()"></ion-icon></ion-card>
+  <ion-card *ngFor="let i of exercices">{{i.nombre}}<ion-icon name="pencil-outline"></ion-icon></ion-card>
   <ion-fab-button size="small" (click)="createExercice()">+</ion-fab-button>
 </ion-content>
