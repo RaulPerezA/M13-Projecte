@@ -90,13 +90,11 @@ const routes: Routes = [
   {
     path: 'createexercice',
     loadChildren: () => import('./createexercice/createexercice.module').then( m => m.CreateexercicePageModule)
-  },  {
+  },
+  {
     path: 'configure-exercice',
     loadChildren: () => import('./configure-exercice/configure-exercice.module').then( m => m.ConfigureExercicePageModule)
   }
-
-
-
 ];
 
 @NgModule({
