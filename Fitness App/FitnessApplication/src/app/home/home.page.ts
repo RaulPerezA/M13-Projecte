@@ -147,7 +147,7 @@ export class HomePage {
 
   //Establecer pagina raiz al loguearse.
   async login() {
-
+    this.presentLoading();
     //RECOGER CAMPOS DEL FORMULARIO LOGIN
     console.log("usernamemail",this.loginForm.value.emailusername);
     console.log("password",this.loginForm.value.password);
@@ -180,7 +180,6 @@ export class HomePage {
         console.log("this.datos",this.datos);
         this.storage.set('user',datos);
       });
-      this.presentLoading();
       this.recipes();
       this.routines(this.email);
       this.exercises();
@@ -194,7 +193,7 @@ export class HomePage {
 
   //Establecer pagina raiz al registrarse.
   async register() {
-    
+    this.presentLoading();
     console.log(this.registerForm.value);
     
     this.user = new User(this.registerForm.value.name,this.registerForm.value.surnames,this.registerForm.value.email,this.registerForm.value.username,this.registerForm.value.password,this.registerForm.value.birthdate,this.registerForm.value.weight,this.registerForm.value.height);
@@ -210,7 +209,6 @@ export class HomePage {
     promesaRegister = this.resultRegister.toPromise();
 
     if(await promesaRegister===true){
-      this.presentLoading();
       this.recipes();
       this.routines(this.user.getUsername());
       this.exercises();
