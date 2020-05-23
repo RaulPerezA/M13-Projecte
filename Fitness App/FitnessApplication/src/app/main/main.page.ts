@@ -128,7 +128,7 @@ export class MainPage implements OnInit {
                 else{
                   this.rutina = new Rutina(datos.nombre, datos.userName, datos.rutinasDias, datos.activa, datos.diaSeguimiento, datos.fechaCreacion, datos.fechaModificacion);
                   if(this.rutina.getRutinaDias().length>0){
-                    this.navCtrl.navigateRoot('/continueroutine');
+                    this.navCtrl.navigateForward('/continueroutine');
                   }
                   else{
                     this.alertSinRutinasDias();

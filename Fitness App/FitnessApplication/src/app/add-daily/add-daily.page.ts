@@ -17,8 +17,10 @@ export class AddDailyPage implements OnInit {
   _idGeneral:string;
   formDaily: FormGroup;
   ejercicios:Array<RutinaEjercicio> = [];
+
   constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private dailyService: DailyrutineService, private storage: Storage) { 
 
+    //Formulario con los datos que se recogeran.
     this.formDaily = this.formBuilder.group({
       name: ['',Validators.required],
       ejercicios: [this.ejercicios]
@@ -26,6 +28,7 @@ export class AddDailyPage implements OnInit {
 
   }
 
+  //Inicialicamos la pagina y recogemos la id de la rutina general mediante el storage, luego la almacenamos en una variable para poder usarla.
   ngOnInit() {
     this.storage.get('idGeneral').then(id => {
       console.log("id de la general",id);
@@ -33,6 +36,7 @@ export class AddDailyPage implements OnInit {
     });
   }
 
+  //Metodo para insertar la rutina diaria creada en la base de datos, esta rutina se incrustara en el documento que tenga la id de la rutina general que hemos guardado en _idGeneral.
   listExercice() {
 
     //Insertar la rutina diaria en la base de datos.
@@ -43,6 +47,7 @@ export class AddDailyPage implements OnInit {
 
 
     console.log(this.formDaily.value);
+    //Navegamos a la siguiente página mediante el nav controller.
     this.navCtrl.navigateForward('listexercice');
   }
 

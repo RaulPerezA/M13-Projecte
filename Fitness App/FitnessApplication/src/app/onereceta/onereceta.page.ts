@@ -65,10 +65,13 @@ export class OnerecetaPage implements OnInit {
 
   constructor(private storage:Storage) { }
 
+  
   ngOnInit() {
     this.storage.get('recetaEnter').then((receta)=>{
       console.log('recetaEnter',receta);
+      
       this.receta= new Receta(receta.receta, receta.alimentos, receta.explicacion, receta.tipoReceta, receta.calorias);
+      
       this.recogerReceta(this.receta);
     })
    

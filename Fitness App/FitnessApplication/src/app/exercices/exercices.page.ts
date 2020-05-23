@@ -23,13 +23,16 @@ export class ExercicesPage implements OnInit {
 
    }
 
+   //Inicializamos la página
   ngOnInit() {
-
+    //Declaramos un nuevo array de rutinas generales.
     this.rutinas = new Array<Rutina>();
 
+    //Obtenemos las rutinas generales
     this.storage.get('rutinas').then(rutinas => {
       console.log("rutina",rutinas);
       
+      //Recorremos las rutinas obtenidas y las almacenamos en un array para poder mostrarlas en el HTML.
       for(let r of rutinas){
         this.rutinas.push(r);
       }
@@ -44,6 +47,7 @@ export class ExercicesPage implements OnInit {
     console.log("Pagina de creación/modificación de ejercicio destruido.");
   }
 
+  //Método que nos redirecciona a la página para crear una nueva rutina general.
   addGeneral() {
     this.navCtrl.navigateForward('/addgeneral');
   }

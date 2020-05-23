@@ -14,19 +14,24 @@ export class ListexercicePage implements OnInit {
   exercices:Array<RutinaDia>;
   constructor(private navCtrl: NavController, private storage:Storage) { }
 
+  //Inicializamos la página.
   ngOnInit() {
 
+    //Inicializamos un nuevo array de ejercicios que tiene una rutina dia.
     this.exercices = new Array<RutinaDia>();
     this.storage.get('dailyGeneral').then( general => {
+      //Recorremos con un for los datos que obtenemos del storage.
       for(let r of general.rutinasDias){
          for(let e of r.ejercicios){
-           this.exercices.push(e);
+          //Añadimos a un array los ejercicios que hemos obtenido. 
+          this.exercices.push(e);
          }
       }
     });
 
   }
 
+  //Método que nos redirecciona a la página donde podremos crear una nueva rutina de ejercicios.
   createExercice() {
     console.log("createexercice");
     this.navCtrl.navigateForward('/createexercice');

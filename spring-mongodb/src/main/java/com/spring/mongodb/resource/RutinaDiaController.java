@@ -135,7 +135,7 @@ public class RutinaDiaController {
 	/*
 	 * Añade un conjunto de ejercicios a una rutina diaria.
 	 */	
-	@CrossOrigin(origins = "http://localhost:8100")
+	/*@CrossOrigin(origins = "http://localhost:8100")
 	@GetMapping(path = "/rutina/saveExercice")
 	public @ResponseBody RutinaDia createDaily(@RequestParam String idGeneral, @RequestParam ArrayList<RutinaEjercicio> ejercicios) {
 
@@ -153,7 +153,7 @@ public class RutinaDiaController {
 		
 		
 		return null;
-	}
+	}*/
 	
 	
 	

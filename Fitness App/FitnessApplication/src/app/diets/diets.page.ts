@@ -17,18 +17,22 @@ export class DietsPage implements OnInit {
   recetasArr=[];
   constructor(private storage:Storage, private recipesService:RecipesService, private navCtrl: NavController) { }
 
+  
   ngOnInit() {
     this.storage.get('recetas').then((recetas)=>{
       console.log('recetas',recetas);
       for(let data of recetas) {
+        
         this.receta= new Receta(data.receta, data.alimentos, data.explicacion, data.tipoReceta, data.calorias);
        
+
         this.recetasAll.push(this.receta);
         this.recetasArr.push(this.receta.getReceta());
-        //this.recetasArr[this.receta.getReceta()];
+       
       }
     })
   }
+
 
   ngOnDestroy() {
     console.log("Pagina de dietas destruida.");
@@ -36,8 +40,9 @@ export class DietsPage implements OnInit {
 
   select(index:number) {
     console.log("number",index);
+   
     this.storage.set('recetaEnter',this.recetasAll[index]);
-    //this.navCtrl.navigateRoot('/onereceta');
+   
     this.navCtrl.navigateForward('/onereceta');
   }
 
