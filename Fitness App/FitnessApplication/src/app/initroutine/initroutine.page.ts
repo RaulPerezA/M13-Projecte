@@ -108,6 +108,7 @@ export class InitroutinePage implements OnInit {
   }
 
   ngOnDestroy(){
+    this.stopTimer();
     console.log("Se ha destruido la pagina de continuar rutina");
   }
 

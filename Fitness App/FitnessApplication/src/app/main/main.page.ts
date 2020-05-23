@@ -109,6 +109,7 @@ export class MainPage implements OnInit {
           text: 'Continuar',
           role: 'continue',
           handler: (option) => {
+            this.presentLoading();
             console.log("Continuar");
             this.storage.get('user').then((usuario)=>{
               console.log('usuario',usuario);
@@ -127,7 +128,6 @@ export class MainPage implements OnInit {
                 else{
                   this.rutina = new Rutina(datos.nombre, datos.userName, datos.rutinasDias, datos.activa, datos.diaSeguimiento, datos.fechaCreacion, datos.fechaModificacion);
                   if(this.rutina.getRutinaDias().length>0){
-                    this.presentLoading();
                     this.navCtrl.navigateRoot('/continueroutine');
                   }
                   else{
@@ -174,7 +174,7 @@ export class MainPage implements OnInit {
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'CARGANDO...',
-      duration: 5000
+      duration: 1000
     });
     await loading.present();
 
