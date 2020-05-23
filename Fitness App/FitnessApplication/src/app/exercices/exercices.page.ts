@@ -48,4 +48,11 @@ export class ExercicesPage implements OnInit {
     this.navCtrl.navigateForward('/addgeneral');
   }
 
+  //Añadir la rutina general seleccionada al storage para poder mostrar sus rutinas diarias
+  goToGeneral(evento) {
+    console.log("evento",evento);
+    this.storage.set('dailyGeneral',evento);
+    this.navCtrl.navigateForward('/editgeneral');
+  }
+
 }

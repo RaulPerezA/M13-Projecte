@@ -10,7 +10,7 @@
 <ion-content>
   <div>
 
-    <ion-card *ngFor="let r of rutinas">{{r.nombre}}</ion-card>
+    <ion-card *ngFor="let r of rutinas" (click)="goToGeneral(r)">{{r.nombre}}</ion-card>
     <ion-fab-button size="small" (click)="(addGeneral())">+</ion-fab-button>
 
   </div>
