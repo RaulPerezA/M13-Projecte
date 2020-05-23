@@ -60,33 +60,37 @@ export class OnerecetaPage implements OnInit {
   alimentosData=[];
   recetaCalorias:string;
   tipoReceta:string;
+  imagen:string;
   
   
 
   constructor(private storage:Storage) { }
 
+  //Inicializamos la página
   ngOnInit() {
+    //Obtenemos los datos de la receta seleccionada
     this.storage.get('recetaEnter').then((receta)=>{
       console.log('recetaEnter',receta);
-      this.receta= new Receta(receta.receta, receta.alimentos, receta.explicacion, receta.tipoReceta, receta.calorias);
+      //Creamos el objeto receta con los datos obtenidos.
+      this.receta=receta;
+      //this.receta= new Receta(receta.receta, receta.alimentos, receta.explicacion, receta.tipoReceta, receta.calorias, receta.imagen);
+      //Le pasamos la receta al método recogerReceta.
       this.recogerReceta(this.receta);
-    })
-   
-
-
+    });
   }
 
+  //Destruimos la página al abandonarla.
   ngOnDestroy() {
     console.log("Pagina de la receta destruida.");
   }
 
+  //Método que nos permite obtener los datos de la receta pasada como parámetro.
   recogerReceta(receta:Receta){
-    
-    this.recetaNombre=receta.getReceta();
-    this.recetaExpl=receta.getExplicacion();
-    this.alimentosData=receta.getAlimentos();
-    this.recetaCalorias=receta.getCalorias();
-    this.tipoReceta=receta.getTipoReceta();
+    this.recetaNombre=receta['receta'];
+    this.recetaExpl=receta['explicacion'];
+    this.alimentosData=receta['alimentos'];
+    this.tipoReceta=receta['tipoReceta'];
+    this.recetaCalorias=receta['calorias'];
+    this.imagen=receta['imagen'];
   }
-
 }
