@@ -8,12 +8,15 @@ import { DietsPageRoutingModule } from './diets-routing.module';
 
 import { DietsPage } from './diets.page';
 
+import { PipesModule } from '../pipes/pipes.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DietsPageRoutingModule
+    DietsPageRoutingModule,
+    PipesModule
   ],
   declarations: [DietsPage]
 })
