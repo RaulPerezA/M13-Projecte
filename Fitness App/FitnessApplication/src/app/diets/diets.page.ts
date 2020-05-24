@@ -20,25 +20,28 @@ export class DietsPage implements OnInit {
 
   constructor(private storage:Storage, private recipesService:RecipesService, private navCtrl: NavController) { }
 
+
   //Inicializamos la página y obtenemos las recetas del storage.
   ngOnInit() {
     this.textoBuscar='';
     this.storage.get('recetas').then((recetas)=>{
       console.log('recetas',recetas);
       for(let data of recetas) {
+
         //Creamos una receta con los datos de lstorage.
         this.receta= new Receta(data.receta, data.alimentos, data.explicacion, data.tipoReceta, data.calorias, data.imagen);
-        
         //Añadimos las recetas a los arrays.
         this.recetas.push(this.receta);
       }
     });
   }
 
+
   //Destruimos la página cuando la abandonamos.
   ngOnDestroy() {
     console.log("Pagina de dietas destruida.");
   }
+
 
   //Método que nos permite obtener la posición de la receta que hemos seleccionado
   select(receta:Receta) {

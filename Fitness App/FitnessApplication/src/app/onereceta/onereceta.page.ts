@@ -66,11 +66,13 @@ export class OnerecetaPage implements OnInit {
 
   constructor(private storage:Storage) { }
 
+
   //Inicializamos la página
   ngOnInit() {
     //Obtenemos los datos de la receta seleccionada
     this.storage.get('recetaEnter').then((receta)=>{
       console.log('recetaEnter',receta);
+
       //Creamos el objeto receta con los datos obtenidos.
       this.receta=receta;
       //this.receta= new Receta(receta.receta, receta.alimentos, receta.explicacion, receta.tipoReceta, receta.calorias, receta.imagen);

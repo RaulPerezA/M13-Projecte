@@ -32,17 +32,17 @@
     </ion-card>
 
     <ion-card *ngIf="timeBoolean==true">
-      <ion-input type="number" formControlName="segundos" placeholder="Segundos"></ion-input>
+      <ion-input type="number" min="1" formControlName="segundos" placeholder="Segundos"></ion-input>
     </ion-card>
     <ion-card *ngIf="seriesBoolean==true">
-      <ion-input type="number" formControlName="repeticiones" placeholder="Repeticiones"></ion-input>
+      <ion-input type="number" min="1" formControlName="repeticiones" placeholder="Repeticiones"></ion-input>
     </ion-card>
     <ion-card>
-      <ion-input type="number" *ngIf="seriesBoolean==true || timeBoolean==true" formControlName="series" placeholder="Series"></ion-input>
+      <ion-input type="number" min="1" *ngIf="seriesBoolean==true || timeBoolean==true" formControlName="series" placeholder="Series"></ion-input>
     </ion-card>
 
     <ion-card>
-      <ion-input type="number" formControlName="descanso" placeholder="Segundos de descanso entre serie"></ion-input>
+      <ion-input type="number" min="1" formControlName="descanso" placeholder="Segundos de descanso entre serie"></ion-input>
     </ion-card>
 
     <div>

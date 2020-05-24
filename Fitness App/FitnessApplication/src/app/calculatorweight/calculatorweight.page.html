@@ -3,27 +3,57 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Calculadora de peso</ion-title>
+    <ion-title>Calculadora IMC</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <form [formGroup]="formWeight">
-    <ion-card>
-      <ion-input type="text" formControlName="sexo" placeholder="Sexo"></ion-input>
-    </ion-card>
-  
-    <ion-card>
-      <ion-input type="number" formControlName="estatura" placeholder="Estatura"></ion-input>
-    </ion-card>
-  </form>
+  <h2>Sexo</h2>
+  <ion-radio-group value="biff">
+    <div class="divs">
+      <ion-card class="cards">
+        <ion-item>
+          <ion-label>Hombre</ion-label>
+            <ion-radio slot="start" value="hombre" (ionFocus)="radioSelected('hombre')"></ion-radio>
+          </ion-item>
+      </ion-card>
+      <ion-card>
+        <ion-item>
+          <ion-label>Mujer</ion-label>
+            <ion-radio slot="start" value="mujer" (ionFocus)="radioSelected('mujer')"></ion-radio>
+          </ion-item>
+        </ion-card>
+    </div>
+  </ion-radio-group>
+    
+    <div class="formulario">
+      <form [formGroup]="formWeight">
+        <div>
+          <ion-card class="card">
+            <ion-input type="number" formControlName="estatura" placeholder="Altura(cm)"></ion-input>
+          </ion-card>
+        </div>
+      </form>
+    </div>
   
   <div>
     <ion-button (click)="calc()">Calcular</ion-button>
   </div>
 
-  <ion-card class="card">Peso mínimo (kg): {{rangoM}}</ion-card>
-  <ion-card class="card">Peso máximo (kg): {{rangoF}}</ion-card>
+    <div class="divs">
+      <ion-card class="imc">
+        <ion-label>
+          IMC mínimo (kg) {{rangoM}}
+        </ion-label>
+      </ion-card>
+      <ion-card class="imc">
+        <ion-label>
+          IMC máximo (kg) {{rangoF}}
+        </ion-label>
+      </ion-card>
+    </div>
+  
+  
 
 </ion-content>

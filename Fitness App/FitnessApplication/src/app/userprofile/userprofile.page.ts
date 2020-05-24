@@ -19,7 +19,7 @@ export class UserprofilePage implements OnInit {
   user:User;
   username:String;
   userData = [];
-  info = ["Nombre", "Apellidos", "Altura", "Peso"];
+  info = ["Nombre", "Apellidos", "Altura (cm)", "Peso (kg)"];
   edit:boolean = false;
   formedit: FormGroup;
   placeholders = ["name","surnames","height","weight"];
@@ -35,6 +35,7 @@ export class UserprofilePage implements OnInit {
       this.userData = [this.user.getName(), this.user.getSurnames(), this.user.getHeight(), this.user.getWeight()];
     });
 
+    //Obtener los datos que ha introducido el usuario en los campos del formulario.
     this.formedit = this.formbuilder.group({
       name: [''],
       surnames: [''],
@@ -45,15 +46,18 @@ export class UserprofilePage implements OnInit {
 
   }
 
+  //Destruimos la página al abandonarla.
   ngOnDestroy() {
     console.log("Pagina de perfil destruida.");
   }
 
+  //Método que nos permite editar el perfil de usuario.
   editData() {
     console.log("Has clicado en editar perfil del usuario");
     this.edit = !this.edit;
   }
 
+  //Método que nos permite guardar los campos que ha introducido el usuario en el formulario.
   save():void {
     this.edit = !this.edit;
     //Guardar datos en la base de datos
@@ -163,6 +167,7 @@ export class UserprofilePage implements OnInit {
 
   }
 
+  //Cambia los campos del perfil de usuario por los intrducidos en el formulario
   persistData(name:string, surnames:string, weight:number, height:number):void {
     this.userData = [name, surnames, weight, height];
     this.storage.remove('user');
@@ -171,6 +176,7 @@ export class UserprofilePage implements OnInit {
 
   }
 
+  //Método que permite seleccionar una imagen de perfil de usuario.
   selectImage() {
     console.log("hola");
   }
