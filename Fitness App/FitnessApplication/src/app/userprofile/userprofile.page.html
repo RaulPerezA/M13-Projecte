@@ -24,7 +24,7 @@
   <ion-card *ngFor="let data of userData; let i = index" >
     <ion-item lines="none">
       <ion-label *ngIf="edit==false">{{info[i]}}: {{data}} </ion-label>
-      <ion-input formControlName="{{placeholders[i]}}" placeholder="{{data}}" *ngIf="edit==true">{{info[i]}}:  </ion-input>
+      <ion-input formControlName="{{placeholders[i]}}" placeholder="{{data}}" *ngIf="edit==true">{{info[i]}}: </ion-input>
     </ion-item>
   </ion-card>
 </form>
