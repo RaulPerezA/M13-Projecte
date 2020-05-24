@@ -1,7 +1,8 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button *ngIf="state === 'start'" disabled></ion-back-button>
+      <ion-back-button *ngIf="state === 'stop'"></ion-back-button>
     </ion-buttons>
     <ion-title>{{titulo | uppercase}}</ion-title>
   </ion-toolbar>

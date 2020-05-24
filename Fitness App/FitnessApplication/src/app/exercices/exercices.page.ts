@@ -59,4 +59,8 @@ export class ExercicesPage implements OnInit {
     this.navCtrl.navigateForward('/editgeneral');
   }
 
+  removeExercise(evento){
+    //AQUI TENDRÁ QUE ELIMINAR EL OBJETO SELECCIONADO
+  }
+
 }
