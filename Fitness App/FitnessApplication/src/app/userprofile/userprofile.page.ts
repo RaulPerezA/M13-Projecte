@@ -60,119 +60,177 @@ export class UserprofilePage implements OnInit {
   //Método que nos permite guardar los campos que ha introducido el usuario en el formulario.
   save():void {
     this.edit = !this.edit;
-    //Guardar datos en la base de datos
-    console.log("objecto usuario",this.user);
-    console.log("username",this.username);
-    console.log("formulario",this.formedit.value);
+    let nombre:boolean=false;
+    let apellidos:boolean=false;
+    let altura:boolean=false;
+    let peso:boolean=false;
 
-    //Detectar que campos del formulario estan vacios
-    if(this.formedit.value.name=="" && this.formedit.value.surnames=="" && this.formedit.value.height=="" && this.formedit.value.weight==""){
-      console.log("todos los campos estan vacios, no se ha modificado nada");
-      this.observer = this.userService.editUser(this.username.toString(), this.user.getName().toString(), this.user.getSurnames().toString(), this.user.getHeight(), this.user.getWeight());
-      this.persistData(this.user.getName().toString(), this.user.getSurnames().toString(), this.user.getHeight(), this.user.getWeight());
+    //Comprobar los campos que estan rellenados
+    if(this.formedit.value.name===null ||this.formedit.value.name===""){
+      console.log("nombre vacio");
+      nombre=true;
     }
-
-    else if(this.formedit.value.name=="" && this.formedit.value.surnames=="" && this.formedit.value.height==""){
-      console.log("el nombre, apellido y altura estan vacios");
-      this.observer = this.userService.editUser(this.username.toString(), this.user.getName().toString(), this.user.getSurnames().toString(), this.user.getHeight(), this.formedit.value.weight);
-      this.persistData(this.user.getName().toString(), this.user.getSurnames().toString(), this.user.getHeight(), this.formedit.value.weight);
+    if(this.formedit.value.surnames===null ||this.formedit.value.surnames===""){
+      console.log("surnames vacio");
+      apellidos=true;
     }
-
-    else if(this.formedit.value.name=="" && this.formedit.value.height=="" && this.formedit.value.weight==""){
-      this.observer = this.userService.editUser(this.username.toString(), this.user.getName().toString(), this.formedit.value.surnames, this.user.getHeight(), this.user.getWeight());
-      this.persistData(this.user.getName().toString(), this.user.getSurnames().toString(), this.user.getHeight(), this.formedit.value.weight);
+    if(this.formedit.value.height===null ||this.formedit.value.height===""){
+      console.log("height vacio");
+      altura=true;
     }
-
-    else if(this.formedit.value.name=="" && this.formedit.value.surnames=="" && this.formedit.value.weight==""){
-      console.log("el nombre, apellido y peso estan vacios");
-      this.observer = this.userService.editUser(this.username.toString(), this.user.getName().toString(), this.user.getSurnames().toString(), this.formedit.value.height, this.user.getWeight());
-      this.persistData(this.user.getName().toString(), this.user.getSurnames().toString(), this.formedit.value.height, this.user.getWeight());
+    if(this.formedit.value.weight===null ||this.formedit.value.weight===""){
+      console.log("weight vacio");
+      peso=true;
     }
     
-    else if(this.formedit.value.surnames=="" && this.formedit.value.weight=="" && this.formedit.value.height=="") {
-      console.log("los apellidos, peso y altura estan vacios");
-      this.observer = this.userService.editUser(this.username.toString(), this.formedit.value.name, this.user.getSurnames().toString(), this.user.getHeight(), this.user.getWeight());
-      this.persistData(this.formedit.value.name, this.user.getSurnames().toString(), this.user.getHeight(), this.user.getWeight());
+    //Editar campos del usuario
+    if(nombre && apellidos && altura && peso){
+      console.log("todo");
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.user.getName(),this.user.getSurnames(),this.user.getHeight(),this.user.getWeight());
+      this.user.setName(this.user.getName());
+      this.user.setSurnames(this.user.getSurnames());
+      this.user.setHeight(this.user.getHeight());
+      this.user.setWeight(this.user.getWeight());
     }
+    else if(nombre && apellidos && altura){
+      console.log("nombre",nombre);
+      console.log("apellido",apellidos);
+      console.log("altura",altura);
+      console.log("usuario",this.user);
+      console.log("pesito",this.formedit.value.weight);
+      this.observer = this.userService.editUser(this.username.toString(),this.user.getName(),this.user.getSurnames(),this.user.getHeight(),this.formedit.value.weight);
+      this.user.setWeight(this.formedit.value.weight);
+    }
+    else if(nombre && peso && altura){
+      console.log("nombre",nombre);
+      console.log("peso",peso);
+      console.log("altura",altura);
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.user.getName(),this.formedit.value.surnames,this.user.getHeight(),this.user.getWeight());
+      this.user.setSurnames(this.formedit.value.surnames);
 
-    else if(this.formedit.value.name=="" && this.formedit.value.weight=="") {
-      console.log("el nombre y el peso estan vacios");
-      this.observer = this.userService.editUser(this.username.toString(), this.user.getName().toString(), this.formedit.value.surnames, this.formedit.value.height, this.user.getWeight());
-      this.persistData(this.user.getName().toString(), this.formedit.value.surnames, this.formedit.value.height, this.user.getWeight());
     }
-
-    else if(this.formedit.value.surnames=="" && this.formedit.value.weight=="") {
-      console.log("los apellidos, peso estan vacios");
-      this.observer = this.userService.editUser(this.username.toString(), this.formedit.value.name, this.user.getSurnames().toString(), this.formedit.value.height, this.user.getWeight());
-      this.persistData(this.formedit.value.name, this.user.getSurnames().toString(), this.formedit.value.height, this.user.getWeight());
+    else if(nombre && apellidos && peso){
+      console.log("nombre",nombre);
+      console.log("apellido",apellidos);
+      console.log("peso",peso);
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.user.getName(),this.user.getSurnames(),this.formedit.value.height,this.user.getWeight());
+      this.user.setHeight(this.formedit.value.height);
     }
-
-    else if(this.formedit.value.weight=="" && this.formedit.value.height=="") {
-      console.log("peso y altura estan vacios");
-      this.observer = this.userService.editUser(this.username.toString(), this.formedit.value.name, this.formedit.value.surnames, this.user.getHeight(), this.user.getWeight());
-      this.persistData(this.formedit.value.name, this.formedit.value.surnames, this.user.getHeight(), this.user.getWeight());
+    else if(apellidos && altura && peso){
+      console.log("apellido",apellidos);
+      console.log("peso",peso);
+      console.log("altura",altura);
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.formedit.value.name,this.user.getSurnames(),this.user.getHeight(),this.user.getWeight());
+      this.user.setName(this.formedit.value.name);
     }
-
-    else if(this.formedit.value.name=="" && this.formedit.value.height=="") {
-      console.log("el nombre y la altura estan vacios");
-      this.observer = this.userService.editUser(this.username.toString(), this.user.getName().toString(), this.formedit.value.surnames, this.user.getHeight(), this.formedit.value.weight);
-      this.persistData(this.user.getName().toString(), this.formedit.value.surnames, this.user.getHeight(), this.formedit.value.weight);
+    else if(nombre && apellidos){
+      console.log("nombre",nombre);
+      console.log("apellido",apellidos);
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.user.getName(),this.user.getSurnames(),this.formedit.value.height,this.formedit.value.weight);
+      this.user.setHeight(this.formedit.value.height);
+      this.user.setWeight(this.formedit.value.weight);
     }
-
-    else if(this.formedit.value.surnames=="" && this.formedit.value.height=="") {
-      console.log("los apellidos y altura estan vacios");
-      console.log("username",this.username);
-      this.observer = this.userService.editUser(this.username.toString(), this.formedit.value.name, this.user.getSurnames().toString(), this.user.getHeight(), this.formedit.value.weight);
-      this.persistData(this.formedit.value.name, this.user.getSurnames().toString(), this.user.getHeight(), this.formedit.value.weight);
+    else if(nombre && altura){
+      console.log("nombre",nombre);
+      console.log("altura",altura);
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.user.getName(),this.formedit.value.surnames,this.user.getHeight(),this.formedit.value.weight);
+      this.user.setWeight(this.formedit.value.weight);
+      this.user.setSurnames(this.formedit.value.surnames);
     }
-
-    else if(this.formedit.value.surnames=="" && this.formedit.value.name=="") {
-      console.log("los apellidos y el nombre estan vacios");
-      this.observer = this.userService.editUser(this.username.toString(), this.user.getName().toString(), this.user.getSurnames().toString(), this.formedit.value.height, this.formedit.value.weight);
-      this.persistData(this.user.getName().toString(), this.user.getSurnames().toString(), this.formedit.value.height, this.formedit.value.weight);
+    else if(nombre && peso){
+      console.log("nombre",nombre);
+      console.log("peso",peso);
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.user.getName(),this.formedit.value.surnames,this.formedit.value.height,this.user.getWeight());
+      this.user.setSurnames(this.formedit.value.surnames);
+      this.user.setHeight(this.formedit.value.height);
     }
-
-    else if(this.formedit.value.name==""){
-      this.observer = this.userService.editUser(this.username.toString(), this.user.getName().toString(), this.formedit.value.surnames, this.formedit.value.height, this.formedit.value.weight);
-      this.persistData(this.user.getName().toString(), this.formedit.value.surnames, this.formedit.value.height, this.formedit.value.weight);
+    else if(apellidos && peso) {
+      console.log("apellidos",apellidos);
+      console.log("peso",peso);
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.formedit.value.name,this.user.getSurnames(),this.formedit.value.height,this.user.getWeight());
+      this.user.setHeight(this.formedit.value.height);
+      this.user.setName(this.formedit.value.name);
     }
-
-    else if(this.formedit.value.surnames==""){
-      this.observer = this.userService.editUser(this.username.toString(), this.formedit.value.name, this.user.getSurnames().toString(), this.formedit.value.height, this.formedit.value.weight);
-      this.persistData(this.formedit.value.name, this.user.getSurnames().toString(), this.formedit.value.height, this.formedit.value.weight);
+    else if(apellidos && altura){
+      console.log("apellidos",apellidos);
+      console.log("altura",altura);
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.formedit.value.name,this.user.getSurnames(),this.user.getHeight(),this.formedit.value.weight);
+      this.user.setName(this.formedit.value.name);
+      this.user.setWeight(this.formedit.value.weight);
     }
-
-    else if(this.formedit.value.height==""){
-      this.observer = this.userService.editUser(this.username.toString(),  this.formedit.value.name, this.formedit.value.surnames, this.user.getHeight(), this.formedit.value.weight);
-      this.persistData(this.formedit.value.name, this.formedit.value.surnames, this.user.getHeight(), this.formedit.value.weight);
+    else if(altura && peso){
+      console.log("altura",altura);
+      console.log("peso",peso);
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.formedit.value.name,this.formedit.value.surnames,this.user.getHeight(),this.user.getWeight());
+      this.user.setName(this.formedit.value.name);
+      this.user.setSurnames(this.formedit.value.surnames);
     }
-
-    else if(this.formedit.value.weight==""){
-      this.observer = this.userService.editUser(this.username.toString(),  this.formedit.value.name, this.formedit.value.surnames, this.formedit.value.height, this.user.getWeight());
-      this.persistData(this.formedit.value.name, this.formedit.value.surnames, this.formedit.value.height, this.user.getWeight());
+    else if(nombre){
+      console.log("nombre");
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.user.getName(),this.formedit.value.surnames,this.formedit.value.height,this.formedit.value.weight);
+      this.user.setSurnames(this.formedit.value.surnames);
+      this.user.setHeight(this.formedit.value.height);
+      this.user.setWeight(this.formedit.value.weight);
     }
-    
+    else if(apellidos){
+      console.log("apellidos");
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.formedit.value.name,this.user.getSurnames(),this.formedit.value.height,this.formedit.value.weight);
+      this.user.setWeight(this.formedit.value.weight);
+      this.user.setHeight(this.formedit.value.height);
+      this.user.setName(this.formedit.value.name);
+    }
+    else if(altura){
+      console.log("altura");
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.formedit.value.name,this.formedit.value.surnames,this.user.getHeight(),this.formedit.value.weight);
+      this.user.setName(this.formedit.value.name);
+      this.user.setSurnames(this.formedit.value.surnames);
+      this.user.setWeight(this.formedit.value.weight);
+    }
+    else if(peso){
+      console.log("peso");
+      console.log("usuario",this.user);
+      this.observer = this.userService.editUser(this.username.toString(),this.formedit.value.name,this.formedit.value.surnames,this.formedit.value.height,this.user.getWeight());
+      this.user.setHeight(this.formedit.value.height);
+      this.user.setName(this.formedit.value.name);
+      this.user.setSurnames(this.formedit.value.surnames);
+    }
     else {
-      this.observer = this.userService.editUser(this.username.toString(),  this.formedit.value.name, this.formedit.value.surnames, this.formedit.value.height, this.formedit.value.weight);
-      this.persistData(this.formedit.value.name, this.formedit.value.surnames, this.formedit.value.height, this.formedit.value.weight);
+      console.log("todos los campos rellenados");
+      this.observer = this.userService.editUser(this.username.toString(),this.formedit.value.name,this.formedit.value.surnames,this.formedit.value.height,this.formedit.value.weight);
+      this.user.setHeight(this.formedit.value.height);
+      this.user.setWeight(this.formedit.value.weight);
+      this.user.setName(this.formedit.value.name);
+      this.user.setSurnames(this.formedit.value.surnames);
     }
 
-    //this.observer = this.userService.editUser(this.username.toString(), this.formedit.value.name, this.formedit.value.surnames, this.formedit.value.height, this.formedit.value.weight);
     this.observer.toPromise().then(variable => {
       console.log("variable",variable);
     });
 
+    this.persistData();
     //Limpiar campos del formulario
     this.formedit.reset();
 
   }
 
   //Cambia los campos del perfil de usuario por los intrducidos en el formulario
-  persistData(name:string, surnames:string, weight:number, height:number):void {
-    this.userData = [name, surnames, weight, height];
-    this.storage.remove('user');
-    this.user = new User(name, surnames, this.user.getEmail().toString(), this.username.toString(), this.user.getPassword().toString(), this.user.getBirthdate(), weight,height);
-    this.storage.set('user',this.user);
+  persistData():void {
+    console.log("weight",this.user.getWeight());
+    this.userData = [this.user.getName(), this.user.getSurnames(), this.user.getHeight(), this.user.getWeight()];
+    
 
   }
 
