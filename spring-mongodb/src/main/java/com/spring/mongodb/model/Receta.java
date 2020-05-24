@@ -24,6 +24,7 @@ public class Receta {
 	private String explicacion;
 	private String tipoReceta;
 	private String calorias;
+	private String imagen;
 	private Date Fecha_creacion;
 	private Date Fecha_modificacion;
 	public String get_id() {
@@ -62,6 +63,12 @@ public class Receta {
 	public void setCalorias(String calorias) {
 		this.calorias = calorias;
 	}
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	public Date getFecha_creacion() {
 		return Fecha_creacion;
 	}
@@ -75,22 +82,24 @@ public class Receta {
 		Fecha_modificacion = fecha_modificacion;
 	}
 	public Receta(String receta, List<String> alimentos, String explicacion, String tipoReceta, String calorias,
-			Date Fecha_creacion, Date Fecha_modificacion) {
+			String imagen, Date Fecha_creacion, Date Fecha_modificacion) {
 		super();
 		this.receta = receta;
 		this.alimentos = alimentos;
 		this.explicacion = explicacion;
 		this.tipoReceta = tipoReceta;
 		this.calorias = calorias;
+		this.imagen = imagen;
 		this.Fecha_creacion = Fecha_creacion;
 		this.Fecha_modificacion = Fecha_modificacion;
 	}
 	@Override
 	public String toString() {
 		return "Receta [_id=" + _id + ", receta=" + receta + ", alimentos=" + alimentos + ", explicacion=" + explicacion
-				+ ", tipoReceta=" + tipoReceta + ", calorias=" + calorias + ", Fecha_creacion=" + Fecha_creacion
-				+ ", Fecha_modificacion=" + Fecha_modificacion + "]";
+				+ ", tipoReceta=" + tipoReceta + ", calorias=" + calorias + ", imagen=" + imagen + ", Fecha_creacion="
+				+ Fecha_creacion + ", Fecha_modificacion=" + Fecha_modificacion + "]";
 	}
+	
 	
 	
 	

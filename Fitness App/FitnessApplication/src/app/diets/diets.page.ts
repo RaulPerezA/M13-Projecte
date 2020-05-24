@@ -12,38 +12,58 @@ import { NavController } from '@ionic/angular';
 })
 export class DietsPage implements OnInit {
 
-  recetasAll=[];
   receta:Receta;
-  recetasArr=[];
+  recetas:Receta[]=[];
+  textoBuscar:string;
+  filter: boolean = false;
+  chipsSelected: boolean[] = [false,false];
+
   constructor(private storage:Storage, private recipesService:RecipesService, private navCtrl: NavController) { }
 
-  
+
+  //Inicializamos la página y obtenemos las recetas del storage.
   ngOnInit() {
+    this.textoBuscar='';
     this.storage.get('recetas').then((recetas)=>{
       console.log('recetas',recetas);
       for(let data of recetas) {
-        
-        this.receta= new Receta(data.receta, data.alimentos, data.explicacion, data.tipoReceta, data.calorias);
-       
 
-        this.recetasAll.push(this.receta);
-        this.recetasArr.push(this.receta.getReceta());
-       
+        //Creamos una receta con los datos de lstorage.
+        this.receta= new Receta(data.receta, data.alimentos, data.explicacion, data.tipoReceta, data.calorias, data.imagen);
+        //Añadimos las recetas a los arrays.
+        this.recetas.push(this.receta);
       }
-    })
+    });
   }
 
 
+  //Destruimos la página cuando la abandonamos.
   ngOnDestroy() {
     console.log("Pagina de dietas destruida.");
   }
 
-  select(index:number) {
-    console.log("number",index);
-   
-    this.storage.set('recetaEnter',this.recetasAll[index]);
-   
+
+  //Método que nos permite obtener la posición de la receta que hemos seleccionado
+  select(receta:Receta) {
+    console.log("number",receta);
+     //Guardamos en el storage la receta que hemos seleccionado.
+    this.storage.set('recetaEnter',receta);
+
+    //Navegamos a la siguiente página mediante el nav controller.
     this.navCtrl.navigateForward('/onereceta');
+  }
+
+  search(event) {
+    this.textoBuscar = event.detail.value;
+  }
+
+  showFilter() {
+    this.filter = !this.filter;
+  }
+  selectChip(position: number) {
+    console.log(position);
+    this.chipsSelected[position] = !this.chipsSelected[position];
+    console.log(this.chipsSelected);
   }
 
 }

@@ -4,13 +4,15 @@ export class Receta {
 	private explicacion:string;
 	private tipoReceta:string;
 	private calorias:string;
+	private imagen:string;
  
-    constructor(receta:string, alimentos:[], explicacion:string, tipoReceta:string, calorias:string){
+    constructor(receta:string, alimentos:[], explicacion:string, tipoReceta:string, calorias:string, imagen:string){
         this.receta = receta;
         this.alimentos = alimentos;
         this.explicacion = explicacion;
         this.tipoReceta = tipoReceta;
         this.calorias = calorias;
+        this.imagen = imagen;
     }
 
     public getReceta():string{
@@ -27,5 +29,8 @@ export class Receta {
     }
     public getCalorias():string{
         return this.calorias;
+    }
+    public getImagen():string{
+        return this.imagen;
     }
 }

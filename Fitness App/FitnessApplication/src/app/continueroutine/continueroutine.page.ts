@@ -93,7 +93,7 @@ export class ContinueroutinePage implements OnInit {
         this.storage.set("rutinaDia", this.rutinaDia);
         this.storage.set('RealizarEjercicios',this.rutinaEjercicios);
         this.storage.set('EjerciciosARealizar',this.ejercicios);
-        this.navCtrl.navigateRoot('/initroutine');
+        this.navCtrl.navigateForward('/initroutine');
       }, 5000);
     }
     else{

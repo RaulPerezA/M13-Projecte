@@ -63,7 +63,7 @@ export class InitroutinePage implements OnInit {
   constructor(private storage:Storage, private router: Router, private exerciseService:ExerciseService, private alertCtrl: AlertController, private routineService:RoutineService) { }
 
   ngOnInit() {
-
+    let audio = new Audio();
     this.storage.get('EjerciciosARealizar').then((eje)=>{
       this.ejercicios=eje;
       console.log(this.ejercicios);
