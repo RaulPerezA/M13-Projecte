@@ -69,12 +69,14 @@ export class MainPage implements OnInit {
 
   //Funcion que lleva al apartado de ejercicios al clicar en un slide.
   goExercises() {
+    this.presentLoading();
     console.log("VAS A IR AL APARTADO DE EJERCICIOS.");
     this.router.navigateByUrl('/exercices');
   }
 
   //Funcion que lleva al apartado de alimentos al clicar en un slide.
   goFoods() {
+    this.presentLoading();
     console.log("VAS A IR AL APARTADO DE ALIMENTOS.");
     this.router.navigateByUrl('/diets');
   }

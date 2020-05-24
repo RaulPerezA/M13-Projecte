@@ -20,8 +20,6 @@ export class RoutineService {
   
   //Devuelve todas las rutinas de un usuario
   createRutinas(userName:string) {
-    //return this.http.get(this.RUTINAS);
-    //CUANDO SE CREE EL METODO EN SPRING HABRÁ QUE PONERLO ASI:
     return this.http.get(this.RUTINASUSUARIO+"?user="+userName);
   }
   
@@ -35,8 +33,8 @@ export class RoutineService {
     return this.http.get(this.RUTINAACTUAL+"?user="+userName+"&posicion="+posicion);
   }
   
+  //Cambia y devuelve el dia siguiente de la rutina activa del usuario que se le pasa por parametro.
   cambiarDia(userName:string){
     return this.http.get(this.CAMBIARDIA+"?user="+userName);
   }
-
 }

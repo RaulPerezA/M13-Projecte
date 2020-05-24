@@ -5,7 +5,7 @@ import { RutinaEjercicio } from './Objects/RutinaEjercicio';
 @Injectable({
   providedIn: 'root'
 })
-export class CreateExerciceService {
+export class RoutineExercise {
 
   constructor(private http:HttpClient) { }
 
