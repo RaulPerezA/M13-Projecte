@@ -111,7 +111,7 @@ public class UsuarioController {
 	// Editar usuario
 		@CrossOrigin(origins = "http://localhost:8100")
 		@GetMapping("/Usuario/edituser")
-		public @ResponseBody boolean editUser(@RequestParam String usuario, @RequestParam String nombre, @RequestParam String apellidos,
+		public @ResponseBody Usuario editUser(@RequestParam String usuario, @RequestParam String nombre, @RequestParam String apellidos,
 				@RequestParam int altura, @RequestParam int peso) {
 
 			System.out.println("Pasa por el edit User");
@@ -129,10 +129,10 @@ public class UsuarioController {
 				System.out.println(uname.get());
 				Usuario user = uname.get();
 				repository.save(user);
-				return true;
+				return user;
 			}
 
-			return false;
+			return null;
 
 			/*
 			 * Optional<Usuario> u = repository.findById(user); if (u.isPresent()) { b =

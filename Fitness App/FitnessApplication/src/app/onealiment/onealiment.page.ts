@@ -14,6 +14,7 @@ export class OnealimentPage implements OnInit {
 
   constructor(private storage:Storage) { }
 
+  //Inicializamos la página.
   ngOnInit() {
      //Acceder al storage para obtener los datos de la aliment.
     /* this.storage.get('aliment').then((aliment)=>{
@@ -23,6 +24,7 @@ export class OnealimentPage implements OnInit {
     })*/
   }
 
+  //Destruimos la página cuando la abandonamos.
   ngOnDestroy() {
     console.log("Pagina de la aliment destruida.");
   }

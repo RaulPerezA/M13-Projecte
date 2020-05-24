@@ -22,6 +22,7 @@ export class AddgeneralPage implements OnInit {
 
   constructor(private navCtrl: NavController, private storage:Storage, private formBuilder:FormBuilder, private gService:GeneralRutineService) {
 
+    //Formulario para obtener los datos introducidos por el usuario, con ellos podremos crear la rutina general.
     this.generalForm = this.formBuilder.group({
       name: ['',Validators.required],
       activa: ['',Validators.required],
@@ -30,6 +31,7 @@ export class AddgeneralPage implements OnInit {
 
    }
 
+   //Creamos la página y inicialicamos un booleano a falso y recogemos del storage el username del usuario que se ha logueado.
   ngOnInit() {
     this.activa = false;
 
@@ -39,6 +41,7 @@ export class AddgeneralPage implements OnInit {
 
   }
 
+  //Método asincrono, nos permite guardar la rutina general en segundo plano.
   async editGeneral() {
 
     if(this.activa==true){
@@ -50,10 +53,12 @@ export class AddgeneralPage implements OnInit {
 
     console.log(this.generalForm.value);
     console.log(this.user);
+    //Obtenemos lo que nos devuelve el spring a la hora de guardar la rutina general.
     this.observer=this.gService.saveGeneralRutine(this.user, this.generalForm.value.name,this.generalForm.value.activa);
     
     let promesa:Promise<any>;
     promesa = this.observer.toPromise();
+    //Mediante una promesa podemos mostrar lo que nos ha devuelto el spring.
     promesa.then(values => {
       this.storage.set('idGeneral',values._id);
     });
@@ -63,6 +68,7 @@ export class AddgeneralPage implements OnInit {
       console.log("idGeneral",id);
     });
 
+    //Una vez que el método asincrono ha acabado navegamos a la siguiente página.
     if(await promesa!=null){
       this.navCtrl.navigateForward('/editgeneral');
     }
@@ -70,6 +76,7 @@ export class AddgeneralPage implements OnInit {
     
   }
 
+  //Método que nos permite decir si la rutina general que vamos a crear estará activa o no.
   activar() {
     this.activa = !this.activa;
     console.log(this.activa);
