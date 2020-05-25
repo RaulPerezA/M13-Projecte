@@ -13,9 +13,11 @@ export class RoutineExercise {
   public EXERCICE = this.API + '/rutina/saveExercice';
   private ejercicio:RutinaEjercicio;
 
-  saveExercices(id:string, ejercicios:Array<RutinaEjercicio> ){
+  saveExercices(id:string, diaria:string ,ejercicios:RutinaEjercicio ){
     console.log("id",id);
-    return this.http.get(this.EXERCICE+"?idGeneral="+id+"&ejercicios="+ejercicios);
+    console.log("dia",diaria);
+    console.log("ejercicios",ejercicios);
+    return this.http.get(this.EXERCICE+"?idGeneral="+id+"&diaria="+diaria+"&ejercicios="+ejercicios);
   }
 
  getExercice(){
