@@ -52,18 +52,26 @@ export class AddDailyPage implements OnInit {
       this.rutinaDia=rutine;
       //guardamos endailyDay la rutina diaria 
       this.storage.set('dailyDay',this.rutinaDia);
-    });
 
-    this.routinesResult=this.routineService.createRutinas(this.user);
-    let promesa2:Promise<any>;
-    promesa2 = this.routinesResult.toPromise();
-    //Mediante una promesa podemos mostrar lo que nos ha devuelto el spring.
-    promesa2.then(values => {
-      //una vez metida en la bd volvemos a llamar a esta funcion para descargar todas las rutinas.
-      this.storage.set('rutinas',values);
-      console.log(this.rutinaDia);
-      //Navegamos a la siguiente página mediante el nav controller.
-      this.navCtrl.navigateForward('/listexercice');
+      this.routinesResult=this.routineService.getOneRoutine(this._idGeneral);
+      let promesa:Promise<any>;
+      promesa = this.routinesResult.toPromise();
+      promesa.then(values => {
+        this.storage.set('dailyGeneral',values);
+        console.log(values);
+      });
+
+      this.routinesResult=this.routineService.createRutinas(this.user);
+      let promesa2:Promise<any>;
+      promesa2 = this.routinesResult.toPromise();
+      //Mediante una promesa podemos mostrar lo que nos ha devuelto el spring.
+      promesa2.then(values => {
+        //una vez metida en la bd volvemos a llamar a esta funcion para descargar todas las rutinas.
+        this.storage.set('rutinas',values);
+
+        //Navegamos a la siguiente página mediante el nav controller.
+        this.navCtrl.navigateForward('/listexercice');
+      });
     });
   }
 }
