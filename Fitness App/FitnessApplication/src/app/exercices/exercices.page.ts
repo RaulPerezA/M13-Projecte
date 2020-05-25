@@ -4,6 +4,9 @@ import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Rutina } from '../Objects/Rutina';
+import { RoutineService } from '../routine.service';
+import { AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-exercices',
@@ -13,16 +16,15 @@ import { Rutina } from '../Objects/Rutina';
 export class ExercicesPage implements OnInit {
   
   //numeros:number[]=[1,2,3,4,5,6,7,8,9,10];
+  rutinaDelete:Rutina;
   rutinas:Array<Rutina>;
-  constructor(private network: Network, private dialogs: Dialogs, private navCtrl: NavController, private storage:Storage) {
-    
+
+  constructor(private network: Network, private dialogs: Dialogs, private navCtrl: NavController, private storage:Storage, private routineService:RoutineService, private alertCtrl: AlertController, private loadingController: LoadingController) {
     //Mostrar pop up para informar al usuario que no tiene conexión
     this.network.onDisconnect().subscribe(()=>{
       this.dialogs.alert('No hay conexión, los cambios no se guardaran.');
     });
-
    }
-
    //Inicializamos la página
   ngOnInit() {
   }
@@ -55,12 +57,53 @@ export class ExercicesPage implements OnInit {
   //Añadir la rutina general seleccionada al storage para poder mostrar sus rutinas diarias
   goToGeneral(evento) {
     console.log("evento",evento);
+    this.storage.set('idGeneral',evento._id);
     this.storage.set('dailyGeneral',evento);
     this.navCtrl.navigateForward('/editgeneral');
   }
 
   removeExercise(evento){
     //AQUI TENDRÁ QUE ELIMINAR EL OBJETO SELECCIONADO
+    this.rutinaDelete=evento;
+    this.alert();
   }
 
+  //Mostrar pop up
+  async alert() {
+    const alert = await this.alertCtrl.create({
+      header: '¿Estás seeguro de eliminar '+this.rutinaDelete['nombre']+'?',
+      //message: '¿Quieres continuar con la rutina?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (option) => {
+            console.log("Cancelar");
+          }
+        },
+        {
+          text: 'Continuar',
+          role: 'continue',
+          handler: (option) => {
+            this.presentLoading();
+            console.log("Continuar");
+            this.routineService.removeRoutineGeneral(this.rutinaDelete['_id']);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'CARGANDO...',
+      duration: 1000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
 }
