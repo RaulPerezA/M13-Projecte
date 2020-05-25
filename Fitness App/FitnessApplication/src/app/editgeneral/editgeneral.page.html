@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button (click)="redirect()"></ion-back-button>
     </ion-buttons>
     <ion-title>{{titulo}}</ion-title>
   </ion-toolbar>
@@ -9,6 +9,7 @@
 
 
 <ion-content>
+  <ion-text *ngIf="bienvenida==true">No tienes ninguna rutina creada. Empieza creando en +. </ion-text>
  <div id="bloqueNL" *ngFor="let d of daily">
     <ion-card id="nombre" (click)="goToDaily(d)">
       <ion-card-content>{{d.nombre}}</ion-card-content>

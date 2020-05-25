@@ -13,6 +13,7 @@ import { ExerciseService } from '../exercise.service';
 })
 export class ListexercicePage implements OnInit {
 
+  bienvenida:boolean=false;
   resultEjercicio: Observable<any>;
   ejercicios:Ejercicio[]=[];
   ejercicio:Ejercicio;
@@ -26,10 +27,15 @@ export class ListexercicePage implements OnInit {
     this.exercices = new Array<RutinaDia>();
     this.storage.get('dailyDay').then( dia => {
       this.titulo=dia.nombre;
+      console.log(dia);
       //Recorremos con un for los datos que obtenemos del storage.
       for(let e of dia.ejercicios){
         //Añadimos a un array los ejercicios que hemos obtenido. 
         this.exercices.push(e);
+      }
+
+      if(this.exercices.length==0){
+        this.bienvenida=true;
       }
     });
 
