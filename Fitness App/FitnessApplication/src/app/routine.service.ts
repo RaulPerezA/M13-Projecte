@@ -14,6 +14,9 @@ export class RoutineService {
   public RUTINAUSUARIOACTIVA = this.API + '/rutina/findRutinaUserActiva';
   public RUTINAACTUAL = this.API + '/rutina/findDiaEjercicio';
   public CAMBIARDIA = this.API + '/rutina/cambiarDia';
+  public GETDAYS = this.API + '/rutina/getDaysOneRoutine';
+  public GETRUTINAXID = this.API + '/rutina/findRutinaId';
+  public REMOVEROUTINEGENERAL = this.API + '/rutina/removeRoutineGeneralId';
 
   constructor(private http: HttpClient) { }
 
@@ -36,5 +39,17 @@ export class RoutineService {
   //Cambia y devuelve el dia siguiente de la rutina activa del usuario que se le pasa por parametro.
   cambiarDia(userName:string){
     return this.http.get(this.CAMBIARDIA+"?user="+userName);
+  }
+
+  getDays(idGeneral:string){
+    return this.http.get(this.GETDAYS+"?idGeneral="+idGeneral);
+  }
+
+  getOneRoutine(idGeneral:string){
+    return this.http.get(this.GETRUTINAXID+"?idGeneral="+idGeneral);
+  }
+  
+  removeRoutineGeneral(idGeneral:string){
+    return this.http.get(this.REMOVEROUTINEGENERAL+"?idGeneral="+idGeneral);
   }
 }
