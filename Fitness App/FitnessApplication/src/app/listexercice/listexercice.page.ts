@@ -45,6 +45,10 @@ export class ListexercicePage implements OnInit {
     
   }
 
+  redirect(){
+    this.navCtrl.navigateForward('/editgeneral');
+  }
+
   //Método que nos redirecciona a la página donde podremos crear una nueva rutina de ejercicios.
   createExercice() {
     console.log("createexercice");

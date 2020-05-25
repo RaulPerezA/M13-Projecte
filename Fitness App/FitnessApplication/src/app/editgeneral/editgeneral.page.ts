@@ -16,7 +16,9 @@ export class EditgeneralPage implements OnInit {
   constructor(private navCtrol: NavController, private storage:Storage) { }
 
   //Inicializamos la página.
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter(){
     //Creamos un array de rutinas diarias.
     this.daily = new Array<RutinaDia>();
     //Obtenemos las rutinas diarias de una rutina general.
