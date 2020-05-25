@@ -4,8 +4,27 @@ ion-content {
     color: white;
 }
 
-ion-card {
+
+#bloqueNL{
+    display: inline-block;
+    width:100%;
+}
+
+#nombre {
+    display: inline-block;
     font-size: 20px;
     color: black;
     text-align: center;
+    width:75%;
+}
+#logo {
+    display: inline-block;
+    background: crimson;
+    color: white;
+    height: 45px;
+    border-bottom: groove;
+}
+#img{
+    font-size:30px;
+    margin-top: 5px;
 }

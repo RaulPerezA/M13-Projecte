@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FormGroup, FormBuilder, FormControl, Validators, Form } from '@angular/forms';
 import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
-import { CreateExerciceService } from '../create-exercice.service';
+import { RoutineExercise } from '../routineExercise.service';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -12,6 +12,7 @@ import { NavController } from '@ionic/angular';
 })
 export class ConfigureExercicePage implements OnInit {
 
+  //crear ejercicios
   arrayEjercicios:Array<RutinaEjercicio>;
   rutinaEjercicio:RutinaEjercicio;
   title:string;
@@ -25,7 +26,14 @@ export class ConfigureExercicePage implements OnInit {
   repsActive:boolean = false;
   timeActive:boolean = false;
 
-  constructor(private storage:Storage, private formBuildeR: FormBuilder, private createExerciceService:CreateExerciceService, private navCtrl:NavController) {
+  //editar ejercicios
+  name:string;
+  seconds:number;
+  repes:number;
+  descanso:number;
+  nSeries:number;
+
+  constructor(private storage:Storage, private formBuildeR: FormBuilder, private createExerciceService:RoutineExercise, private navCtrl:NavController) {
 
     //Formulario para obtener los datos introducidos por el usuario para configurar el ejercicio.
     this.exerciceForm = this.formBuildeR.group({
@@ -41,12 +49,45 @@ export class ConfigureExercicePage implements OnInit {
 
    //Inicialicamos la página.
   ngOnInit() {
-
-    this.arrayEjercicios = new Array<RutinaEjercicio>();
-    this.timeBoolean = false;
-    this.seriesBoolean = true;
-    this.repsActive = false;
-    this.timeActive = false;
+    this.storage.get('createExercise').then( create => {
+    
+      if(create==true){
+        console.log("ME HA DEVUELTO TRUE;");
+        this.storage.get('exerciseConfigure').then( ejercicio => {
+          if(ejercicio.modoEjercitar=="tiempo"){
+            this.timeBoolean = true;
+            this.seriesBoolean = false;
+            this.repsActive = false;
+            this.timeActive = true;
+            this.seconds=ejercicio.segundosSerie;
+          }
+          else{
+            this.timeBoolean = false;
+            this.seriesBoolean = true;
+            this.repsActive = true;
+            this.timeActive = false;
+            this.repes=ejercicio.repeticionesSerie;
+          }
+          this.name=ejercicio.nombre;
+          this.descanso=ejercicio.segundosDescanso;
+          this.nSeries=ejercicio.series;
+        });
+      }
+      else{
+        this.arrayEjercicios = new Array<RutinaEjercicio>();
+        this.timeBoolean = false;
+        this.seriesBoolean = true;
+        this.repsActive = true;
+        this.timeActive = false;
+    
+        
+      }
+    });
+    
+    //Obtenemos el nombre del usuario que se ha logueado.
+    this.storage.get('user').then( username => {
+      console.log("username",username);
+    });
 
     //Obtenemos los datos del ejercicio y los guardamos en variables.
     this.storage.get('exercice').then( ejercicio => {
@@ -55,11 +96,6 @@ export class ConfigureExercicePage implements OnInit {
       this.description = ejercicio.descripcion;
       this.level = ejercicio.dificultad;
       this.muscle = ejercicio.grupoMuscular;
-    });
-
-    //Obtenemos el nombre del usuario que se ha logueado.
-    this.storage.get('user').then( username => {
-      console.log("username",username);
     });
   }
  

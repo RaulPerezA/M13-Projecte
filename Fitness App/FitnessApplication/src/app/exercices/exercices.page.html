@@ -8,10 +8,12 @@
 </ion-header>
 
 <ion-content>
-  <div>
-
-    <ion-card *ngFor="let r of rutinas" (click)="goToGeneral(r)">{{r.nombre}}</ion-card>
-    <ion-fab-button size="small" (click)="(addGeneral())">+</ion-fab-button>
-
+  <div id="bloqueNL" *ngFor="let r of rutinas">
+    <ion-card id="nombre" (click)="goToGeneral(r)">
+      <ion-card-content>{{r.nombre}}</ion-card-content>
+    </ion-card> 
+    <ion-card id="logo" (click)="removeExercise(r)"><ion-icon name="trash" id="img"></ion-icon>
+    </ion-card> 
   </div>
+  <ion-fab-button size="small" (click)="(addGeneral())">+</ion-fab-button>
 </ion-content>

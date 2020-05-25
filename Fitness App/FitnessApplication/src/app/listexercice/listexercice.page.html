@@ -3,12 +3,19 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Rutinas de ejercicios</ion-title>
+    <ion-title>{{titulo}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  <ion-card *ngFor="let i of exercices">{{i.nombre}}<ion-icon name="pencil-outline"></ion-icon></ion-card>
+  <ion-text *ngIf="bienvenida==true">No tienes ninguna rutina creada. Empieza creando en +. </ion-text>
+  <div id="bloqueNL" *ngFor="let i of exercices">
+    <ion-card id="nombre" (click)="editExercise(i)">
+      <ion-card-content>{{i.nombre}}</ion-card-content>
+    </ion-card> 
+    <ion-card id="logo" (click)="removeExercise(i)"><ion-icon name="trash" id="img"></ion-icon>
+    </ion-card> 
+  </div>
   <ion-fab-button size="small" (click)="createExercice()">+</ion-fab-button>
 </ion-content>

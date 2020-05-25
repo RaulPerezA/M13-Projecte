@@ -4,7 +4,10 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
 import { DailyrutineService } from '../dailyrutine.service';
 import { Storage } from '@ionic/storage';
+import { RoutineService } from '../routine.service';
 import { Observable } from 'rxjs';
+import { Rutina } from '../Objects/Rutina';
+import { RutinaDia } from '../Objects/RutinaDia';
 
 @Component({
   selector: 'app-add-daily',
@@ -16,16 +19,18 @@ export class AddDailyPage implements OnInit {
   observable:Observable<any>;
   _idGeneral:string;
   formDaily: FormGroup;
+  user:string;
+  routinesResult:Observable<any>;
   ejercicios:Array<RutinaEjercicio> = [];
+  rutina:Rutina;
+  rutinaDia:RutinaDia;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private dailyService: DailyrutineService, private storage: Storage) { 
-
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private dailyService: DailyrutineService, private storage: Storage, private routineService:RoutineService) { 
     //Formulario con los datos que se recogeran.
     this.formDaily = this.formBuilder.group({
       name: ['',Validators.required],
       ejercicios: [this.ejercicios]
     });
-
   }
 
   //Inicialicamos la pagina y recogemos la id de la rutina general mediante el storage, luego la almacenamos en una variable para poder usarla.
@@ -34,21 +39,31 @@ export class AddDailyPage implements OnInit {
       console.log("id de la general",id);
       this._idGeneral = id;
     });
+    this.storage.get('user').then(user => {
+      this.user = user.userName;
+    });
   }
 
   //Metodo para insertar la rutina diaria creada en la base de datos, esta rutina se incrustara en el documento que tenga la id de la rutina general que hemos guardado en _idGeneral.
   listExercice() {
-
     //Insertar la rutina diaria en la base de datos.
     this.observable = this.dailyService.saveDailyRutine(this._idGeneral, this.formDaily.value.name);
     this.observable.toPromise().then(rutine => {
-      console.log("rutina",rutine);
+      this.rutinaDia=rutine;
+      //guardamos endailyDay la rutina diaria 
+      this.storage.set('dailyDay',this.rutinaDia);
     });
 
-
-    console.log(this.formDaily.value);
-    //Navegamos a la siguiente página mediante el nav controller.
-    this.navCtrl.navigateForward('listexercice');
+    this.routinesResult=this.routineService.createRutinas(this.user);
+    let promesa2:Promise<any>;
+    promesa2 = this.routinesResult.toPromise();
+    //Mediante una promesa podemos mostrar lo que nos ha devuelto el spring.
+    promesa2.then(values => {
+      //una vez metida en la bd volvemos a llamar a esta funcion para descargar todas las rutinas.
+      this.storage.set('rutinas',values);
+      console.log(this.rutinaDia);
+      //Navegamos a la siguiente página mediante el nav controller.
+      this.navCtrl.navigateForward('/listexercice');
+    });
   }
-
 }

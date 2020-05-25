@@ -4,6 +4,7 @@ import { Receta } from '../Objects/Receta';
 import { RecipesService } from '../recipes.service';
 import { Observable } from 'rxjs';
 import { NavController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-diets',
@@ -18,7 +19,7 @@ export class DietsPage implements OnInit {
   filter: boolean = false;
   chipsSelected: boolean[] = [false,false];
 
-  constructor(private storage:Storage, private recipesService:RecipesService, private navCtrl: NavController) { }
+  constructor(private storage:Storage, private recipesService:RecipesService, private navCtrl: NavController, private loadingController: LoadingController) { }
 
 
   //Inicializamos la página y obtenemos las recetas del storage.
@@ -45,6 +46,7 @@ export class DietsPage implements OnInit {
 
   //Método que nos permite obtener la posición de la receta que hemos seleccionado
   select(receta:Receta) {
+    this.presentLoading();
     console.log("number",receta);
      //Guardamos en el storage la receta que hemos seleccionado.
     this.storage.set('recetaEnter',receta);
@@ -64,6 +66,17 @@ export class DietsPage implements OnInit {
     console.log(position);
     this.chipsSelected[position] = !this.chipsSelected[position];
     console.log(this.chipsSelected);
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'CARGANDO...',
+      duration: 1000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
 }

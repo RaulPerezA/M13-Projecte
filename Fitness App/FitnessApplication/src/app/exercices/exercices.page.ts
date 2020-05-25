@@ -25,10 +25,12 @@ export class ExercicesPage implements OnInit {
 
    //Inicializamos la página
   ngOnInit() {
+  }
+  
+  //Obtenemos las rutinas generales
+  ionViewWillEnter(){
     //Declaramos un nuevo array de rutinas generales.
     this.rutinas = new Array<Rutina>();
-
-    //Obtenemos las rutinas generales
     this.storage.get('rutinas').then(rutinas => {
       console.log("rutina",rutinas);
       
@@ -38,8 +40,6 @@ export class ExercicesPage implements OnInit {
       }
 
     });
-    
-
   }
 
   //Puede ser que al poner el ngOnDestroy() cada vez que entre aparecera el mensaje de que no tiene conexión.
@@ -57,6 +57,10 @@ export class ExercicesPage implements OnInit {
     console.log("evento",evento);
     this.storage.set('dailyGeneral',evento);
     this.navCtrl.navigateForward('/editgeneral');
+  }
+
+  removeExercise(evento){
+    //AQUI TENDRÁ QUE ELIMINAR EL OBJETO SELECCIONADO
   }
 
 }

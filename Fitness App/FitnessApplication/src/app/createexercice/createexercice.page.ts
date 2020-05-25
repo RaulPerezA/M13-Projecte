@@ -6,7 +6,7 @@ import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
 import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { CreateExerciceService } from '../create-exercice.service';
+import { RoutineExercise } from '../routineExercise.service';
 
 @Component({
   selector: 'app-createexercice',
@@ -26,7 +26,7 @@ export class CreateexercicePage implements OnInit {
   ejercicios:Array<RutinaEjercicio> = [];
   rEjercicio:FormGroup;
 
-  constructor(private exerciceService: ExerciseService, private storage:Storage, private navCtrl:NavController, private formBuilder:FormBuilder, private createExerciceService:CreateExerciceService) {
+  constructor(private exerciceService: ExerciseService, private storage:Storage, private navCtrl:NavController, private formBuilder:FormBuilder, private createExerciceService:RoutineExercise) {
 
     //Obtenemos el array de ejercicios configurados por el usuario.
     this.rEjercicio = this.formBuilder.group({
@@ -90,6 +90,7 @@ export class CreateexercicePage implements OnInit {
   confexercice(exercice:Ejercicio) {
     //Guardamos los datos del ejercicio seleccionado en el storage.
     this.storage.set('exercice',exercice);
+    this.storage.set('createExercise',false);
     this.navCtrl.navigateForward('/configure-exercice')
   }
 

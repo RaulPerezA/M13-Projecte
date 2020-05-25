@@ -68,10 +68,6 @@ const routes: Routes = [
     loadChildren: () => import('./dailyrutine/dailyrutine.module').then( m => m.DailyrutinePageModule)
   },
   {
-    path: 'editdaily',
-    loadChildren: () => import('./editdaily/editdaily.module').then( m => m.EditdailyPageModule)
-  },
-  {
     path: 'editgeneral',
     loadChildren: () => import('./editgeneral/editgeneral.module').then( m => m.EditgeneralPageModule)
   },

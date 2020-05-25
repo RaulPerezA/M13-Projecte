@@ -10,7 +10,8 @@ import { Storage } from '@ionic/storage';
 })
 export class EditgeneralPage implements OnInit {
 
-  //daily:string[]=["Diaria 1","Diaria 2","Diaria 3","Diaria 4","Diaria 5","Diaria 6","Diaria 7","Diaria 8","Diaria 9","Diaria 10"];
+  bienvenida:boolean=false;
+  titulo:string;
   daily:Array<RutinaDia>;
   constructor(private navCtrol: NavController, private storage:Storage) { }
 
@@ -20,25 +21,37 @@ export class EditgeneralPage implements OnInit {
     this.daily = new Array<RutinaDia>();
     //Obtenemos las rutinas diarias de una rutina general.
     this.storage.get('dailyGeneral').then( general => {
+      this.titulo=general.nombre;
       //Recorremos el array de rutinas diarias.
       for(let d of general.rutinasDias){
-        console.log("d",d);
         //Guardamos las rutinas diarias en un array para poder visualizarlas en el html.
         this.daily.push(d);
       }
+
+      if(this.daily.length==0){
+        this.bienvenida=true;
+      }
     });
   }
-  
-  editDaily() {
-    this.navCtrol.navigateForward('/editdaily');
+
+  redirect(){
+    this.navCtrol.navigateForward('/exercices');
+  }
+
+  editName(){
+    //AQUI CAMBIAR NOMBRE DE LA RUTINA DE DIA.
   }
 
   addDaily() {
     this.navCtrol.navigateForward('/add-daily');
   }
 
-  goToDaily() {
+  goToDaily(evento) {
+    this.storage.set('dailyDay',evento);
     this.navCtrol.navigateForward('/listexercice');
   }
 
+  removeExercise(evento){
+    //AQUI TENDRÁ QUE ELIMINAR EL OBJETO SELECCIONADO
+  }
 }
