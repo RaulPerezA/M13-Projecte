@@ -10,6 +10,7 @@ import { Storage } from '@ionic/storage';
 })
 export class EditgeneralPage implements OnInit {
 
+  bienvenida:boolean=false;
   titulo:string;
   daily:Array<RutinaDia>;
   constructor(private navCtrol: NavController, private storage:Storage) { }
@@ -26,7 +27,15 @@ export class EditgeneralPage implements OnInit {
         //Guardamos las rutinas diarias en un array para poder visualizarlas en el html.
         this.daily.push(d);
       }
+
+      if(this.daily.length==0){
+        this.bienvenida=true;
+      }
     });
+  }
+
+  redirect(){
+    this.navCtrol.navigateForward('/exercices');
   }
 
   editName(){
