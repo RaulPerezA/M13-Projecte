@@ -50,6 +50,7 @@ export class RoutineService {
   }
   
   removeRoutineGeneral(idGeneral:string){
+    console.log("llegaaaaa", idGeneral);
     return this.http.get(this.REMOVEROUTINEGENERAL+"?idGeneral="+idGeneral);
   }
 }

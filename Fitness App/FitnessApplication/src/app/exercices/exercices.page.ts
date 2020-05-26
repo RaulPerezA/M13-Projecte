@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Network } from '@ionic-native/network/ngx';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { NavController } from '@ionic/angular';
+import { Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { Rutina } from '../Objects/Rutina';
 import { RoutineService } from '../routine.service';
@@ -18,6 +19,8 @@ export class ExercicesPage implements OnInit {
   //numeros:number[]=[1,2,3,4,5,6,7,8,9,10];
   rutinaDelete:Rutina;
   rutinas:Array<Rutina>;
+  resultRutina: Observable<any>;
+  idGeneral:string;
 
   constructor(private network: Network, private dialogs: Dialogs, private navCtrl: NavController, private storage:Storage, private routineService:RoutineService, private alertCtrl: AlertController, private loadingController: LoadingController) {
     //Mostrar pop up para informar al usuario que no tiene conexión
@@ -87,14 +90,27 @@ export class ExercicesPage implements OnInit {
           role: 'continue',
           handler: (option) => {
             this.presentLoading();
-            console.log("Continuar");
-            this.routineService.removeRoutineGeneral(this.rutinaDelete['_id']);
+            console.log("Continuar",this.rutinaDelete['_id']);
+            this.idGeneral=this.rutinaDelete['_id'];
+            
+
+            this.resultRutina = this.routineService.removeRoutineGeneral(this.rutinaDelete['_id']);
+            console.log(this.resultRutina);
+            let promesa:Promise<any>;
+            promesa = this.resultRutina.toPromise();
+            
+            promesa.then(datos => {
+              console.log(datos);
+              this.storage.set('rutinas',datos);
+            });
+            
           }
         }
       ]
     });
     await alert.present();
   }
+  
 
   async presentLoading() {
     const loading = await this.loadingController.create({
