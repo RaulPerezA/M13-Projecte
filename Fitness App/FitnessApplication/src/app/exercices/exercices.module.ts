@@ -6,13 +6,15 @@ import { ExercicesPageRoutingModule } from './exercices-routing.module';
 import { ExercicesPage } from './exercices.page';
 import { Network } from '@ionic-native/network/ngx';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ExercicesPageRoutingModule
+    ExercicesPageRoutingModule,
+    PipesModule
   ],
   declarations: [ExercicesPage],
   providers: [Network, Dialogs]
