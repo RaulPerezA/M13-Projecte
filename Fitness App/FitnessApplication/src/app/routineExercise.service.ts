@@ -17,7 +17,9 @@ export class RoutineExercise {
     console.log("id",id);
     console.log("dia",diaria);
     console.log("ejercicios",ejercicios);
-    return this.http.get(this.EXERCICE+"?idGeneral="+id+"&diaria="+diaria+"&ejercicios="+ejercicios);
+    console.log("ejercicio.getRepeticionesSerie()",ejercicios.getRepeticionesSerie())
+    console.log("getSegundosSerie",ejercicios.getSegundosSerie());
+    return this.http.get(this.EXERCICE+"?idGeneral="+id+"&diaria="+diaria+"&nombre="+ejercicios.getNombre()+"&ejercicio="+ejercicios.getEjercicio()+"&series="+ejercicios.getSeries()+"&modoEjercitar="+ejercicios.getModoEjercitar()+"&repeticionesSerie="+ejercicios.getRepeticionesSerie()+"&segundosSerie="+ejercicios.getSegundosSerie()+"&segundosDescanso="+ejercicios.getSegundosDescanso());
   }
 
  getExercice(){

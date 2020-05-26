@@ -27,6 +27,7 @@ export class ConfigureExercicePage implements OnInit {
   timeActive:boolean = false;
 
   //editar ejercicios
+  _id:string;
   name:string;
   seconds:number;
   repes:number;
@@ -96,6 +97,7 @@ export class ConfigureExercicePage implements OnInit {
       this.description = ejercicio.descripcion;
       this.level = ejercicio.dificultad;
       this.muscle = ejercicio.grupoMuscular;
+      this._id = ejercicio._id;
     });
   }
  
@@ -141,13 +143,15 @@ export class ConfigureExercicePage implements OnInit {
        
     if(this.timeBoolean == true){
       this.exerciceForm.value.modo = 'tiempo';
+      this.exerciceForm.value.repeticiones=null;
     }
     else if(this.seriesBoolean == true) {
       this.exerciceForm.value.modo = 'repeticiones';
+      this.exerciceForm.value.segundos=null;
     }
     
     //Creamos el ejercicio mediante los datos del formulario.
-    this.rutinaEjercicio = new RutinaEjercicio(this.exerciceForm.value.name, this.title, this.exerciceForm.value.series, this.exerciceForm.value.modo, this.exerciceForm.value.repeticiones, this.exerciceForm.value.segundos, this.exerciceForm.value.descanso);
+    this.rutinaEjercicio = new RutinaEjercicio(this.exerciceForm.value.name, this._id, this.exerciceForm.value.series, this.exerciceForm.value.modo, this.exerciceForm.value.repeticiones, this.exerciceForm.value.segundos, this.exerciceForm.value.descanso);
     console.log("this.rutinaEjercicio",this.rutinaEjercicio);
     this.arrayEjercicios.push(this.rutinaEjercicio);
     console.log("array",this.arrayEjercicios);
