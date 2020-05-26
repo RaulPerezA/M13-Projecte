@@ -13,6 +13,7 @@
 	<artifactId>spring-mongodb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-mongodb</name>
+	<packaging>war</packaging>
 	<description>MongoDB Fitness Application</description>
 
 	<properties>
@@ -54,9 +55,21 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-tomcat</artifactId>
+   <scope>provided</scope>
+</dependency>
+<dependency>
+<groupId>org.bouncycastle</groupId>
+<artifactId>bcprov-jdk14</artifactId>
+<version>1.65</version>
+<type>jar</type>
+</dependency>
 	</dependencies>
 
 	<build>
+	<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
