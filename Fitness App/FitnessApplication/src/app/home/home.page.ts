@@ -9,6 +9,11 @@ import { User } from '../Objects/User';
 import { Storage } from '@ionic/storage';
 import { Receta } from '../Objects/Receta';
 import { RecipesService } from '../recipes.service'; 
+import { Rutina } from '../Objects/Rutina';
+import { RoutineService } from '../routine.service'; 
+import { Ejercicio } from '../Objects/Ejercicio';
+import { ExerciseService } from '../exercise.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -17,8 +22,12 @@ import { RecipesService } from '../recipes.service';
 })
 export class HomePage {
 
+  username:string;
+  password:string;
+  credentials:string;
   datos:any;
   email:string;
+  chain:string;
   dataLoginUser:Observable<any>;
   resultLogin: Observable<any>;
   resultRegister: Observable<any>;
@@ -34,11 +43,22 @@ export class HomePage {
   user:User;
   resultReceta: Observable<any>;
   recetas:Array<Receta>;
+  resultRutina: Observable<any>;
+  rutinas:Array<Rutina>;
+  resultEjercicio: Observable<any>;
+  ejercicios:Ejercicio[]=[];
+  ejercicio:Ejercicio;
+
+  save:boolean = false;
+
 
   //Variable para recoger la fecha y hora actual.
   today;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService) {
+
+
+  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private loginService: LoginService, private registerService: RegisterService, private storage:Storage, private recipesService:RecipesService, private routineService:RoutineService, private exerciseService:ExerciseService, private loadingController: LoadingController) {
+
     this.today = new Date().toISOString();
     
     //Datos del formulario del login
@@ -60,6 +80,33 @@ export class HomePage {
     });
   }
   
+  ngOnInit() {
+    console.log("hola");
+    this.save = this.loginService.getSaveCredentials(); 
+    console.log("this.save",this.save);
+
+    if(this.save==true) {
+      
+      this.storage.get('credentials').then(credenciales => {
+        let splitChain = credenciales.split(" ");
+        this.username = splitChain[0];
+        this.password = splitChain[1];
+      });
+      console.log("chain",this.chain);
+      //let splitChain = this.chain.split(" ");
+      //this.username = splitChain[0];
+      //this.password = splitChain[1];
+    }
+    else {
+      this.username="";
+      this.password="";
+    }
+
+    this.loginService.resetCredentials();
+
+  }
+
+
   ngOnDestroy(){
     console.log("Se ha destruido la pagina de loguin y registro");
   }
@@ -100,7 +147,7 @@ export class HomePage {
 
   //Establecer pagina raiz al loguearse.
   async login() {
-
+    this.presentLoading();
     //RECOGER CAMPOS DEL FORMULARIO LOGIN
     console.log("usernamemail",this.loginForm.value.emailusername);
     console.log("password",this.loginForm.value.password);
@@ -115,6 +162,10 @@ export class HomePage {
     if(await promesa==true){
       console.log("HA DEVUELTRO TRUE");
 
+      //Guardar datos del formulario de login para usarlos si quiere mantener las credenciales
+      this.credentials = this.loginForm.value.emailusername + " " + this.loginForm.value.password;
+      this.storage.set('credentials',this.credentials);
+
       //Obtener los datos del usuario logueado.
       this.email = this.loginForm.value.emailusername;
       this.dataLoginUser = this.loginService.getLoginUser(this.email);
@@ -126,9 +177,12 @@ export class HomePage {
       //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
       datosUser.then(datos => {
         this.datos = datos;
+        console.log("this.datos",this.datos);
         this.storage.set('user',datos);
       });
       this.recipes();
+      this.routines(this.email);
+      this.exercises();
       this.navCtrl.navigateRoot('/main');
     }
     else {
@@ -139,7 +193,7 @@ export class HomePage {
 
   //Establecer pagina raiz al registrarse.
   async register() {
-    
+    this.presentLoading();
     console.log(this.registerForm.value);
     
     this.user = new User(this.registerForm.value.name,this.registerForm.value.surnames,this.registerForm.value.email,this.registerForm.value.username,this.registerForm.value.password,this.registerForm.value.birthdate,this.registerForm.value.weight,this.registerForm.value.height);
@@ -156,6 +210,8 @@ export class HomePage {
 
     if(await promesaRegister===true){
       this.recipes();
+      this.routines(this.user.getUsername());
+      this.exercises();
       this.navCtrl.navigateRoot('/slides');
     }
     else {
@@ -184,4 +240,63 @@ export class HomePage {
       this.storage.set('recetas',datos);
     });
   }
+
+  //Devolver todas las rutinas de un solo USUARIO
+  async routines(userName:string) {
+    console.log("queremos conseguir las rutinas.");
+    
+    this.resultRutina = this.routineService.createRutinas(userName);
+    console.log(this.resultRutina);
+    let promesa:Promise<any>;
+    promesa = this.resultRutina.toPromise();
+    
+    console.log("datos rutinas",promesa);
+
+    //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
+    promesa.then(datos => {
+      this.datos = datos;
+      this.storage.set('rutinas',datos);
+    });
+  }
+  
+  
+  //Devolver todos los ejercicios
+  async exercises() {
+    console.log("queremos conseguir los ejercicios.");
+    this.resultEjercicio = this.exerciseService.getAllExercices();
+   
+    this.resultEjercicio.toPromise().then(ejercicios => {
+      console.log(ejercicios);
+      
+      for(let i of ejercicios) {
+
+        console.log("i",i);
+        this.ejercicio = new Ejercicio(i._id, i.ejercicio, i.imagen, i.video, i.descripcion, i.dificultad, i.especificacion, i.grupoMuscular);
+
+        this.ejercicios.push(this.ejercicio);
+      }
+    this.storage.set('ejercicios',this.ejercicios);  
+    });
+  
+    
+    
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'CARGANDO...',
+      duration: 5000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
+  saveCredentials() {
+      
+    this.loginService.saveCredentials();
+  
+  }
+
 }

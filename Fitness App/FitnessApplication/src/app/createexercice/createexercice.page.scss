@@ -1,0 +1,36 @@
+ion-list-header {
+    background-color: white;
+    padding-left: 0;
+}
+
+p {
+    background-color: white;
+}
+
+ion-searchbar {
+    margin-left: 10px;
+    padding-left: 0;
+
+}
+
+ion-list {
+    --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
+    background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
+    color: white;
+}
+
+.selected {
+    background-color:rgb(133, 176, 233);
+    color: white;
+}
+
+ion-icon {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#searchbar {
+    margin: auto;
+    flex-basis: 80%;
+    width: 90%;
+}

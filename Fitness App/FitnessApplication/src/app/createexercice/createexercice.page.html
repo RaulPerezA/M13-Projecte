@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crea tu rutina de ejercicios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header>
+    <ion-searchbar id="searchbar" (ionChange)="search($event)"></ion-searchbar>
+    <ion-icon src="./assets/icon/simbolo.svg" (click)="showFilter()"></ion-icon>
+  </ion-list-header>
+  
+    <ion-list *ngIf="filter==true">
+        <ion-chip outline color="primary" *ngIf="chipsSelected[0]==false" (click)="selectChip(0)">
+          <ion-label>Pectoral</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" class="selected" *ngIf="chipsSelected[0]==true" (click)="selectChip(0)">
+          <ion-label>Pectoral</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" *ngIf="chipsSelected[1]==false" (click)="selectChip(1)">
+          <ion-label>Dorsal</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" class="selected" *ngIf="chipsSelected[1]==true" (click)="selectChip(1)">
+          <ion-label>Dorsal</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" *ngIf="chipsSelected[2]==false" (click)="selectChip(2)">
+          <ion-label>Biceps</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" class="selected" *ngIf="chipsSelected[2]==true" (click)="selectChip(2)">
+          <ion-label>Biceps</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" *ngIf="chipsSelected[3]==false" (click)="selectChip(3)">
+          <ion-label>Triceps</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" class="selected" *ngIf="chipsSelected[3]==true" (click)="selectChip(3)">
+          <ion-label>Triceps</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" *ngIf="chipsSelected[4]==false" (click)="selectChip(4)">
+          <ion-label>Abdominales</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" class="selected" *ngIf="chipsSelected[4]==true" (click)="selectChip(4)">
+          <ion-label>Abdominales</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" *ngIf="chipsSelected[5]==false" (click)="selectChip(5)">
+          <ion-label>Pierna</ion-label>
+        </ion-chip>
+        <ion-chip outline color="primary" class="selected" *ngIf="chipsSelected[5]==true" (click)="selectChip(5)">
+          <ion-label>Pierna</ion-label>
+        </ion-chip>
+    </ion-list>
+
+    <ion-list>
+      <ion-card *ngFor="let i of exercices | filtro: textoBuscar" (click)="confexercice(i)">
+        <!-- <img src="{{i.imagen}}"> -->
+        <img src="./assets/adidas.jpg">
+        <ion-item>{{i.ejercicio}}</ion-item>
+      </ion-card>    
+    </ion-list>
+  
+</ion-content>
+
+<ion-footer class="footer">
+      <ion-button (click)="create()" expand="full">Crear</ion-button>
+</ion-footer>

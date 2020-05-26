@@ -1,0 +1,29 @@
+ion-content {
+    --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
+    background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
+    color: white;
+}
+
+#bloqueNL{
+    display: inline-block;
+    width:100%;
+}
+
+#nombre {
+    display: inline-block;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    width:75%;
+}
+#logo {
+    display: inline-block;
+    background: crimson;
+    color: white;
+    height: 45px;
+    border-bottom: groove;
+}
+#img{
+    font-size:30px;
+    margin-top: 5px;
+}

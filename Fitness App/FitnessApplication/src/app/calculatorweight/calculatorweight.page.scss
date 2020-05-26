@@ -3,3 +3,61 @@ ion-content {
     background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
     color: white;
 }
+
+ion-input {
+    color: black;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+ion-card {
+    width: 40%;
+    color: black;
+}
+
+.cards {
+    max-width: 100%;
+    color: black;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    margin: 0 !important;
+    
+}
+
+.imc {
+    display: flex;
+    flex-direction: column;
+    width: 43%;
+    margin-top: 20%;
+}
+
+div {
+    margin-top: 10%;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+.divs {
+    width:100%; // adjust width on your ion-card suitable on your screen
+    display:flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.formulario {
+    width:100%; // adjust width on your ion-card suitable on your screen
+    display:flex;
+    justify-content: center;
+    margin: 0 auto;
+}

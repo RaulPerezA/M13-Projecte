@@ -13,20 +13,20 @@
       <ion-item>
         <!--<ion-label></ion-label>-->
         <!-- Campo para introducir el correo -->
-        <ion-input placeholder="Email/Usuario" formControlName="emailusername" class="ion-text-left"></ion-input>
+        <ion-input placeholder="Email/Usuario" formControlName="emailusername" class="ion-text-left" [(ngModel)]="username"></ion-input>
         <ion-icon src="/assets/icon/correo.svg" slot="end"></ion-icon>
       </ion-item>
       <ion-item>
         <!-- <ion-label>Password</ion-label> -->
         <!-- Campo para introducir la contraseña -->
-        <ion-input placeholder="Contraseña" formControlName="password" class="ion-text-left" [type]="passwordTypeLogin" clearOnEdit="false"></ion-input>
+        <ion-input placeholder="Contraseña" formControlName="password" class="ion-text-left" [type]="passwordTypeLogin" clearOnEdit="false" [(ngModel)]="password"></ion-input>
         <!-- Icono candado para el input de la contraseña -->
         <ion-button (click)="toggleViewPasswordLogin()">
           <ion-icon slot="end" name="eye-off" class="ion-icon-password" *ngIf="viewPasswordLogin==false"></ion-icon>
           <ion-icon slot="end" name="eye" class="ion-icon-password"  *ngIf="viewPasswordLogin==true"></ion-icon>
         </ion-button>
       </ion-item>
-      <ion-item class="item-checkbox">
+      <ion-item class="item-checkbox" (click)="saveCredentials()">
         <ion-checkbox color="primary" unchecked slot="start"></ion-checkbox>
         <ion-label>Recordar credenciales</ion-label>
       </ion-item>

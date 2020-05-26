@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="redirect()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-text *ngIf="bienvenida==true">No tienes ninguna rutina creada. Empieza creando en +. </ion-text>
+ <div id="bloqueNL" *ngFor="let d of daily">
+    <ion-card id="nombre" (click)="goToDaily(d)">
+      <ion-card-content>{{d.nombre}}</ion-card-content>
+    </ion-card> 
+    <ion-card id="logo" (click)="removeExercise(d)"><ion-icon name="trash" id="img"></ion-icon>
+    </ion-card> 
+  </div>
+  <ion-fab-button size="small" (click)="addDaily()">+</ion-fab-button>
+</ion-content>

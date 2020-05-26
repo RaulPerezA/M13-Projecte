@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear rutina diaria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="formDaily">
+    <ion-input placeholder="Nombre de la rutina" formControlName="name"></ion-input>
+  </form>
+  <ion-button (click)="listExercice()">Crear</ion-button>
+</ion-content>

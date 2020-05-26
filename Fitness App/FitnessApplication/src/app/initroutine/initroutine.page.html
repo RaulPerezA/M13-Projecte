@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>NombreDelEjercicio</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="state === 'start'" disabled></ion-back-button>
+      <ion-back-button *ngIf="state === 'stop'"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{titulo | uppercase}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,13 +14,15 @@
     <div class="border-blue">
       <div class="border-white">
         <div class="img-box">
-          <img src="./assets/adidas.jpg">
+          <img src="./assets/{{ imagen }}">
         </div>
       </div>
     </div>
   </div>
-  <ion-text *ngIf="tempo === false">Descansando...</ion-text>
-  <ion-text *ngIf="tempo === true">Ejercitando...</ion-text>
+  <div id="textos">
+  <ion-text id="nombreEjercicio" *ngIf="tempo === false">DESCANSO! PROXIMO EJERCICIO: {{titulo | uppercase}}</ion-text>
+  <ion-text id="nombreEjercicio" *ngIf="tempo === true">{{titulo | uppercase}}</ion-text>
+  </div>
   <ion-row class="ion-justify-content-center">
 
     <svg id="progress-circle" width="50vh" height="50vh" viewBox="0 0 200 200">
@@ -27,12 +33,13 @@
       <circle cx="50%" cy="50%" [attr.r]= "circleR" fill="none" stroke="#f3f3f3" stroke-width="12"/>
       <circle cx="50%" cy="50%" [attr.r]= "circleR" fill="none" stroke="url(#linearColors1)" stroke-width="12" stroke-linecap="round" [attr.stroke-dasharray]="circleDasharray" [attr.stroke-dashoffset]="percentageOffset(percent | async)" />
 
-      <text x="50%" y="55%" class="timer-text">{{ time | async }}</text> 
+      
+      <text x="50%" y="55%" class="timer-text" *ngIf="acabada === false">{{ time | async }}</text> 
     </svg>
   </ion-row>
 </ion-content>
 <ion-footer class="footer">
-  <ion-button *ngIf="state === 'stop'" expand="block" color="primary" (click)="startTimer(startDuration)">Start</ion-button>
+  <ion-button *ngIf="state === 'stop'" expand="block" color="primary" (click)="startTimer(numSec);">Start</ion-button>
   <ion-button *ngIf="state === 'start'" expand="block" color="danger" (click)="stopTimer()">Stop</ion-button>
 </ion-footer>
 

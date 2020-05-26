@@ -22,8 +22,14 @@ export class User {
     public getName():string{
         return this.nombre;
     }
+    public setName(name:string){
+        this.nombre=name;
+    }
     public getSurnames():string{
         return this.apellidos;
+    }
+    public setSurnames(surnames:string){
+        this.apellidos=surnames
     }
     public getEmail():string{
         return this.email;
@@ -40,7 +46,13 @@ export class User {
     public getWeight():number{
         return this.peso;
     }
+    public setWeight(weight:number){
+        this.peso=weight;
+    }
     public getHeight():number{
         return this.altura;
+    }
+    public setHeight(height:number){
+        this.altura=height;
     }
 }

@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Configuración del ejercicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <img src="./assets/adidas.jpg">
+    <h2><b>{{title}}</b></h2>
+    <p>{{description}}</p>
+    <p><b>Grupo muscular:</b> {{muscle}}</p>
+    <p><b>Dificultad:</b> {{level}}</p>
+  </ion-card>
+
+  <ion-card>
+    
+  <form [formGroup]="exerciceForm">
+  <h2>Selecciona un modo</h2>
+    <div>
+      <ion-button (click)="reps()" value="repeticiones" *ngIf="repsActive==true" color="secondary">Repeticiones</ion-button>
+      <ion-button (click)="reps()" value="repeticiones" *ngIf="repsActive==false">Repeticiones</ion-button>
+      <ion-button (click)="time()" value="tiempo" *ngIf="timeActive==true" color="secondary">Tiempo</ion-button>
+      <ion-button (click)="time()" value="tiempo" *ngIf="timeActive==false">Tiempo</ion-button>
+    </div>
+    
+    <ion-card>
+      <ion-input formControlName="name" placeholder="Nombre: {{name}}" ></ion-input>
+    </ion-card>
+
+    <ion-card *ngIf="timeBoolean==true">
+      <ion-input type="number" min="1" formControlName="segundos" placeholder="Segundos: {{seconds}}"></ion-input>
+    </ion-card>
+    <ion-card *ngIf="seriesBoolean==true">
+      <ion-input type="number" min="1" formControlName="repeticiones" placeholder="Repeticiones: {{repes}}"></ion-input>
+    </ion-card>
+    <ion-card>
+      <ion-input type="number" min="1" *ngIf="seriesBoolean==true || timeBoolean==true" formControlName="series" placeholder="Series: {{nSeries}}"></ion-input>
+    </ion-card>
+
+    <ion-card>
+      <ion-input type="number" min="1" formControlName="descanso" placeholder="Segundos de descanso entre serie: {{descanso}}"></ion-input>
+    </ion-card>
+
+    <div>
+      <ion-button (click)="saveExercice()">Guardar</ion-button>
+    </div>
+  </form>
+  </ion-card>
+
+</ion-content>

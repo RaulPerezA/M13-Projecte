@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,11 +27,27 @@ public class EjercicioController {
 		return "Ejercicio "+Ejercicio+" añadido";
 	}
 
+	@CrossOrigin(origins = "http://localhost:8100")
 	@GetMapping("/Ejercicio/findAll")
 	public List<Ejercicio> getEjercicios(){
+		System.out.println("recoge los ejercicios");
 		return repository.findAll();
 	}
 	
+	
+	/*
+	 * Devuelve un ejercicio con el nombre que se le pasa por variable.
+	 */
+	@CrossOrigin(origins = "http://localhost:8100")
+	@GetMapping("/Ejercicio/findOneEjercicio")
+	public Optional<Ejercicio> getEjercicioId(@RequestParam String nombre) {
+		Optional<Ejercicio> Ejercicio = repository.findById(nombre);
+		if (Ejercicio.isPresent())
+			return Ejercicio;
+		else {
+			return null;
+		}
+	}
 	
 	/*
 	 * Devuelve un ejercicio con el nombre que se le pasa por variable.
