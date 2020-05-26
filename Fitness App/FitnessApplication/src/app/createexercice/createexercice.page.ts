@@ -7,6 +7,8 @@ import { NavController } from '@ionic/angular';
 import { RutinaEjercicio } from '../Objects/RutinaEjercicio';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { RoutineExercise } from '../routineExercise.service';
+import { AlertController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-createexercice',
@@ -15,18 +17,19 @@ import { RoutineExercise } from '../routineExercise.service';
 })
 export class CreateexercicePage implements OnInit {
 
+  tituloDiaria:string;
   idGeneral:string;
   textoBuscar:string;
   filter: boolean = false;
   chipsSelected: boolean[] = [false,false,false,false,false,false];
-  //exercices:string[]= ["Plancha", "Crunch", "Doble crunch", "Pecho", "Espalda", "Biceps", "Triceps", "Quadriceps", "Femoral", "Gemelos"];
+  nombres:string[]=[];
   exercices:Ejercicio[]=[];
   listExercices: Observable<any>;
   ejercicio:Ejercicio;
   ejercicios:Array<RutinaEjercicio> = [];
   rEjercicio:FormGroup;
 
-  constructor(private exerciceService: ExerciseService, private storage:Storage, private navCtrl:NavController, private formBuilder:FormBuilder, private createExerciceService:RoutineExercise) {
+  constructor(private exerciceService: ExerciseService, private storage:Storage, private navCtrl:NavController, private formBuilder:FormBuilder, private createExerciceService:RoutineExercise, private alertCtrl: AlertController) {
 
     //Obtenemos el array de ejercicios configurados por el usuario.
     this.rEjercicio = this.formBuilder.group({
@@ -55,6 +58,11 @@ export class CreateexercicePage implements OnInit {
 
       }
 
+    });
+
+    this.storage.get('dailyDay').then( dia => {
+      this.tituloDiaria=dia.nombre;
+      console.log(dia.nombre);
     });
 
   }
@@ -96,7 +104,11 @@ export class CreateexercicePage implements OnInit {
 
   //Método que nos permite crear la rutina de ejercicios con todos los ejercicios configurados por el usuario.
   create() {
-      
+    
+    for(let i of this.nombres) {
+      this.nombres.pop();
+    }
+
     //Eliminar elemento undefined del array.
     this.ejercicios.reverse();
     for(let i of this.ejercicios){
@@ -106,21 +118,79 @@ export class CreateexercicePage implements OnInit {
       }
       else {
         console.log(i);
+        this.nombres.push(i.getNombre());
       }
     }
+    this.nombres.reverse()
     this.ejercicios.reverse();
     console.log("this.ejercicios",this.ejercicios);
 
+    //Mostrar pop up con los ejercicios
+    this.alert();
+
     //Guardar array de ejercicios en la BD
-    this.storage.get('idGeneral').then(id => {
+    /*this.storage.get('idGeneral').then(id => {
       let observable:Observable<any>;
-      observable = this.createExerciceService.saveExercices(id,this.ejercicios);
+
+      observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,this.ejercicios);
       observable.toPromise().then( datos => {
        console.log("datos",datos);
       });
+    });*/
+    
+    
+  }
+
+  async alert() {
+
+    const alert = await this.alertCtrl.create({
+      cssClass:'my-alert',
+      subHeader: 'Se creará una rutina con los siguientes ejercicios',
+      message: this.nombres.toString(),
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (option) => {
+            console.log("Cancelar");
+            
+            for(let i of this.nombres) {
+              this.nombres.pop();
+            }
+
+          }
+        },
+        {
+          text: 'Crear',
+          role: 'create',
+          handler: (option) => {
+            console.log("Crear");
+            this.storage.get('idGeneral').then(id => {
+            let observable:Observable<any>;
+            for(let e of this.ejercicios){
+              observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
+            }
+
+            observable.toPromise().then( datos => {
+              console.log("datos",datos);
+              });
+
+          });
+            /*this.storage.get('idGeneral').then(id => {
+              let observable:Observable<any>;
+
+              observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,this.ejercicios);
+              observable.toPromise().then( datos => {
+              console.log("datos",datos);
+              });
+            });*/
+
+          }
+        }
+      ]
     });
-    
-    
+    await alert.present();
   }
 
 }

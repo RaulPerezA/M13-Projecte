@@ -114,26 +114,24 @@ public class RutinaDiaController {
 
 		Optional<RutinaDia> rd = repository.findById(idGeneral);
 
-			
 		if (rd.isPresent()) {
-			
+
 			System.out.println("idGeneral " + idGeneral);
 			System.out.println("nombre " + name);
-			
+
 			System.out.println("funciona la rutinaDia");
 			ArrayList<RutinaEjercicio> ejercicios = new ArrayList<RutinaEjercicio>();
 			ArrayList<RutinaDias> diarias = new ArrayList<RutinaDias>();
-			//Rutina diaria
+			// Rutina diaria
 			RutinaDias rDiaria = new RutinaDias(name, ejercicios);
-			//Array de diarias
-			
+			// Array de diarias
+
 			rd.get().getRutinasDias().add(rDiaria);
-			
-			
-			//rd.get().setRutinasDias(rutinas);
+
+			// rd.get().setRutinasDias(rutinas);
 			RutinaDia rutinaDia = rd.get();
 			repository.save(rutinaDia);
-			
+
 			return rDiaria;
 		}
 
@@ -143,24 +141,39 @@ public class RutinaDiaController {
 	/*
 	 * Añade un conjunto de ejercicios a una rutina diaria.
 	 */
-	/*
-	 * @CrossOrigin(origins = "http://localhost:8100")
-	 * 
-	 * @GetMapping(path = "/rutina/saveExercice") public @ResponseBody RutinaDia
-	 * createDaily(@RequestParam String idGeneral, @RequestParam
-	 * ArrayList<RutinaEjercicio> ejercicios) {
-	 * 
-	 * //ArrayList<RutinasDias> Optional<RutinaDia> rd =
-	 * repository.findById(idGeneral);
-	 * 
-	 * if(rd.isPresent()) { System.out.println("AÑADIENDO EJERCICIOS...");
-	 * rd.get().getRutinasDias().get(0).setEjercicios(ejercicios); RutinaDia
-	 * rutinaDia = rd.get(); repository.save(rutinaDia); return rutinaDia; }
-	 * 
-	 * 
-	 * 
-	 * return null; }
-	 */
+
+	@CrossOrigin(origins = "http://localhost:8100")
+	@GetMapping(path = "/rutina/saveExercice")
+	 //@RequestParam String dia,
+	public @ResponseBody RutinaDia createDaily(@RequestParam String idGeneral, @RequestParam String diaria, @RequestParam RutinaEjercicio ejercicios) {
+		
+		 Optional<RutinaDia> rd = repository.findById(idGeneral);
+		 RutinaDia rutinaDia = null;
+		 int index = 0;
+		 
+		if(rd.isPresent()) {
+			System.out.println("General encontrado");
+			rutinaDia = rd.get();
+			
+			for (RutinaDias rDias: rutinaDia.getRutinasDias()) {
+				System.out.println("Diaria encontrada");
+				if(rDias.getNombre().equals(diaria)) {
+					//rDias.getEjercicios().add(ejercicios);
+					System.out.println("Añadiendo ejercicio");
+					rutinaDia.getRutinasDias().get(index).getEjercicios().add(ejercicios);
+				}
+				index++;
+			}
+			
+			
+			repository.save(rutinaDia);
+			
+		}
+
+		
+		
+		return rutinaDia;
+	}
 
 	/*
 	 * Cambia y devuelve un dia mas de seguimiento de entrenamiento
@@ -228,5 +241,49 @@ public class RutinaDiaController {
 
 		return rd;
 	}
+	
+	
+	/*
+	 * Devuelve los dias de una rutina general 
+	 */
+      
+     
+    @CrossOrigin(origins = "http://localhost:8100")
+    @GetMapping(path = "/rutina/getDaysOneRoutine")
+    public @ResponseBody List<RutinaDias> getDaysOneRoutine(@RequestParam String idGeneral) {
+        Optional<RutinaDia> rd = repository.findById(idGeneral);
+        List<RutinaDias> rutinas = new ArrayList<RutinaDias>();
+        if (rd.isPresent()) {
+            rutinas=rd.get().getRutinasDias();
+        }
+        return rutinas;
+
+    }
+    
+    /*
+	 * Devuelve una rutina general que se le pasa la id por parametro
+	 */
+      
+     
+    @CrossOrigin(origins = "http://localhost:8100")
+    @GetMapping(path = "/rutina/findRutinaId")
+    public @ResponseBody Optional<RutinaDia> getRoutine(@RequestParam String idGeneral) {
+        return repository.findById(idGeneral);
+    }
+    /*
+     * Elimina la rutina general que se le pasa por id
+     */
+    @CrossOrigin(origins = "http://localhost:8100")
+    @GetMapping(path = "/rutina/removeRoutineGeneralId")
+    public @ResponseBody void removeRoutine(@RequestParam String idGeneral) {
+        repository.deleteById(idGeneral);
+    }
+	
+	
+	
+	
+	
+	
+	
 
 }
