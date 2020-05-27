@@ -78,6 +78,7 @@ export class EditgeneralPage implements OnInit {
   }
 
   goToDaily(evento) {
+    console.log("evento",evento);
     this.storage.set('dailyDay',evento);
     this.navCtrol.navigateForward('/listexercice');
   }
