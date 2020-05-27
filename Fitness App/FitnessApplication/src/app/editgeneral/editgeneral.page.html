@@ -9,6 +9,10 @@
 
 
 <ion-content>
+  <ion-item (click)="activarRutina()">
+    <ion-label>Activa?</ion-label>
+    <ion-checkbox [(ngModel)]="active.isChecked"></ion-checkbox>
+  </ion-item>
   <ion-text *ngIf="bienvenida==true">No tienes ninguna rutina creada. Empieza creando en +. </ion-text>
  <div id="bloqueNL" *ngFor="let d of daily">
     <ion-card id="nombre" (click)="goToDaily(d)">

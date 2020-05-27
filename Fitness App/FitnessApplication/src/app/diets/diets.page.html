@@ -49,7 +49,7 @@
       <ion-text>{{data}}</ion-text>
     </ion-item>
   </ion-card>-->
-      <ion-card *ngFor="let i of recetas | filtro: textoBuscar" (click)="select(i)">
+      <ion-card *ngFor="let i of recetas | filtroReceta: textoBuscar" (click)="select(i)">
         <!-- <img src="{{i.imagen}}"> -->
         <img src="./assets/{{i.imagen}}">
         <ion-item>{{i.receta}}</ion-item>
