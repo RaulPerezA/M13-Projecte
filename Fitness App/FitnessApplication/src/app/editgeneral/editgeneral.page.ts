@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { RutinaDia } from '../Objects/RutinaDia';
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs';
+import { RoutineService } from '../routine.service';
 
 @Component({
   selector: 'app-editgeneral',
@@ -13,7 +15,11 @@ export class EditgeneralPage implements OnInit {
   bienvenida:boolean=false;
   titulo:string;
   daily:Array<RutinaDia>;
-  constructor(private navCtrol: NavController, private storage:Storage) { }
+  active =  { val: 'Activa', isChecked: false };
+  resultRutina: Observable<any>;
+  idGeneral:string;
+
+  constructor(private navCtrol: NavController, private storage:Storage, private routineService:RoutineService) { }
 
   //Inicializamos la página.
   ngOnInit() {}
@@ -24,6 +30,13 @@ export class EditgeneralPage implements OnInit {
     //Obtenemos las rutinas diarias de una rutina general.
     this.storage.get('dailyGeneral').then( general => {
       this.titulo=general.nombre;
+      this.idGeneral=general._id;
+      if(general.activa==true){
+        this.active.isChecked=true;
+      }
+      else {
+        this.active.isChecked=false;
+      }
       //Recorremos el array de rutinas diarias.
       for(let d of general.rutinasDias){
         //Guardamos las rutinas diarias en un array para poder visualizarlas en el html.
@@ -33,7 +46,23 @@ export class EditgeneralPage implements OnInit {
       if(this.daily.length==0){
         this.bienvenida=true;
       }
+      else{
+        this.bienvenida=false;
+      }
     });
+  }
+
+  activarRutina(){
+    this.resultRutina = this.routineService.setRoutineActive(this.idGeneral);
+    console.log(this.resultRutina);
+    let promesa:Promise<any>;
+    promesa = this.resultRutina.toPromise();
+    
+    promesa.then(datos => {
+      console.log(datos);
+      this.storage.set('rutinas',datos);
+      this.navCtrol.navigateForward('/exercices');
+    }); 
   }
 
   redirect(){
