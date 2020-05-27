@@ -179,23 +179,30 @@ export class CreateexercicePage implements OnInit {
           handler: (option) => {
             this.nombres = [];
             console.log("Crear");
+            console.log("this.ejercicios",this.ejercicios);
             this.storage.get('idGeneral').then(async id => {
-            //let observable:Observable<any>;
+            let observable:Observable<any>;
             for(let e of this.ejercicios){
               console.log("e",e);
 
-              await this.insertar(id, e);
-              /*observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
-              observable.toPromise().then( datos => {
+              //await this.insertar(id, e);
+              observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
+            
+              await observable.toPromise().then( datos => {
                 console.log("datos",datos);
-                });*/
+
+                this.storage.set('dailyDay',datos);
+                this.navCtrl.navigateBack('/listexercice');
+                });
+              
+
             }
 
             
 
           });
             
-          this.navCtrl.navigateBack('/listexercice');
+         
 
           }
         }
@@ -205,12 +212,16 @@ export class CreateexercicePage implements OnInit {
   }
 
   async insertar(id:any, e:any){
-
+    let results = [];
+    const promises = [];
     let observable:Observable<any>;
     observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
     observable.toPromise().then( datos => {
       console.log("datos",datos);
       });
+
+      results= await Promise.all(promises);
+      console.log("resultados",results);
 
   }
 

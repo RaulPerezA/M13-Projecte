@@ -58,7 +58,7 @@ export class AddDailyPage implements OnInit {
       promesa = this.routinesResult.toPromise();
       promesa.then(values => {
         this.storage.set('dailyGeneral',values);
-        console.log(values);
+        console.log("value",values);
       });
 
       this.routinesResult=this.routineService.createRutinas(this.user);
