@@ -17,6 +17,7 @@ export class RoutineService {
   public GETDAYS = this.API + '/rutina/getDaysOneRoutine';
   public GETRUTINAXID = this.API + '/rutina/findRutinaId';
   public REMOVEROUTINEGENERAL = this.API + '/rutina/removeRoutineGeneralId';
+  public SETRUTINAACTIVA = this.API + '/rutina/comprobeActiveRoutine';
 
   constructor(private http: HttpClient) { }
 
@@ -52,5 +53,10 @@ export class RoutineService {
   removeRoutineGeneral(idGeneral:string){
     console.log("llegaaaaa", idGeneral);
     return this.http.get(this.REMOVEROUTINEGENERAL+"?idGeneral="+idGeneral);
+  }
+  
+  setRoutineActive(idGeneral:string){
+    console.log("llegaaaaa", idGeneral);
+    return this.http.get(this.SETRUTINAACTIVA+"?idGeneral="+idGeneral);
   }
 }

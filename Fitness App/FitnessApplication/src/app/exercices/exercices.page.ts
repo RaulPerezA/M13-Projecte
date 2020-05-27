@@ -102,8 +102,8 @@ export class ExercicesPage implements OnInit {
             promesa.then(datos => {
               console.log(datos);
               this.storage.set('rutinas',datos);
-            });
-            
+              this.navCtrl.navigateForward('/main');
+            }); 
           }
         }
       ]
@@ -111,7 +111,6 @@ export class ExercicesPage implements OnInit {
     await alert.present();
   }
   
-
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'CARGANDO...',
