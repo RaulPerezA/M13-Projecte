@@ -231,6 +231,7 @@ export class UserprofilePage implements OnInit {
     console.log("weight",this.user.getWeight());
     this.userData = [this.user.getName(), this.user.getSurnames(), this.user.getHeight(), this.user.getWeight()];
     
+    this.storage.set('user',this.user);
 
   }
 

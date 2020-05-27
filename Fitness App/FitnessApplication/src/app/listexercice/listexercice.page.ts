@@ -23,6 +23,11 @@ export class ListexercicePage implements OnInit {
 
   //Inicializamos la página.
   ngOnInit() {
+   
+    
+  }
+
+  ionViewWillEnter() {
     //Inicializamos un nuevo array de ejercicios que tiene una rutina dia.
     this.exercices = new Array<RutinaDia>();
     this.storage.get('dailyDay').then( dia => {
@@ -30,6 +35,7 @@ export class ListexercicePage implements OnInit {
       console.log(dia);
       //Recorremos con un for los datos que obtenemos del storage.
       for(let e of dia.ejercicios){
+        console.log(e);
         //Añadimos a un array los ejercicios que hemos obtenido. 
         this.exercices.push(e);
       }
@@ -37,13 +43,16 @@ export class ListexercicePage implements OnInit {
       if(this.exercices.length==0){
         this.bienvenida=true;
       }
+      else{
+        this.bienvenida=false;
+      }
     });
 
     this.storage.get('ejercicios').then( ejercicios => {
       this.ejercicios=ejercicios;
     });
-    
   }
+
 
   redirect(){
     this.navCtrl.navigateForward('/editgeneral');
