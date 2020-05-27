@@ -14,16 +14,17 @@ export class RoutineExercise {
   private ejercicio:RutinaEjercicio;
 
   saveExercices(id:string, diaria:string ,ejercicios:RutinaEjercicio ){
-    console.log("id",id);
-    console.log("dia",diaria);
     console.log("ejercicios",ejercicios);
-    console.log("ejercicio.getRepeticionesSerie()",ejercicios.getRepeticionesSerie())
-    console.log("getSegundosSerie",ejercicios.getSegundosSerie());
+
     return this.http.get(this.EXERCICE+"?idGeneral="+id+"&diaria="+diaria+"&nombre="+ejercicios.getNombre()+"&ejercicio="+ejercicios.getEjercicio()+"&series="+ejercicios.getSeries()+"&modoEjercitar="+ejercicios.getModoEjercitar()+"&repeticionesSerie="+ejercicios.getRepeticionesSerie()+"&segundosSerie="+ejercicios.getSegundosSerie()+"&segundosDescanso="+ejercicios.getSegundosDescanso());
   }
 
  getExercice(){
   return this.ejercicio;
+ }
+
+ vaciarEjercicio() {
+   this.ejercicio = null;
  }
 
  createExercice(exercice:RutinaEjercicio) {

@@ -40,7 +40,12 @@ export class CreateexercicePage implements OnInit {
 
    //Inicializamos l a página.
   ngOnInit() {
-
+    this.createExerciceService.vaciarEjercicio();
+    this.ejercicios = new Array<RutinaEjercicio>();
+    this.nombres=[];
+    this.exercices=[];
+    this.nombres=[];
+    this.exercices=[];
     this.textoBuscar='';
     //Obtenemos los ejercicios de la base de datos 
     this.listExercices = this.exerciceService.getAllExercices();
@@ -70,11 +75,18 @@ export class CreateexercicePage implements OnInit {
   //Método de ionic, cuando estemos entrando en la página obtendremos el ejercicio configurado que le hemos enviado al servicio CreateExerciceService.
   ionViewWillEnter() {
     console.log("Vamos a entrar");
+    console.log("recogiendo ejercicio ",this.createExerciceService.getExercice());
     this.ejercicios.push(this.createExerciceService.getExercice());
+    this.createExerciceService.vaciarEjercicio();
   }
 
   //Destruimos la página.
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.createExerciceService.vaciarEjercicio();
+    this.ejercicios.length = 0;
+    this.nombres=[];
+    this.exercices=[];
+  }
 
   //metodo que nos permite obtener la palabra que esta escribiendo el usuario en el buscador.
   search(event) {
@@ -112,12 +124,12 @@ export class CreateexercicePage implements OnInit {
     //Eliminar elemento undefined del array.
     this.ejercicios.reverse();
     for(let i of this.ejercicios){
-      if(i===undefined){
-        console.log("undefined");
+      if(i===undefined || i==null){
+        console.log("undefined o null");
         this.ejercicios.pop();
       }
       else {
-        console.log(i);
+        console.log("no nulo",i);
         this.nombres.push(i.getNombre());
       }
     }
@@ -165,30 +177,25 @@ export class CreateexercicePage implements OnInit {
           text: 'Crear',
           role: 'create',
           handler: (option) => {
+            this.nombres = [];
             console.log("Crear");
-            this.storage.get('idGeneral').then(id => {
-            let observable:Observable<any>;
+            this.storage.get('idGeneral').then(async id => {
+            //let observable:Observable<any>;
             for(let e of this.ejercicios){
               console.log("e",e);
 
-              this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
-              observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
+              await this.insertar(id, e);
+              /*observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
               observable.toPromise().then( datos => {
                 console.log("datos",datos);
-                });
+                });*/
             }
 
             
 
           });
-            /*this.storage.get('idGeneral').then(id => {
-              let observable:Observable<any>;
-
-              observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,this.ejercicios);
-              observable.toPromise().then( datos => {
-              console.log("datos",datos);
-              });
-            });*/
+            
+          this.navCtrl.navigateBack('/listexercice');
 
           }
         }
@@ -196,5 +203,17 @@ export class CreateexercicePage implements OnInit {
     });
     await alert.present();
   }
+
+  async insertar(id:any, e:any){
+
+    let observable:Observable<any>;
+    observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
+    observable.toPromise().then( datos => {
+      console.log("datos",datos);
+      });
+
+  }
+
+
 
 }

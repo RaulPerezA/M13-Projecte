@@ -165,61 +165,42 @@ public class RutinaDiaController {
 					
 					System.out.println("Diaria encontrada " + diaria);
 					
+					System.out.println("TAMAÑO ====> " + rd.get().getRutinasDias().get(i).getEjercicios().size());
+					System.out.println("EJERCICIOS ====> " + rd.get().getRutinasDias().get(i).getEjercicios());
 					
 					if(modoEjercitar.equals("repeticiones")) {
 						
-						System.out.println("<====== MODO REPETICIONES ======>");
-						System.out.println("nombre " + nombre);
-						System.out.println("ejercicio " + ejercicio);
-						System.out.println("series " + series);
-						System.out.println("modoEjercitar " + modoEjercitar);
+						
 						repeticionesS = Integer.parseInt(repeticionesSerie);
 						repsS = new Integer(repeticionesS);
-						System.out.println("repeticionesSerie " + repsS);
-						System.out.println("segundosDescanso " + segundosDescanso);
+						
 						
 						rEjercicio = new RutinaEjercicio(nombre,ejercicio,series,modoEjercitar,repsS,null,segundosDescanso);
 						rd.get().getRutinasDias().get(i).getEjercicios().add(rEjercicio);
 						
+						System.out.println("ejercicios introducidos: " + rd.get().getRutinasDias().get(i).getEjercicios());
+						
 					}
 					else if(modoEjercitar.equals("tiempo")) {
 						
-						System.out.println("<====== MODO TIEMPO ======>");
-						System.out.println("nombre " + nombre);
-						System.out.println("ejercicio " + ejercicio);
-						System.out.println("series " + series);
-						System.out.println("modoEjercitar " + modoEjercitar);
 						segundosS = Integer.parseInt(segundosSerie);
 						segS = new Integer(segundosS);					
-						System.out.println("segundosSerie " + segS);
-						System.out.println("segundosDescanso " + segundosDescanso);
+						
 						
 						rEjercicio = new RutinaEjercicio(nombre,ejercicio,series,modoEjercitar,null,segS,segundosDescanso);
 						rd.get().getRutinasDias().get(i).getEjercicios().add(rEjercicio);
 						
+						System.out.println("ejercicios introducidos: " + rd.get().getRutinasDias().get(i).getEjercicios());
+						
 					}
-					
-					
-					/*System.out.println("nombre " + nombre);
-					System.out.println("ejercicio " + ejercicio);
-					System.out.println("series " + series);
-					System.out.println("modoEjercitar " + modoEjercitar);
-					//repeticionesS = Integer.parseInt(repeticionesSerie);
-					//repsS = new Integer(repeticionesS);
-					//System.out.println("repeticionesSerie " + repsS);
-					System.out.println("repeticionesSerie " + repeticionesSerie);
-					//segundosS = Integer.parseInt(segundosSerie);
-					//segS = new Integer(segundosS);					
-					//System.out.println("segundosSerie " + segS);
-					System.out.println("segundosSerie " + segundosSerie);
-					System.out.println("segundosDescanso " + segundosDescanso);*/
-				
 				
 				}
 				
 			}
 			
 			RutinaDia rutinaDia = rd.get();
+			
+			System.out.println("RUTINA DIA FINAL: " + rutinaDia.toString());
 			
 			repository.save(rutinaDia);
 			return rutinaDia;
@@ -340,5 +321,42 @@ public class RutinaDiaController {
         return null;
        // repository.deleteById(idGeneral);
     }
+    
+    /*
+     * Comprueba si la rutina que se le pasa por parametro esta activa, si lo esta la pone en false y acaba, 
+     * si no lo esta comprueba si hay otra rutina activa, si no hay otra, pone esta a activa y acaba,
+     * si hay otra activa desactiva la otra y activa esta.
+     * Devuelve la lista de rutinas actualizadas.
+     */
+    @CrossOrigin(origins = "http://localhost:8100")
+    @GetMapping(path = "/rutina/comprobeActiveRoutine")
+    public @ResponseBody List<RutinaDia> comprobeActiveRoutine(@RequestParam String idGeneral) {
+        System.out.println(idGeneral);
+        Optional<RutinaDia> rut= repository.findById(idGeneral);
+        if(rut.isPresent()) {
+            RutinaDia rutOF=rut.get();
+            if(rutOF.isActiva() ) {
+                rutOF.setActiva(false);
+            }
+            else {
+                List<RutinaDia> rutinasUsuario = repository.findByUserName(rutOF.getUserName());
+                for(RutinaDia rd:rutinasUsuario) {
+                    if(rd.isActiva()) {
+                        rd.setActiva(false);
+                        repository.save(rd);
+                    }
+                }
+                rutOF.setActiva(true);
+            }
+
+            System.out.println(rutOF.toString());
+            repository.save(rutOF);
+
+            //volvemos a llamar al metodo findByUsername para que devuelva la lista ya actualizada!!!! 
+            return repository.findByUserName(rutOF.getUserName());
+        }
+        return null;
+    }
+    
 
 }
