@@ -144,35 +144,89 @@ public class RutinaDiaController {
 
 	@CrossOrigin(origins = "http://localhost:8100")
 	@GetMapping(path = "/rutina/saveExercice")
-	 //@RequestParam String dia,
-	public @ResponseBody RutinaDia createDaily(@RequestParam String idGeneral, @RequestParam String diaria, @RequestParam RutinaEjercicio ejercicios) {
+	// @RequestParam Object ejercicios
+	public @ResponseBody RutinaDia saveExercices(@RequestParam String idGeneral, @RequestParam String diaria,
+			@RequestParam String nombre, @RequestParam String ejercicio, @RequestParam int series, @RequestParam String modoEjercitar, @RequestParam String repeticionesSerie,
+			@RequestParam String segundosSerie, @RequestParam int segundosDescanso) {
+
+		Optional<RutinaDia> rd = repository.findById(idGeneral);
+		int repeticionesS = 0;
+		int segundosS = 0;
+		Integer repsS = null;
+		Integer segS = null;
+		RutinaEjercicio rEjercicio = null;
 		
-		 Optional<RutinaDia> rd = repository.findById(idGeneral);
-		 RutinaDia rutinaDia = null;
-		 int index = 0;
-		 
-		if(rd.isPresent()) {
-			System.out.println("General encontrado");
-			rutinaDia = rd.get();
+		if (rd.isPresent()) {
+			System.out.println("general encontrada");
 			
-			for (RutinaDias rDias: rutinaDia.getRutinasDias()) {
-				System.out.println("Diaria encontrada");
-				if(rDias.getNombre().equals(diaria)) {
-					//rDias.getEjercicios().add(ejercicios);
-					System.out.println("Añadiendo ejercicio");
-					rutinaDia.getRutinasDias().get(index).getEjercicios().add(ejercicios);
+			for (int i = 0; i<rd.get().getRutinasDias().size(); i++) {
+				
+				if(rd.get().getRutinasDias().get(i).getNombre().equals(diaria)) {
+					
+					System.out.println("Diaria encontrada " + diaria);
+					
+					
+					if(modoEjercitar.equals("repeticiones")) {
+						
+						System.out.println("<====== MODO REPETICIONES ======>");
+						System.out.println("nombre " + nombre);
+						System.out.println("ejercicio " + ejercicio);
+						System.out.println("series " + series);
+						System.out.println("modoEjercitar " + modoEjercitar);
+						repeticionesS = Integer.parseInt(repeticionesSerie);
+						repsS = new Integer(repeticionesS);
+						System.out.println("repeticionesSerie " + repsS);
+						System.out.println("segundosDescanso " + segundosDescanso);
+						
+						rEjercicio = new RutinaEjercicio(nombre,ejercicio,series,modoEjercitar,repsS,null,segundosDescanso);
+						rd.get().getRutinasDias().get(i).getEjercicios().add(rEjercicio);
+						
+					}
+					else if(modoEjercitar.equals("tiempo")) {
+						
+						System.out.println("<====== MODO TIEMPO ======>");
+						System.out.println("nombre " + nombre);
+						System.out.println("ejercicio " + ejercicio);
+						System.out.println("series " + series);
+						System.out.println("modoEjercitar " + modoEjercitar);
+						segundosS = Integer.parseInt(segundosSerie);
+						segS = new Integer(segundosS);					
+						System.out.println("segundosSerie " + segS);
+						System.out.println("segundosDescanso " + segundosDescanso);
+						
+						rEjercicio = new RutinaEjercicio(nombre,ejercicio,series,modoEjercitar,null,segS,segundosDescanso);
+						rd.get().getRutinasDias().get(i).getEjercicios().add(rEjercicio);
+						
+					}
+					
+					
+					/*System.out.println("nombre " + nombre);
+					System.out.println("ejercicio " + ejercicio);
+					System.out.println("series " + series);
+					System.out.println("modoEjercitar " + modoEjercitar);
+					//repeticionesS = Integer.parseInt(repeticionesSerie);
+					//repsS = new Integer(repeticionesS);
+					//System.out.println("repeticionesSerie " + repsS);
+					System.out.println("repeticionesSerie " + repeticionesSerie);
+					//segundosS = Integer.parseInt(segundosSerie);
+					//segS = new Integer(segundosS);					
+					//System.out.println("segundosSerie " + segS);
+					System.out.println("segundosSerie " + segundosSerie);
+					System.out.println("segundosDescanso " + segundosDescanso);*/
+				
+				
 				}
-				index++;
+				
 			}
 			
+			RutinaDia rutinaDia = rd.get();
 			
 			repository.save(rutinaDia);
+			return rutinaDia;
 			
 		}
 
-		
-		
-		return rutinaDia;
+		return null;
 	}
 
 	/*
@@ -241,49 +295,50 @@ public class RutinaDiaController {
 
 		return rd;
 	}
-	
-	
-	/*
-	 * Devuelve los dias de una rutina general 
-	 */
-      
-     
-    @CrossOrigin(origins = "http://localhost:8100")
-    @GetMapping(path = "/rutina/getDaysOneRoutine")
-    public @ResponseBody List<RutinaDias> getDaysOneRoutine(@RequestParam String idGeneral) {
-        Optional<RutinaDia> rd = repository.findById(idGeneral);
-        List<RutinaDias> rutinas = new ArrayList<RutinaDias>();
-        if (rd.isPresent()) {
-            rutinas=rd.get().getRutinasDias();
-        }
-        return rutinas;
 
-    }
-    
-    /*
+	/*
+	 * Devuelve los dias de una rutina general
+	 */
+
+	@CrossOrigin(origins = "http://localhost:8100")
+	@GetMapping(path = "/rutina/getDaysOneRoutine")
+	public @ResponseBody List<RutinaDias> getDaysOneRoutine(@RequestParam String idGeneral) {
+		Optional<RutinaDia> rd = repository.findById(idGeneral);
+		List<RutinaDias> rutinas = new ArrayList<RutinaDias>();
+		if (rd.isPresent()) {
+			rutinas = rd.get().getRutinasDias();
+		}
+		return rutinas;
+
+	}
+
+	/*
 	 * Devuelve una rutina general que se le pasa la id por parametro
 	 */
-      
-     
-    @CrossOrigin(origins = "http://localhost:8100")
-    @GetMapping(path = "/rutina/findRutinaId")
-    public @ResponseBody Optional<RutinaDia> getRoutine(@RequestParam String idGeneral) {
-        return repository.findById(idGeneral);
-    }
-    /*
+
+	@CrossOrigin(origins = "http://localhost:8100")
+	@GetMapping(path = "/rutina/findRutinaId")
+	public @ResponseBody Optional<RutinaDia> getRoutine(@RequestParam String idGeneral) {
+		return repository.findById(idGeneral);
+	}
+
+	/*
      * Elimina la rutina general que se le pasa por id
      */
     @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping(path = "/rutina/removeRoutineGeneralId")
-    public @ResponseBody void removeRoutine(@RequestParam String idGeneral) {
-        repository.deleteById(idGeneral);
+    public @ResponseBody List<RutinaDia> removeRoutine(@RequestParam String idGeneral) {
+        System.out.println(idGeneral);
+        Optional<RutinaDia> rut= repository.findById(idGeneral);
+        if(rut.isPresent()) {
+            RutinaDia rutOF=rut.get();
+            String user=rutOF.getUserName();
+            System.out.println(rutOF.toString());
+            repository.delete(rutOF);
+            return repository.findByUserName(user);
+        }
+        return null;
+       // repository.deleteById(idGeneral);
     }
-	
-	
-	
-	
-	
-	
-	
 
 }

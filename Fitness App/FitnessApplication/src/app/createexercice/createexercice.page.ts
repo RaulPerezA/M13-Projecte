@@ -169,12 +169,16 @@ export class CreateexercicePage implements OnInit {
             this.storage.get('idGeneral').then(id => {
             let observable:Observable<any>;
             for(let e of this.ejercicios){
+              console.log("e",e);
+
+              this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
               observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
+              observable.toPromise().then( datos => {
+                console.log("datos",datos);
+                });
             }
 
-            observable.toPromise().then( datos => {
-              console.log("datos",datos);
-              });
+            
 
           });
             /*this.storage.get('idGeneral').then(id => {
