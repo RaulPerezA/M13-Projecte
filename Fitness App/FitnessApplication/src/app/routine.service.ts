@@ -18,6 +18,8 @@ export class RoutineService {
   public GETRUTINAXID = this.API + '/rutina/findRutinaId';
   public REMOVEROUTINEGENERAL = this.API + '/rutina/removeRoutineGeneralId';
   public SETRUTINAACTIVA = this.API + '/rutina/comprobeActiveRoutine';
+  public DIASELECCIONADO = this.API +'/rutina/findDiaSeleccionado';
+  
 
   constructor(private http: HttpClient) { }
 
@@ -35,6 +37,11 @@ export class RoutineService {
   //Devuelve el día que tiene que hacer el ejercicio
   rutinaDia(userName:string, posicion:Number){
     return this.http.get(this.RUTINAACTUAL+"?user="+userName+"&posicion="+posicion);
+  }
+
+  //Devuelve el dia seleccionado con sus ejercicios
+  getDiaSeleccionado(idGeneral:string,diaria:string){
+    return this.http.get(this.DIASELECCIONADO+"?idGeneral="+idGeneral+"&diaria="+diaria);
   }
   
   //Cambia y devuelve el dia siguiente de la rutina activa del usuario que se le pasa por parametro.

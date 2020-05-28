@@ -75,6 +75,28 @@ public class RutinaDiaController {
 		return null;
 	}
 
+	@CrossOrigin(origins = "http://localhost:8100")
+	@GetMapping(path = "/rutina/findDiaSeleccionado")
+	public @ResponseBody RutinaDias getDiaSeleccionado(@RequestParam String idGeneral, @RequestParam String diaria) {
+
+		Optional<RutinaDia> rd = repository.findById(idGeneral);
+
+		if(rd.isPresent()) {
+			
+			for (RutinaDias rDias: rd.get().getRutinasDias()){
+				if(rDias.getNombre().equals(diaria)) {
+					return rDias;
+				}
+			}
+			
+		}
+		
+		
+		
+		return null;
+	}
+	
+	
 	/*
 	 * Añade una rutina general con las rutinaDias vacia.
 	 */

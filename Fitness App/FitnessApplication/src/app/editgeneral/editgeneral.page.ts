@@ -25,6 +25,7 @@ export class EditgeneralPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter(){
+    console.log("rutinas diarias");
     //Creamos un array de rutinas diarias.
     this.daily = new Array<RutinaDia>();
     //Obtenemos las rutinas diarias de una rutina general.
@@ -79,8 +80,14 @@ export class EditgeneralPage implements OnInit {
 
   goToDaily(evento) {
     console.log("evento",evento);
-    this.storage.set('dailyDay',evento);
-    this.navCtrol.navigateForward('/listexercice');
+    let observable:Observable<any>=this.routineService.getDiaSeleccionado(this.idGeneral,evento.nombre);
+    observable.toPromise().then( observable => {
+      console.log("observableGeneral",observable);
+      this.storage.set('dailyDay',observable);
+      this.navCtrol.navigateForward('/listexercice');
+    });
+    
+    
   }
 
   removeExercise(evento){
