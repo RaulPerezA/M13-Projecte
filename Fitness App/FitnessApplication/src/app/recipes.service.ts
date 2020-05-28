@@ -12,7 +12,7 @@ export class RecipesService {
   
   constructor(private http: HttpClient) { }
 
-  //Usaremos esta funcion para que devuelva todas las recetas
+  //Obtenemos todas las recetas de la base de datos mediante el controlador de spring.
   createRecetas() {
     return this.http.get(this.RECETAS);
   }

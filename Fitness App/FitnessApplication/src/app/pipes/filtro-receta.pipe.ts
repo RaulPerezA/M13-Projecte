@@ -5,6 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FiltroRecetaPipe implements PipeTransform {
 
+  //Método que nos permite filtrar las recetas según la palabra que hayamos obtenido en el search bar.
   transform(array: any[], text:string): any[] {
     if(text === '') {
       return array;

@@ -124,19 +124,6 @@ export class CreateexercicePage implements OnInit {
       this.nombres.pop();
     }
 
-    //Eliminar elemento undefined del array.
-    
-    /*for(let i of this.ejercicios){
-      if(i===undefined || i==null){
-        console.log("undefined o null");
-        this.ejercicios.pop();
-      }
-      else {
-        console.log("no nulo",i);
-        this.nombres.push(i.getNombre());
-      }
-    }*/
-
     for(let i of this.ejercicios){
      
         console.log('i',i);
@@ -151,19 +138,9 @@ export class CreateexercicePage implements OnInit {
     //Mostrar pop up con los ejercicios
     this.alert();
 
-    //Guardar array de ejercicios en la BD
-    /*this.storage.get('idGeneral').then(id => {
-      let observable:Observable<any>;
-
-      observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,this.ejercicios);
-      observable.toPromise().then( datos => {
-       console.log("datos",datos);
-      });
-    });*/
-    
-    
   }
 
+  //Alerta que mostrará un pop up con los ejercicios que vamos a introducir
   async alert() {
 
     const alert = await this.alertCtrl.create({
@@ -211,51 +188,11 @@ export class CreateexercicePage implements OnInit {
                         }
                       });
 
-                
-
-               
               }
 
-
-                /*for(let e of this.ejercicios){
-                  console.log("e",e);
-
-                  
-                    observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
-              
-                    await observable.toPromise().then( datos => {
-                      console.log("datos",datos);
-  
-                      this.storage.set('dailyDay',datos);
-                      this.navCtrl.navigateBack('/listexercice');
-                      });
-                  
-
-               
-                  
-                }*/
           });
             
-          /*let observable:Observable<any>;
-          for(let e of this.ejercicios){
-            console.log("e",e);
-            
-            //await this.insertar(id, e);
-            observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
-          
-            await observable.toPromise().then( datos => {
-              console.log("datos",datos);
-
-              this.storage.set('dailyDay',datos);
-              this.navCtrl.navigateBack('/listexercice');
-              });
-            
-
-          }*/
-
-          
-
-          }
+        }
         }
       ]
     });

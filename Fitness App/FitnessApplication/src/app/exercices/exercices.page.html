@@ -8,6 +8,7 @@
 </ion-header>
 <!-- | eliminarRutina:idGeneral-->
 <ion-content>
+
   <div id="bloqueNL" *ngFor="let r of rutinas">
     <ion-card id="nombre" (click)="goToGeneral(r)">
       <ion-card-content>{{r.nombre}}</ion-card-content>
@@ -15,8 +16,9 @@
     <ion-card id="logo" (click)="removeExercise(r)"><ion-icon name="trash" id="img"></ion-icon>
     </ion-card> 
   </div>
-  
+
 </ion-content>
+
 <ion-footer class="footer">
 
       <ion-fab-button size="small" (click)="(addGeneral())">+</ion-fab-button>

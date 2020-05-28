@@ -16,19 +16,20 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
+  //Método que nos permite validar el login y cifrar la contraseña que introduce el usuario.
   getLogin(username:string, password:string) {
-    //username la inicial mayuscula, contraseña todo en minusculas
     // Hay que cifrar la contraseña para enviarlo de forma segura a la URL
     var SHA256 = require("crypto-js/sha256");
     return this.http.get(this.LOGIN+"?user="+username+"&pw="+SHA256(password).toString());
   }
-
+  
   getLoginUser(email:string) {
     //username la inicial mayuscula, contraseña todo en minusculas
     console.log("Pasa por aqui");
     return this.http.get(this.USERDATA+"?email="+email);
   }
 
+  //Método para guardar los datos del login en los campos de login (username y password), de esta forma el usuario no tendra que volver a escribirlos.
   saveCredentials(){
     this.credentials = !this.credentials;
     console.log("credentialsService",this.credentials);

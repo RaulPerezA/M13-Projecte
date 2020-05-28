@@ -12,9 +12,11 @@ export class DailyrutinePage implements OnInit {
 
   constructor(private navCtrl: NavController) { }
 
+  //Inicializamos la página
   ngOnInit() {
   }
 
+  //Método que nos llevara a la p´gina de "editgeneral".
   editGeneral(){
     this.navCtrl.navigateForward('/editgeneral');
   }

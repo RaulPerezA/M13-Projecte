@@ -49,19 +49,23 @@ export class RoutineService {
     return this.http.get(this.CAMBIARDIA+"?user="+userName);
   }
 
+  //Obtenemos la lista de las rutinas diarias según la id de la rutina General.
   getDays(idGeneral:string){
     return this.http.get(this.GETDAYS+"?idGeneral="+idGeneral);
   }
 
+  //Obtenemos una rutina de la BD según el id que le hayamos pasado al controlador de spring.
   getOneRoutine(idGeneral:string){
     return this.http.get(this.GETRUTINAXID+"?idGeneral="+idGeneral);
   }
   
+  //Permite eliminar una rutina general de la base de datos.
   removeRoutineGeneral(idGeneral:string){
     console.log("llegaaaaa", idGeneral);
     return this.http.get(this.REMOVEROUTINEGENERAL+"?idGeneral="+idGeneral);
   }
   
+  //Permite activar una rutina y actualizar la rutina activada en la base de datos.
   setRoutineActive(idGeneral:string){
     console.log("llegaaaaa", idGeneral);
     return this.http.get(this.SETRUTINAACTIVA+"?idGeneral="+idGeneral);

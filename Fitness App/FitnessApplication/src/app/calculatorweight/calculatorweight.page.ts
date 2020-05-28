@@ -31,6 +31,7 @@ export class CalculatorweightPage implements OnInit {
     console.log("Calculadora de peso destruida.");
   }
 
+  //Determinamos el sexo seleccionado mediante los radio buttons.
   radioSelected(valor) {
     console.log("radio seleccionado",valor);
     this.sexo = valor;

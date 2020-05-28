@@ -17,11 +17,11 @@ export class ExerciseService {
   
   //Devuelve un ejercicio el qual se le pasa la id
   createExercise(idEjercicio:string) {
-    //return this.http.get(this.RUTINAS);
-    //CUANDO SE CREE EL METODO EN SPRING HABRÁ QUE PONERLO ASI:
+    
     return this.http.get(this.EJERCICIO+"?nombre="+idEjercicio);
   }
 
+  //Obtenemos todos los ejercicios de la base de datos.
   getAllExercices() {
     console.log("ejerciciooooos");
     return this.http.get(this.EJERCICIOS);

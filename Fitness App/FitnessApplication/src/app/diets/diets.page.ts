@@ -55,19 +55,24 @@ export class DietsPage implements OnInit {
     this.navCtrl.navigateForward('/onereceta');
   }
 
+  //Método que nos permite obtener el texto del search bar y a través de un pipe filtrar la lista de recetas.
   search(event) {
     this.textoBuscar = event.detail.value;
   }
 
+  //Método para mostrar los filtros.
   showFilter() {
     this.filter = !this.filter;
   }
+
+  //Método para mostrar que etiqueta del filtro esta seleccionada.
   selectChip(position: number) {
     console.log(position);
     this.chipsSelected[position] = !this.chipsSelected[position];
     console.log(this.chipsSelected);
   }
 
+  //Método asincrono para mostrar la pantalla de carga.
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'CARGANDO...',
