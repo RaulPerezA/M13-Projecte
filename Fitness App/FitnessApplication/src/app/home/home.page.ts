@@ -282,6 +282,7 @@ export class HomePage {
     
   }
 
+  //Método el cual mostrará un pop up que simulara una pantalla de carga.
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'CARGANDO...',

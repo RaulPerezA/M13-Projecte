@@ -53,6 +53,7 @@ export class EditgeneralPage implements OnInit {
     });
   }
 
+  //Nos permite activar la rutina general que hayamos seleccionado.
   activarRutina(){
     this.resultRutina = this.routineService.setRoutineActive(this.idGeneral);
     console.log(this.resultRutina);
@@ -66,18 +67,17 @@ export class EditgeneralPage implements OnInit {
     }); 
   }
 
+  //Método que nos redirije a la página donde se muestran las rutinas diarias
   redirect(){
     this.navCtrol.navigateForward('/exercices');
   }
 
-  editName(){
-    //AQUI CAMBIAR NOMBRE DE LA RUTINA DE DIA.
-  }
-
+  //Método que nos redirije a la página donde se podrán crear las rutinas diarias.
   addDaily() {
     this.navCtrol.navigateForward('/add-daily');
   }
 
+  //Método que permite obtener los ejercicios de una rutina diaria y nos redirecciona a la página de "listexercice" donde se nos mostraran los ejercicios obtenidos.
   goToDaily(evento) {
     console.log("evento",evento);
     let observable:Observable<any>=this.routineService.getDiaSeleccionado(this.idGeneral,evento.nombre);
@@ -88,9 +88,5 @@ export class EditgeneralPage implements OnInit {
     });
     
     
-  }
-
-  removeExercise(evento){
-    //AQUI TENDRÁ QUE ELIMINAR EL OBJETO SELECCIONADO
   }
 }

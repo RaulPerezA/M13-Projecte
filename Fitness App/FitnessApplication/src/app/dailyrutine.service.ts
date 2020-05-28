@@ -12,6 +12,7 @@ export class DailyrutineService {
   public DAILY = this.API + '/rutina/createDaily';
 
 
+  //Hacemos una petición al controlador de spring para que guarde una rutina dia creada..
   saveDailyRutine(id:string, nombre:string) {
     console.log("id",id);
     return this.http.get(this.DAILY+"?idGeneral="+id+"&name="+nombre);

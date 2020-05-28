@@ -16,12 +16,7 @@ export class OnealimentPage implements OnInit {
 
   //Inicializamos la página.
   ngOnInit() {
-     //Acceder al storage para obtener los datos de la aliment.
-    /* this.storage.get('aliment').then((aliment)=>{
-      console.log('aliment',aliment);
-     // this.aliment = new aliment(aliment.aliment, aliment.alimentos, aliment.explicacion, aliment.tipoaliment, aliment.calorias);
-      this.alimentData = ["manzana", "pera", "platano", "naranja"];
-    })*/
+    
   }
 
   //Destruimos la página cuando la abandonamos.

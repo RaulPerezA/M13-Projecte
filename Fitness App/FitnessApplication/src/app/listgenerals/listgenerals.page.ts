@@ -12,9 +12,11 @@ export class ListgeneralsPage implements OnInit {
 
   constructor(private navCtrl: NavController) { }
 
+  //Inicializamos la página
   ngOnInit() {
   }
 
+  //Método que nos permite 
   addGeneral() {
     this.navCtrl.navigateForward('/addgeneral');
   }

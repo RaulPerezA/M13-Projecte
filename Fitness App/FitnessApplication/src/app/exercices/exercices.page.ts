@@ -80,7 +80,7 @@ export class ExercicesPage implements OnInit {
     this.alert();
   }
 
-  //Mostrar pop up
+  //Método que nos permite eliminar una rutina general, este método mostrará un pop up.
   async alert() {
     const alert = await this.alertCtrl.create({
       header: '¿Estás seeguro de eliminar '+this.rutinaDelete['nombre']+'?',
@@ -120,6 +120,7 @@ export class ExercicesPage implements OnInit {
     await alert.present();
   }
   
+  //Método el cual mostrará un pop up para simular una pantalla de carga.
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'CARGANDO...',

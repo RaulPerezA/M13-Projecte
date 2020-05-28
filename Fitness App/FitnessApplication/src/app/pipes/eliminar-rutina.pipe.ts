@@ -12,6 +12,7 @@ export class EliminarRutinaPipe implements PipeTransform {
   
 
   constructor(private routineService:RoutineService, private storage:Storage){}
+
   transform(value: string): any {
     this.resultRutina = this.routineService.removeRoutineGeneral(value);
     console.log(this.resultRutina);
