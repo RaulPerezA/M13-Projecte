@@ -74,7 +74,7 @@ export class HomePage {
       birthdate: ['',[Validators.required]],
       weight: ['',[Validators.required]],
       height: ['',[Validators.required]],
-      username: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(8)]],
+      username: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(20)]],
       email: ['',[Validators.required,Validators.email]],
       password: ['',[Validators.required,Validators.minLength(6)]]
     });

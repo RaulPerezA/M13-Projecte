@@ -75,6 +75,28 @@ public class RutinaDiaController {
 		return null;
 	}
 
+	@CrossOrigin(origins = "http://localhost:8100")
+	@GetMapping(path = "/rutina/findDiaSeleccionado")
+	public @ResponseBody RutinaDias getDiaSeleccionado(@RequestParam String idGeneral, @RequestParam String diaria) {
+
+		Optional<RutinaDia> rd = repository.findById(idGeneral);
+
+		if(rd.isPresent()) {
+			
+			for (RutinaDias rDias: rd.get().getRutinasDias()){
+				if(rDias.getNombre().equals(diaria)) {
+					return rDias;
+				}
+			}
+			
+		}
+		
+		
+		
+		return null;
+	}
+	
+	
 	/*
 	 * Añade una rutina general con las rutinaDias vacia.
 	 */
@@ -145,7 +167,7 @@ public class RutinaDiaController {
 	@CrossOrigin(origins = "http://localhost:8100")
 	@GetMapping(path = "/rutina/saveExercice")
 	// @RequestParam Object ejercicios
-	public @ResponseBody RutinaDia saveExercices(@RequestParam String idGeneral, @RequestParam String diaria,
+	public @ResponseBody RutinaDias saveExercices(@RequestParam String idGeneral, @RequestParam String diaria,
 			@RequestParam String nombre, @RequestParam String ejercicio, @RequestParam int series, @RequestParam String modoEjercitar, @RequestParam String repeticionesSerie,
 			@RequestParam String segundosSerie, @RequestParam int segundosDescanso) {
 
@@ -155,6 +177,7 @@ public class RutinaDiaController {
 		Integer repsS = null;
 		Integer segS = null;
 		RutinaEjercicio rEjercicio = null;
+		RutinaDias dias = null;
 		
 		if (rd.isPresent()) {
 			System.out.println("general encontrada");
@@ -193,6 +216,7 @@ public class RutinaDiaController {
 						System.out.println("ejercicios introducidos: " + rd.get().getRutinasDias().get(i).getEjercicios());
 						
 					}
+					dias = rd.get().getRutinasDias().get(i);
 				
 				}
 				
@@ -203,7 +227,7 @@ public class RutinaDiaController {
 			System.out.println("RUTINA DIA FINAL: " + rutinaDia.toString());
 			
 			repository.save(rutinaDia);
-			return rutinaDia;
+			return dias;
 			
 		}
 

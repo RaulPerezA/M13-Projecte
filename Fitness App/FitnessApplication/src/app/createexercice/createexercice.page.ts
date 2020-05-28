@@ -75,8 +75,11 @@ export class CreateexercicePage implements OnInit {
   //Método de ionic, cuando estemos entrando en la página obtendremos el ejercicio configurado que le hemos enviado al servicio CreateExerciceService.
   ionViewWillEnter() {
     console.log("Vamos a entrar");
-    console.log("recogiendo ejercicio ",this.createExerciceService.getExercice());
-    this.ejercicios.push(this.createExerciceService.getExercice());
+    if(this.createExerciceService.getExercice()!=null || undefined) {
+      console.log("recogiendo ejercicio ",this.createExerciceService.getExercice());
+      this.ejercicios.push(this.createExerciceService.getExercice());
+    }
+    
     this.createExerciceService.vaciarEjercicio();
   }
 
@@ -122,8 +125,8 @@ export class CreateexercicePage implements OnInit {
     }
 
     //Eliminar elemento undefined del array.
-    this.ejercicios.reverse();
-    for(let i of this.ejercicios){
+    
+    /*for(let i of this.ejercicios){
       if(i===undefined || i==null){
         console.log("undefined o null");
         this.ejercicios.pop();
@@ -132,9 +135,17 @@ export class CreateexercicePage implements OnInit {
         console.log("no nulo",i);
         this.nombres.push(i.getNombre());
       }
+    }*/
+
+    for(let i of this.ejercicios){
+     
+        console.log('i',i);
+        this.nombres.push(i.getNombre());
+      
     }
-    this.nombres.reverse()
-    this.ejercicios.reverse();
+
+    
+    
     console.log("this.ejercicios",this.ejercicios);
 
     //Mostrar pop up con los ejercicios
@@ -179,23 +190,70 @@ export class CreateexercicePage implements OnInit {
           handler: (option) => {
             this.nombres = [];
             console.log("Crear");
+            console.log("this.ejercicios",this.ejercicios);
             this.storage.get('idGeneral').then(async id => {
-            //let observable:Observable<any>;
-            for(let e of this.ejercicios){
-              console.log("e",e);
+              console.log('id',id);
+              let observable:Observable<any>;
 
-              await this.insertar(id, e);
-              /*observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
-              observable.toPromise().then( datos => {
-                console.log("datos",datos);
-                });*/
-            }
+              for(let i = 0; i<this.ejercicios.length; i++){
+                console.log("ejercicios", this.ejercicios[i]);
 
-            
 
+                observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,this.ejercicios[i]);
+              
+                    await observable.toPromise().then( datos => {
+                      console.log("datos",datos);
+  
+                      this.storage.set('dailyDay',datos);
+                      
+                        if(i==this.ejercicios.length-1){
+                          this.navCtrl.navigateBack('/listexercice');
+                        }
+                      });
+
+                
+
+               
+              }
+
+
+                /*for(let e of this.ejercicios){
+                  console.log("e",e);
+
+                  
+                    observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
+              
+                    await observable.toPromise().then( datos => {
+                      console.log("datos",datos);
+  
+                      this.storage.set('dailyDay',datos);
+                      this.navCtrl.navigateBack('/listexercice');
+                      });
+                  
+
+               
+                  
+                }*/
           });
             
-          this.navCtrl.navigateBack('/listexercice');
+          /*let observable:Observable<any>;
+          for(let e of this.ejercicios){
+            console.log("e",e);
+            
+            //await this.insertar(id, e);
+            observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
+          
+            await observable.toPromise().then( datos => {
+              console.log("datos",datos);
+
+              this.storage.set('dailyDay',datos);
+              this.navCtrl.navigateBack('/listexercice');
+              });
+            
+
+          }*/
+
+          
 
           }
         }
@@ -203,17 +261,4 @@ export class CreateexercicePage implements OnInit {
     });
     await alert.present();
   }
-
-  async insertar(id:any, e:any){
-
-    let observable:Observable<any>;
-    observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,e);
-    observable.toPromise().then( datos => {
-      console.log("datos",datos);
-      });
-
-  }
-
-
-
 }
