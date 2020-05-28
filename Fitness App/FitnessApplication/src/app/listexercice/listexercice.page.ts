@@ -65,6 +65,8 @@ export class ListexercicePage implements OnInit {
     this.navCtrl.navigateForward('/createexercice');
   }
   
+  //Método que permite editar un ejercicio configurado, este método obtendra la configuración del ejercicio y 
+  //se la mostrará al usuario en los campos correspondientes del formulario del ejercicio
   editExercise(evento){
     this.resultEjercicio = this.exerciseService.createExercise(evento.ejercicio);
     let promesa3:Promise<any>;

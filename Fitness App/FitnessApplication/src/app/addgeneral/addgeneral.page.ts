@@ -76,13 +76,12 @@ export class AddgeneralPage implements OnInit {
       promesa2.then(values => {
         //una vez metida en la bd volvemos a llamar a esta funcion para descargar todas las rutinas.
         this.storage.set('rutinas',values);
-        console.log("rutinas"+values);
-        //NO LO METE BIEN AUN
+       
         for(let i of values){
           this.rutina=i;
         }
 
-        //pasamos 
+        
         this.storage.set('dailyGeneral',this.rutina);
 
         //Una vez que el método asincrono ha acabado navegamos a la siguiente página.

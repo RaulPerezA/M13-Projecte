@@ -14,7 +14,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class UserprofilePage implements OnInit {
 
-  image:string="./assets/adidas.jpg";
+  image:string="./assets/perfil.jpg";
   observer:Observable<any>;
   user:User;
   username:String;

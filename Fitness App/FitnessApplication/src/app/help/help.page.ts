@@ -9,6 +9,7 @@ export class HelpPage implements OnInit {
 
   constructor() { }
 
+  //inicializamos la página.
   ngOnInit() {
   }
 

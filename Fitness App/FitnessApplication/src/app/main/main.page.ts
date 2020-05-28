@@ -37,11 +37,13 @@ export class MainPage implements OnInit {
     console.log("Pagina main destruida.");
   }
 
+  //Paramos el slider de imagenes cuando nos vamos a otra página.
   ionViewWillLeave() {
     console.log("Vamos a salir");
     this.slidersStop();
   }
 
+  //Reanudamos el slider de imagenes cuando estamos entrando en la página main.
   ionViewDidEnter() {
     console.log("Entramos");
     this.slideChanged();
@@ -62,6 +64,7 @@ export class MainPage implements OnInit {
     this.slideExercices.startAutoplay();
    }
 
+   //Método para parar los sliders
    slidersStop() {
      this.slideDiets.stopAutoplay();
      this.slideExercices.stopAutoplay();
@@ -92,7 +95,7 @@ export class MainPage implements OnInit {
     this.ngOnDestroy();
   }
 
-  //Mostrar pop up
+  //Mostrar pop up que nos permitira continuar la rutina.
   async alert() {
     const alert = await this.alertCtrl.create({
       header: '¿Quieres continuar con la rutina?',
@@ -145,6 +148,7 @@ export class MainPage implements OnInit {
     await alert.present();
   }
 
+  //Segundo pop up que nos redireccionara a la pagina de rutinas generals para poder activar o crear una rutina general.
   async alert2() {
 
     const alert = await this.alertCtrl2.create({
@@ -173,6 +177,7 @@ export class MainPage implements OnInit {
     await alert.present();
   }
 
+  //Pop up que simulara una pantalla de carga.
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'CARGANDO...',
@@ -184,6 +189,7 @@ export class MainPage implements OnInit {
     console.log('Loading dismissed!');
   }
 
+  //Pop up que nos mostrará un pop up indicando que no tenemos rutinas generales creadas, seguidamente nos redireccionará a la página de rutinas generales para crear una.
   async alertSinRutinasDias(){
     const alert = await this.alertCtrl2.create({
       header: 'No tienes rutinas creadas para continuar',

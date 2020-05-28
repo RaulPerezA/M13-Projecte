@@ -12,7 +12,7 @@ export class GeneralRutineService {
   public API = 'http://localhost:9003';
   public GENERAL = this.API + '/rutina/createGeneral';
 
-
+  //Nos comunicamos con el controlador de spring para guardar la rutina general.
   saveGeneralRutine(user:string, nombre:string, activa:boolean) {
     return this.http.get(this.GENERAL+"?user="+user+"&nombre="+nombre+"&activa="+activa);
   }

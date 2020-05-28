@@ -75,7 +75,7 @@ export class OnerecetaPage implements OnInit {
 
       //Creamos el objeto receta con los datos obtenidos.
       this.receta=receta;
-      //this.receta= new Receta(receta.receta, receta.alimentos, receta.explicacion, receta.tipoReceta, receta.calorias, receta.imagen);
+      
       //Le pasamos la receta al método recogerReceta.
       this.recogerReceta(this.receta);
     });
