@@ -94,7 +94,7 @@
         <ion-item>
           <!--<ion-label>Weight</ion-label>-->
           <!-- Campo para introducir el peso de la persona -->
-          <ion-input placeholder="Peso" formControlName="weight" class="ion-text-left"></ion-input>
+          <ion-input placeholder="Peso (kg)" formControlName="weight" class="ion-text-left"></ion-input>
           <ion-icon src="/assets/icon/peso.svg" slot="end"></ion-icon>
         </ion-item>
         <div class="errors" *ngIf="registerForm.get('weight').errors && registerForm.get('weight').dirty">
@@ -103,7 +103,7 @@
         <ion-item>
           <!--<ion-label>Height</ion-label>-->
           <!-- Campo para introducir la altura de la persona -->
-          <ion-input placeholder="Altura" formControlName="height" class="ion-text-left"></ion-input>
+          <ion-input placeholder="Altura (cm)" formControlName="height" class="ion-text-left"></ion-input>
           <ion-icon src="/assets/icon/altura.svg" slot="end"></ion-icon>
         </ion-item>
         <div class="errors" *ngIf="registerForm.get('height').errors && registerForm.get('height').dirty">

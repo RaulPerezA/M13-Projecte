@@ -34,6 +34,7 @@ export class ExercicesPage implements OnInit {
   
   //Obtenemos las rutinas generales
   ionViewWillEnter(){
+    console.log("generales");
     //Declaramos un nuevo array de rutinas generales.
     this.rutinas = new Array<Rutina>();
     this.storage.get('rutinas').then(rutinas => {
@@ -61,8 +62,16 @@ export class ExercicesPage implements OnInit {
   goToGeneral(evento) {
     console.log("evento",evento);
     this.storage.set('idGeneral',evento._id);
-    this.storage.set('dailyGeneral',evento);
-    this.navCtrl.navigateForward('/editgeneral');
+
+    let observable:Observable<any>=this.routineService.getOneRoutine(evento._id);
+    observable.toPromise().then( observable => {
+      console.log("observableGeneral",observable);
+      this.storage.set('dailyGeneral',observable);
+      this.navCtrl.navigateForward('/editgeneral');
+    });
+
+   
+   
   }
 
   removeExercise(evento){

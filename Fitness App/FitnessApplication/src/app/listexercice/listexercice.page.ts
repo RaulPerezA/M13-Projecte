@@ -24,10 +24,11 @@ export class ListexercicePage implements OnInit {
   //Inicializamos la página.
   ngOnInit() {
    
-    
   }
 
   ionViewWillEnter() {
+
+    console.log("ejercicios");
     //Inicializamos un nuevo array de ejercicios que tiene una rutina dia.
     this.exercices = new Array<RutinaDia>();
     this.storage.get('dailyDay').then( dia => {
