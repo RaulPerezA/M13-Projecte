@@ -62,11 +62,11 @@ export class InitroutinePage implements OnInit {
 
   constructor(private storage:Storage, private router: Router, private exerciseService:ExerciseService, private alertCtrl: AlertController, private routineService:RoutineService) { }
 
+  //Iniciamos la pagina y recojemos los datos que necesitaremos.
   ngOnInit() {
     let audio = new Audio();
     this.storage.get('EjerciciosARealizar').then((eje)=>{
       this.ejercicios=eje;
-      console.log(this.ejercicios);
     });
 
     this.storage.get('rutinaDia').then((rutinaDiaria)=>{
@@ -74,13 +74,11 @@ export class InitroutinePage implements OnInit {
     });
 
     this.storage.get('RealizarEjercicios').then((RealizarEjercicios)=>{
-      console.log('ejercicios',RealizarEjercicios);
       for(let ex of RealizarEjercicios){
         this.rutinaEjercicio=new RutinaEjercicio(ex['nombre'], ex['ejercicio'], ex['series'], ex['modoEjercitar'], ex['repeticionesSerie'], ex['segundosSerie'], ex['segundosDescanso']);
         
         for(let i of this.ejercicios) {
           if(i['_id']==this.rutinaEjercicio.getEjercicio()){
-            console.log(i['ejercicio']);
             this.titulos.push(i['ejercicio']);
             this.imagenes.push(i['imagen']);
             this.videos.push(i['video']);
@@ -97,23 +95,18 @@ export class InitroutinePage implements OnInit {
         this.imagen=this.imagenes[0];
         this.video=this.videos[0];
       }
-      console.log("seriesPorEjercicio"+this.seriesPorEjercicio);
-      console.log("titol"+this.titulos);
-      console.log("img"+this.imagenes);
-      console.log("videos"+this.videos);
-      console.log("rut"+this.rutinas);
     });
 
     
   }
 
+  //Cuando se destruya la pagina nos aseguramos que se para el tiempo.
   ngOnDestroy(){
     this.stopTimer();
-    console.log("Se ha destruido la pagina de continuar rutina");
   }
 
+  //Se inicia el tiempo 
   startTimer(duration:number){
-    console.log("duration"+duration);
     this.state= 'start';
     clearInterval(this.interval);
     this.timer = duration;
@@ -123,26 +116,26 @@ export class InitroutinePage implements OnInit {
     }, 1000);
   }
 
+  //Se para el tiempo
   stopTimer(){
     clearInterval(this.interval);
     this.secStop=this.time.value;
-    console.log(this.secStop);
     let sep = this.secStop.split(":");
     let minutes = sep[0];
     let seconds = sep[1];
     let minutes2=Number(minutes);
     let seconds2=Number(seconds);
     this.numSec=(60*minutes2)+seconds2;
-    console.log(this.numSec);
     this.state = 'stop';
   }
 
-  
+  //Se crea el circulo con porcentage
   percentageOffset(percent){
     const percentFloat = percent / 100;
     return circleDasharray * (1 - percentFloat);
   }
 
+  //Se actualiza el tiempo cada vez que se le llama al metodo
   updateTimeValue(){
     let minutes:any= this.timer / 60;
     let seconds:any= this.timer % 60;
@@ -157,11 +150,13 @@ export class InitroutinePage implements OnInit {
     this.percent.next(percentage);
     
     --this.timer;
+    //si el tiempo es -1 ha acabado la rutina y suena el tiempo, podriamos ponerlo a 0, pero con -1 queda mejor.
     if(this.timer==-1){
       let audio = new Audio();
       audio.src = "./assets/finish_time.wav";
       audio.play();
-    }
+    } 
+    //si el tiempo sobrepasa -1 se llama a crear directamente el siguiente ejercicio o descanso, y si no hay mas, acaba.
     if(this.timer<-1){
       this.posicion++;
       if(this.posicion==this.rutinas.length-1){
@@ -175,10 +170,7 @@ export class InitroutinePage implements OnInit {
         else{
           this.tempo=true;
         }
-        console.log(this.seriesPorEjercicio[this.posicionSerie]);
-        console.log(this.posicion);
         if(this.seriesPorEjercicio[this.posicionSerie]==this.posicion+1){
-          console.log("SIGUIENTE EJERCICIO");
           this.posicionEjercicio++;
           this.titulo=this.titulos[this.posicionEjercicio];
           this.imagen=this.imagenes[this.posicionEjercicio];
@@ -191,15 +183,14 @@ export class InitroutinePage implements OnInit {
     }
   }
 
+  //Se le llama cuando la rutina del dia ha acabado y redirige a main
   rutinaAcabada(){
     this.tempo=false;
-    this.titulo="TERMINADO"
-    console.log("DIA FINALIZADO");
+    this.titulo="TERMINADO";
     this.storage.get('user').then((usuario)=>{
       
       this.user = new User(usuario.nombre, usuario.apellidos, usuario.email, usuario.userName, usuario.contraseña, usuario.fecha_nacimiento, usuario.peso, usuario.altura);
       this.resultRutina = this.routineService.cambiarDia(this.user.getUsername());
-      console.log(this.resultRutina);
       let promesa:Promise<any>;
       promesa = this.resultRutina.toPromise();
   
@@ -224,7 +215,6 @@ export class InitroutinePage implements OnInit {
           text: 'OK',
           role: 'OK',
           handler: (option) => {
-           console.log("Se ha terminado!");
           }
         }
       ]
