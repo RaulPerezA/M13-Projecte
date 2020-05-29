@@ -34,18 +34,16 @@ export class MainPage implements OnInit {
   }
 
   ngOnDestroy() {
-    console.log("Pagina main destruida.");
   }
 
   //Paramos el slider de imagenes cuando nos vamos a otra página.
   ionViewWillLeave() {
-    console.log("Vamos a salir");
     this.slidersStop();
   }
 
   //Reanudamos el slider de imagenes cuando estamos entrando en la página main.
   ionViewDidEnter() {
-    console.log("Entramos");
+
     this.slideChanged();
     
   }
@@ -59,7 +57,7 @@ export class MainPage implements OnInit {
 
   //Funcion que permite seguir haciendo el slice de forma automatica aunque el usuario haga el slice de forma manual.
   slideChanged(){
-    console.log("AutoPlay");
+
     this.slideDiets.startAutoplay();
     this.slideExercices.startAutoplay();
    }
@@ -73,14 +71,13 @@ export class MainPage implements OnInit {
   //Funcion que lleva al apartado de ejercicios al clicar en un slide.
   goExercises() {
     this.presentLoading();
-    console.log("VAS A IR AL APARTADO DE EJERCICIOS.");
+
     this.router.navigateByUrl('/exercices');
   }
 
   //Funcion que lleva al apartado de alimentos al clicar en un slide.
   goFoods() {
     this.presentLoading();
-    console.log("VAS A IR AL APARTADO DE ALIMENTOS.");
     this.router.navigateByUrl('/diets');
   }
 
@@ -106,7 +103,7 @@ export class MainPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (option) => {
-            console.log("Cancelar");
+
             this.alert2();
           }
         },
@@ -115,18 +112,14 @@ export class MainPage implements OnInit {
           role: 'continue',
           handler: (option) => {
             this.presentLoading();
-            console.log("Continuar");
             this.storage.get('user').then((usuario)=>{
-              console.log('usuario',usuario);
               this.user = new User(usuario.nombre, usuario.apellidos, usuario.email, usuario.userName, usuario.contraseña, usuario.fecha_nacimiento, usuario.peso, usuario.altura);
               this.resultRutina = this.routineService.rutinaActiva(this.user.getUsername());
-              console.log(this.resultRutina);
               let promesa:Promise<any>;
               promesa = this.resultRutina.toPromise();
         
               //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
               promesa.then(datos => {
-                console.log("datos"+datos);
                 if(datos==null){
                   this.alertSinRutinasDias();
                 }
@@ -160,15 +153,12 @@ export class MainPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (option) => {
-            console.log("Cancelar");
           }
         },
         {
           text: 'Continuar',
           role: 'continue',
           handler: (option) => {
-            console.log("Continuar");
-            //this.navCtrl.navigateRoot('/exercices');
             this.navCtrl.navigateForward('/exercices');
           }
         }
@@ -186,7 +176,7 @@ export class MainPage implements OnInit {
     await loading.present();
 
     const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
+
   }
 
   //Pop up que nos mostrará un pop up indicando que no tenemos rutinas generales creadas, seguidamente nos redireccionará a la página de rutinas generales para crear una.
@@ -200,14 +190,12 @@ export class MainPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (option) => {
-            console.log("Cancelar");
           }
         },
         {
           text: 'Continuar',
           role: 'continue',
           handler: (option) => {
-            console.log("Continuar");
             //Redireccionar a crear rutina dia.
             this.navCtrl.navigateForward('/exercices');
           }

@@ -81,9 +81,7 @@ export class HomePage {
   }
   
   ngOnInit() {
-    console.log("hola");
     this.save = this.loginService.getSaveCredentials(); 
-    console.log("this.save",this.save);
 
     if(this.save==true) {
       
@@ -92,10 +90,7 @@ export class HomePage {
         this.username = splitChain[0];
         this.password = splitChain[1];
       });
-      console.log("chain",this.chain);
-      //let splitChain = this.chain.split(" ");
-      //this.username = splitChain[0];
-      //this.password = splitChain[1];
+     
     }
     else {
       this.username="";
@@ -108,7 +103,6 @@ export class HomePage {
 
 
   ngOnDestroy(){
-    console.log("Se ha destruido la pagina de loguin y registro");
   }
 
   //Funcion para mostrar o ocultar el formulario de registro.
@@ -148,20 +142,16 @@ export class HomePage {
   //Establecer pagina raiz al loguearse.
   async login() {
     this.presentLoading();
-    //RECOGER CAMPOS DEL FORMULARIO LOGIN
-    console.log("usernamemail",this.loginForm.value.emailusername);
-    console.log("password",this.loginForm.value.password);
-    
-    //ENVIARSELOS AL METODO DEL SERVICIO PARA HACER EL LOGIN
+      
+    //ENVIAR LOS CAMPOS DEL FORMULARIO DE LOGIN AL SERVICIO PARA LA COMPROBACIÓN DEL LOGIN DE USUARIO
     this.resultLogin = this.loginService.getLogin(this.loginForm.value.emailusername,this.loginForm.value.password);
-    console.log(this.resultLogin);
+    
     let promesa:Promise<any>;
     promesa = this.resultLogin.toPromise();
     
     //COMPROBAR SI EL LOGIN ES CORRECTO, SI ES ASÍ SE LE REDIRECCIONARA A LA PANTALLA DEL MAIN(RUTINAS Y ALIMENTOS)
     if(await promesa==true){
-      console.log("HA DEVUELTRO TRUE");
-
+      
       //Guardar datos del formulario de login para usarlos si quiere mantener las credenciales
       this.credentials = this.loginForm.value.emailusername + " " + this.loginForm.value.password;
       this.storage.set('credentials',this.credentials);
@@ -172,12 +162,12 @@ export class HomePage {
 
       let datosUser:Promise<any>;
       datosUser = this.dataLoginUser.toPromise();
-      console.log("datosUser",datosUser);
+     
 
       //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
       datosUser.then(datos => {
         this.datos = datos;
-        console.log("this.datos",this.datos);
+        
         this.storage.set('user',datos);
       });
       this.recipes();
@@ -185,26 +175,24 @@ export class HomePage {
       this.exercises();
       this.navCtrl.navigateRoot('/main');
     }
-    else {
-      console.log("HA DEVUELTO FALSE");
-    }
+   
   
   }
 
   //Establecer pagina raiz al registrarse.
   async register() {
     this.presentLoading();
-    console.log(this.registerForm.value);
+    
     
     this.user = new User(this.registerForm.value.name,this.registerForm.value.surnames,this.registerForm.value.email,this.registerForm.value.username,this.registerForm.value.password,this.registerForm.value.birthdate,this.registerForm.value.weight,this.registerForm.value.height);
 
     //Guardar datos del formulario en el storage.
     this.storage.set('user',this.user);
 
-    console.log("RegisterStorage",this.user);
+    
 
     this.resultRegister = this.registerService.createRegister(this.user);
-    console.log(this.resultRegister);
+    
     let promesaRegister:Promise<any>;
     promesaRegister = this.resultRegister.toPromise();
 
@@ -214,25 +202,23 @@ export class HomePage {
       this.exercises();
       this.navCtrl.navigateRoot('/slides');
     }
-    else {
-      console.log("error de registro");
-    }
+    
 
-    console.log("registro",promesaRegister);
+    
 
   }
 
   //Devolver todas las recetas al iniciar la sesion
   async recipes() {
     
-    console.log("queremos conseguir las recetas.");
+    
     
     this.resultReceta = this.recipesService.createRecetas();
-    console.log(this.resultReceta);
+    
     let promesa:Promise<any>;
     promesa = this.resultReceta.toPromise();
     
-    console.log("datos recetas",promesa);
+    
 
     //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
     promesa.then(datos => {
@@ -243,14 +229,11 @@ export class HomePage {
 
   //Devolver todas las rutinas de un solo USUARIO
   async routines(userName:string) {
-    console.log("queremos conseguir las rutinas.");
     
     this.resultRutina = this.routineService.createRutinas(userName);
-    console.log(this.resultRutina);
     let promesa:Promise<any>;
     promesa = this.resultRutina.toPromise();
     
-    console.log("datos rutinas",promesa);
 
     //Crear el usuario con los datos de la promesa y almacenarlo en el storage.
     promesa.then(datos => {
@@ -262,15 +245,12 @@ export class HomePage {
   
   //Devolver todos los ejercicios
   async exercises() {
-    console.log("queremos conseguir los ejercicios.");
     this.resultEjercicio = this.exerciseService.getAllExercices();
    
     this.resultEjercicio.toPromise().then(ejercicios => {
-      console.log(ejercicios);
       
       for(let i of ejercicios) {
 
-        console.log("i",i);
         this.ejercicio = new Ejercicio(i._id, i.ejercicio, i.imagen, i.video, i.descripcion, i.dificultad, i.especificacion, i.grupoMuscular);
 
         this.ejercicios.push(this.ejercicio);
@@ -291,7 +271,7 @@ export class HomePage {
     await loading.present();
 
     const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
+   
   }
 
   saveCredentials() {

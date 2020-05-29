@@ -34,11 +34,11 @@ export class ExercicesPage implements OnInit {
   
   //Obtenemos las rutinas generales
   ionViewWillEnter(){
-    console.log("generales");
+    
     //Declaramos un nuevo array de rutinas generales.
     this.rutinas = new Array<Rutina>();
     this.storage.get('rutinas').then(rutinas => {
-      console.log("rutina",rutinas);
+      
       
       //Recorremos las rutinas obtenidas y las almacenamos en un array para poder mostrarlas en el HTML.
       for(let r of rutinas){
@@ -50,7 +50,7 @@ export class ExercicesPage implements OnInit {
 
   //Puede ser que al poner el ngOnDestroy() cada vez que entre aparecera el mensaje de que no tiene conexión.
   ngOnDestroy() {
-    console.log("Pagina de creación/modificación de ejercicio destruido.");
+    
   }
 
   //Método que nos redirecciona a la página para crear una nueva rutina general.
@@ -60,12 +60,12 @@ export class ExercicesPage implements OnInit {
 
   //Añadir la rutina general seleccionada al storage para poder mostrar sus rutinas diarias
   goToGeneral(evento) {
-    console.log("evento",evento);
+    
     this.storage.set('idGeneral',evento._id);
 
     let observable:Observable<any>=this.routineService.getOneRoutine(evento._id);
     observable.toPromise().then( observable => {
-      console.log("observableGeneral",observable);
+      
       this.storage.set('dailyGeneral',observable);
       this.navCtrl.navigateForward('/editgeneral');
     });
@@ -91,7 +91,7 @@ export class ExercicesPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (option) => {
-            console.log("Cancelar");
+           
           }
         },
         {
@@ -99,17 +99,17 @@ export class ExercicesPage implements OnInit {
           role: 'continue',
           handler: (option) => {
             this.presentLoading();
-            console.log("Continuar",this.rutinaDelete['_id']);
+            
             this.idGeneral=this.rutinaDelete['_id'];
             
 
             this.resultRutina = this.routineService.removeRoutineGeneral(this.rutinaDelete['_id']);
-            console.log(this.resultRutina);
+           
             let promesa:Promise<any>;
             promesa = this.resultRutina.toPromise();
             
             promesa.then(datos => {
-              console.log(datos);
+              
               this.storage.set('rutinas',datos);
               this.navCtrl.navigateForward('/main');
             }); 
@@ -129,6 +129,6 @@ export class ExercicesPage implements OnInit {
     await loading.present();
 
     const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
+   
   }
 }

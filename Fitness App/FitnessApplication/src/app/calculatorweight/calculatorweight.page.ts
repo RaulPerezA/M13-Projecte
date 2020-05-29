@@ -28,34 +28,31 @@ export class CalculatorweightPage implements OnInit {
 
   //Destruimos la página al salir de esta.
   ngOnDestroy() {
-    console.log("Calculadora de peso destruida.");
+    
   }
 
   //Determinamos el sexo seleccionado mediante los radio buttons.
   radioSelected(valor) {
-    console.log("radio seleccionado",valor);
+    
     this.sexo = valor;
-    console.log("sexo",this.sexo);
+   
   }
 
   //Método que nos permitira calcular el rango de peso ideal mediante los datos introducidos por el usuario.
   calc() {
-    console.log(this.formWeight.value);
-
+    
     //Comprobar que los campos esten bien introducidos
     this.altura = this.formWeight.value.estatura;
     
     this.sexo = this.sexo.toLowerCase();
-    console.log(this.sexo);
-
+   
     //Calcular peso ideal según el sexo
     if(this.sexo=="hombre") {
       
       if(this.altura - Math.floor(this.altura)){
-        console.log("altura decimal");
-
+       
         let a = this.altura.toString();
-        console.log(a);
+       
         this.altura = parseFloat(a) * 100;
 
       }
@@ -70,13 +67,11 @@ export class CalculatorweightPage implements OnInit {
     }
     
     else if(this.sexo =="mujer") {
-      console.log("Mujer");
-
+      
       if(this.altura - Math.floor(this.altura)){
-        console.log("altura decimal");
-
+        
         let a = this.altura.toString();
-        console.log(a);
+      
         this.altura = parseFloat(a) * 100;
 
       }

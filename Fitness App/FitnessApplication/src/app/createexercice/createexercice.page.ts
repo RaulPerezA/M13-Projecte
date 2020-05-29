@@ -51,11 +51,9 @@ export class CreateexercicePage implements OnInit {
     this.listExercices = this.exerciceService.getAllExercices();
 
     this.listExercices.toPromise().then(ejercicios => {
-      console.log(ejercicios);
-      
+           
       for(let i of ejercicios) {
 
-        console.log("i",i);
         this.ejercicio = new Ejercicio(i._id,i.ejercicio, i.imagen, i.video, i.descripcion, i.dificultad, i.especificacion, i.grupoMuscular);
 
         //Los ejercicios obtenidos de la BD los almacenamos en un array par mostrarlo en el html mediante un *ngFor. 
@@ -67,16 +65,16 @@ export class CreateexercicePage implements OnInit {
 
     this.storage.get('dailyDay').then( dia => {
       this.tituloDiaria=dia.nombre;
-      console.log(dia.nombre);
+     
     });
 
   }
 
   //Método de ionic, cuando estemos entrando en la página obtendremos el ejercicio configurado que le hemos enviado al servicio CreateExerciceService.
   ionViewWillEnter() {
-    console.log("Vamos a entrar");
+    
     if(this.createExerciceService.getExercice()!=null || undefined) {
-      console.log("recogiendo ejercicio ",this.createExerciceService.getExercice());
+      
       this.ejercicios.push(this.createExerciceService.getExercice());
     }
     
@@ -104,9 +102,9 @@ export class CreateexercicePage implements OnInit {
 
   //Indica que etiqueta ha sido seleccionada.
   selectChip(position: number) {
-    console.log(position);
+    
     this.chipsSelected[position] = !this.chipsSelected[position];
-    console.log(this.chipsSelected);
+    
   }
 
   //Método que nos permite navegar a la página de configuración de un ejercicio según el ejercicio seleccionado
@@ -126,14 +124,14 @@ export class CreateexercicePage implements OnInit {
 
     for(let i of this.ejercicios){
      
-        console.log('i',i);
+        
         this.nombres.push(i.getNombre());
       
     }
 
     
     
-    console.log("this.ejercicios",this.ejercicios);
+    
 
     //Mostrar pop up con los ejercicios
     this.alert();
@@ -153,7 +151,7 @@ export class CreateexercicePage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (option) => {
-            console.log("Cancelar");
+            
             
             for(let i of this.nombres) {
               this.nombres.pop();
@@ -166,20 +164,19 @@ export class CreateexercicePage implements OnInit {
           role: 'create',
           handler: (option) => {
             this.nombres = [];
-            console.log("Crear");
-            console.log("this.ejercicios",this.ejercicios);
+            
             this.storage.get('idGeneral').then(async id => {
-              console.log('id',id);
+             
               let observable:Observable<any>;
 
               for(let i = 0; i<this.ejercicios.length; i++){
-                console.log("ejercicios", this.ejercicios[i]);
+                
 
 
                 observable = this.createExerciceService.saveExercices(id,this.tituloDiaria,this.ejercicios[i]);
               
                     await observable.toPromise().then( datos => {
-                      console.log("datos",datos);
+                      
   
                       this.storage.set('dailyDay',datos);
                       

@@ -61,13 +61,11 @@ export class RoutineService {
   
   //Permite eliminar una rutina general de la base de datos.
   removeRoutineGeneral(idGeneral:string){
-    console.log("llegaaaaa", idGeneral);
     return this.http.get(this.REMOVEROUTINEGENERAL+"?idGeneral="+idGeneral);
   }
   
   //Permite activar una rutina y actualizar la rutina activada en la base de datos.
   setRoutineActive(idGeneral:string){
-    console.log("llegaaaaa", idGeneral);
     return this.http.get(this.SETRUTINAACTIVA+"?idGeneral="+idGeneral);
   }
 }

@@ -15,12 +15,12 @@ export class EliminarRutinaPipe implements PipeTransform {
 
   transform(value: string): any {
     this.resultRutina = this.routineService.removeRoutineGeneral(value);
-    console.log(this.resultRutina);
+
     let promesa:Promise<any>;
     promesa = this.resultRutina.toPromise();
     
     promesa.then(datos => {
-      console.log(datos);
+ 
       this.storage.set('rutinas',datos);
       return datos;
     });

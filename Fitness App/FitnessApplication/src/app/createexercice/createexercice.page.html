@@ -8,6 +8,8 @@
 </ion-header>
 
 <ion-content>
+<ion-grid fixed="true">
+
   <ion-list-header>
     <ion-searchbar id="searchbar" (ionChange)="search($event)"></ion-searchbar>
     <ion-icon src="./assets/icon/simbolo.svg" (click)="showFilter()"></ion-icon>
@@ -59,7 +61,7 @@
         <ion-item>{{i.ejercicio}}</ion-item>
       </ion-card>    
     </ion-list>
-  
+  </ion-grid>
 </ion-content>
 
 <ion-footer class="footer">
