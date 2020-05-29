@@ -59,8 +59,7 @@ export class AddgeneralPage implements OnInit {
       this.generalForm.value.activa = this.activa;
     }
 
-    console.log(this.generalForm.value);
-    console.log(this.user);
+    
     //Obtenemos lo que nos devuelve el spring a la hora de guardar la rutina general.
     this.observer=this.gService.saveGeneralRutine(this.user, this.generalForm.value.name,this.generalForm.value.activa);
     
@@ -96,7 +95,6 @@ export class AddgeneralPage implements OnInit {
   //Método que nos permite decir si la rutina general que vamos a crear estará activa o no.
   activar() {
     this.activa = !this.activa;
-    console.log(this.activa);
   }
 
 }

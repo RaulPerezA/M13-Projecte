@@ -21,7 +21,6 @@ export class OnealimentPage implements OnInit {
 
   //Destruimos la página cuando la abandonamos.
   ngOnDestroy() {
-    console.log("Pagina de la aliment destruida.");
   }
 
 

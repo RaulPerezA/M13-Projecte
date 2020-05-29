@@ -26,7 +26,7 @@ export class DietsPage implements OnInit {
   ngOnInit() {
     this.textoBuscar='';
     this.storage.get('recetas').then((recetas)=>{
-      console.log('recetas',recetas);
+      
       for(let data of recetas) {
 
         //Creamos una receta con los datos de lstorage.
@@ -40,14 +40,14 @@ export class DietsPage implements OnInit {
 
   //Destruimos la página cuando la abandonamos.
   ngOnDestroy() {
-    console.log("Pagina de dietas destruida.");
+   
   }
 
 
   //Método que nos permite obtener la posición de la receta que hemos seleccionado
   select(receta:Receta) {
     this.presentLoading();
-    console.log("number",receta);
+   
      //Guardamos en el storage la receta que hemos seleccionado.
     this.storage.set('recetaEnter',receta);
 
@@ -67,9 +67,9 @@ export class DietsPage implements OnInit {
 
   //Método para mostrar que etiqueta del filtro esta seleccionada.
   selectChip(position: number) {
-    console.log(position);
+    
     this.chipsSelected[position] = !this.chipsSelected[position];
-    console.log(this.chipsSelected);
+    
   }
 
   //Método asincrono para mostrar la pantalla de carga.
@@ -81,7 +81,7 @@ export class DietsPage implements OnInit {
     await loading.present();
 
     const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
+    
   }
 
 }

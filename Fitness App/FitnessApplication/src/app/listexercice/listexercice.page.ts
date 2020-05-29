@@ -28,15 +28,12 @@ export class ListexercicePage implements OnInit {
 
   ionViewWillEnter() {
 
-    console.log("ejercicios");
     //Inicializamos un nuevo array de ejercicios que tiene una rutina dia.
     this.exercices = new Array<RutinaDia>();
     this.storage.get('dailyDay').then( dia => {
       this.titulo=dia.nombre;
-      console.log(dia);
       //Recorremos con un for los datos que obtenemos del storage.
       for(let e of dia.ejercicios){
-        console.log(e);
         //Añadimos a un array los ejercicios que hemos obtenido. 
         this.exercices.push(e);
       }
@@ -61,7 +58,6 @@ export class ListexercicePage implements OnInit {
 
   //Método que nos redirecciona a la página donde podremos crear una nueva rutina de ejercicios.
   createExercice() {
-    console.log("createexercice");
     this.navCtrl.navigateForward('/createexercice');
   }
   
@@ -73,7 +69,6 @@ export class ListexercicePage implements OnInit {
     promesa3 = this.resultEjercicio.toPromise();
     promesa3.then(datos => {
       this.ejercicio=new Ejercicio(datos._id,datos.ejercicio,datos.imagen, datos.video, datos.descripcion, datos.dificultad, datos.especificacion, datos.grupoMuscular);
-      console.log(this.ejercicio);
       this.storage.set('exercice',this.ejercicio);
       this.storage.set('createExercise',true);
       this.storage.set('exerciseConfigure',evento);

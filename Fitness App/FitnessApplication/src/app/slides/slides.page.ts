@@ -15,7 +15,7 @@ export class SlidesPage implements OnInit {
 
   //Destruimos la pagina de slides para que al volver hacia atras no se vuelva a mostrar.
   ngOnDestroy() {
-    console.log("Se ha destruido el tutorial de slides");
+
   }
 
   setMainPage(){

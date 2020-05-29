@@ -135,7 +135,7 @@ export class ContinueroutinePage implements OnInit {
     await loading.present();
 
     const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
+
   }
 
   //Si no hay rutinas creadas muestra esta alerta para crear rutinas o cambiar de dia.

@@ -23,7 +23,6 @@ export class ExerciseService {
 
   //Obtenemos todos los ejercicios de la base de datos.
   getAllExercices() {
-    console.log("ejerciciooooos");
     return this.http.get(this.EJERCICIOS);
   }
 

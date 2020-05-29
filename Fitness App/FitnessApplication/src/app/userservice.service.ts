@@ -14,7 +14,6 @@ export class UserserviceService {
 
   //Método que nos permite guardar los campos editados en la base de datos.
   editUser(user:string, name:string, surnames:string, height:number, weight:number) {
-    console.log("pasa por el editUser");
     return this.http.get(this.EDIT+"?usuario="+user+"&nombre="+name+"&apellidos="+surnames+"&altura="+height+"&peso="+weight);
   }
 

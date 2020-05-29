@@ -15,8 +15,6 @@ export class RoutineExercise {
 
   //método que nos permite guardar todos los datos del ejercicio configurado y añadirlo a la rutina diaria.
   saveExercices(id:string, diaria:string ,ejercicios:RutinaEjercicio ){
-    console.log("ejercicios",ejercicios);
-
     return this.http.get(this.EXERCICE+"?idGeneral="+id+"&diaria="+diaria+"&nombre="+ejercicios.getNombre()+"&ejercicio="+ejercicios.getEjercicio()+"&series="+ejercicios.getSeries()+"&modoEjercitar="+ejercicios.getModoEjercitar()+"&repeticionesSerie="+ejercicios.getRepeticionesSerie()+"&segundosSerie="+ejercicios.getSegundosSerie()+"&segundosDescanso="+ejercicios.getSegundosDescanso());
   }
 
