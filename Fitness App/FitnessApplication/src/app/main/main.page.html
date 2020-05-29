@@ -7,6 +7,7 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
+
       <!-- Opciones del menú lateral -->
         <ion-list>
         <!-- Opcion 1 -->
@@ -46,6 +47,8 @@
       </ion-header>
 
       <ion-content class="body-app">
+            <ion-grid fixed="true">
+
         <!-- Carrusel de continuar tu rutina -->
         <ion-item (click)="alert()">
           <ion-label>Continuar rutina</ion-label>
@@ -103,6 +106,7 @@
             </ion-slide>
           </ion-slides>
         </div>
+        </ion-grid>
       </ion-content>
     </div>
 </ion-app>

@@ -36,7 +36,6 @@ export class AddDailyPage implements OnInit {
   //Inicialicamos la pagina y recogemos la id de la rutina general mediante el storage, luego la almacenamos en una variable para poder usarla.
   ngOnInit() {
     this.storage.get('idGeneral').then(id => {
-      console.log("id de la general",id);
       this._idGeneral = id;
     });
     this.storage.get('user').then(user => {
@@ -58,7 +57,6 @@ export class AddDailyPage implements OnInit {
       promesa = this.routinesResult.toPromise();
       promesa.then(values => {
         this.storage.set('dailyGeneral',values);
-        console.log("value",values);
       });
 
       this.routinesResult=this.routineService.createRutinas(this.user);

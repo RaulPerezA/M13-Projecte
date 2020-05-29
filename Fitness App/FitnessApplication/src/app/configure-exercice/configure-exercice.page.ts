@@ -16,6 +16,7 @@ export class ConfigureExercicePage implements OnInit {
   arrayEjercicios:Array<RutinaEjercicio>;
   rutinaEjercicio:RutinaEjercicio;
   title:string;
+  imagen:string;
   description:string;
   level:string;
   muscle:string;
@@ -33,6 +34,7 @@ export class ConfigureExercicePage implements OnInit {
   repes:number;
   descanso:number;
   nSeries:number;
+
 
   constructor(private storage:Storage, private formBuildeR: FormBuilder, private createExerciceService:RoutineExercise, private navCtrl:NavController) {
 
@@ -53,7 +55,7 @@ export class ConfigureExercicePage implements OnInit {
     this.storage.get('createExercise').then( create => {
     
       if(create==true){
-        console.log("ME HA DEVUELTO TRUE;");
+        
         this.storage.get('exerciseConfigure').then( ejercicio => {
           if(ejercicio.modoEjercitar=="tiempo"){
             this.timeBoolean = true;
@@ -92,8 +94,8 @@ export class ConfigureExercicePage implements OnInit {
 
     //Obtenemos los datos del ejercicio y los guardamos en variables.
     this.storage.get('exercice').then( ejercicio => {
-      console.log("exercice",ejercicio);
       this.title = ejercicio.ejercicio;
+      this.imagen = ejercicio.imagen;
       this.description = ejercicio.descripcion;
       this.level = ejercicio.dificultad;
       this.muscle = ejercicio.grupoMuscular;
@@ -103,8 +105,7 @@ export class ConfigureExercicePage implements OnInit {
  
   //Método de ionic, cuando esta declarado todo lo que este dentro de este método se ejecutara cuando hayamos abandonado la pàgina y aun estemos entrando/cargando la siguiente página.
   ionViewWillLeave() {
-    console.log("Nos vamos a ir");
-   
+       
     if(this.rutinaEjercicio!=null){
       //Utilizamos el servicio CreateExerciceService declarado como variable, de esta forma podemos usar sus métodos, en este caso
       //estamos guardando un objeto RutinaEjercicio con los datos introducidos por el usuario para poder obtenerlo en otra pàgina.
@@ -152,9 +153,9 @@ export class ConfigureExercicePage implements OnInit {
     
     //Creamos el ejercicio mediante los datos del formulario.
     this.rutinaEjercicio = new RutinaEjercicio(this.exerciceForm.value.name, this._id, this.exerciceForm.value.series, this.exerciceForm.value.modo, this.exerciceForm.value.repeticiones, this.exerciceForm.value.segundos, this.exerciceForm.value.descanso);
-    console.log("this.rutinaEjercicio",this.rutinaEjercicio);
+    
     this.arrayEjercicios.push(this.rutinaEjercicio);
-    console.log("array",this.arrayEjercicios);
+    
 
     this.navCtrl.pop();
 

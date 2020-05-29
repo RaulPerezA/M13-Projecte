@@ -71,7 +71,6 @@ export class OnerecetaPage implements OnInit {
   ngOnInit() {
     //Obtenemos los datos de la receta seleccionada
     this.storage.get('recetaEnter').then((receta)=>{
-      console.log('recetaEnter',receta);
 
       //Creamos el objeto receta con los datos obtenidos.
       this.receta=receta;
@@ -83,7 +82,7 @@ export class OnerecetaPage implements OnInit {
 
   //Destruimos la página al abandonarla.
   ngOnDestroy() {
-    console.log("Pagina de la receta destruida.");
+
   }
 
   //Método que nos permite obtener los datos de la receta pasada como parámetro.

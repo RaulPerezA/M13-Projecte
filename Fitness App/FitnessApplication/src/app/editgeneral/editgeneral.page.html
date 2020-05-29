@@ -9,6 +9,8 @@
 
 
 <ion-content>
+<ion-grid fixed="true">
+
   <ion-item (click)="activarRutina()">
     <ion-label>Activa?</ion-label>
     <ion-checkbox [(ngModel)]="active.isChecked"></ion-checkbox>
@@ -21,5 +23,9 @@
     <ion-card id="logo" (click)="removeExercise(d)"><ion-icon name="trash" id="img"></ion-icon>
     </ion-card> 
   </div>
-  <ion-fab-button size="small" (click)="addDaily()">+</ion-fab-button>
+  </ion-grid>
 </ion-content>
+
+<ion-footer class="footer">
+  <ion-fab-button size="small" (click)="addDaily()">+</ion-fab-button>
+</ion-footer>
