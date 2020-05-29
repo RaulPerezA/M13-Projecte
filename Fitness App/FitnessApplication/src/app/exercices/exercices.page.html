@@ -6,7 +6,6 @@
     <ion-title>Crea/Modifica tu rutina</ion-title>
   </ion-toolbar>
 </ion-header>
-<!-- | eliminarRutina:idGeneral-->
 <ion-content>
 
   <div id="bloqueNL" *ngFor="let r of rutinas">
@@ -17,10 +16,10 @@
     </ion-card> 
   </div>
 
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed">  
+    <ion-fab-button size="small" (click)="(addGeneral())">  
+      <ion-icon name="add"></ion-icon>  
+    </ion-fab-button>  
+  </ion-fab>  
+
 </ion-content>
-
-<ion-footer class="footer">
-
-      <ion-fab-button size="small" (click)="(addGeneral())">+</ion-fab-button>
-
-</ion-footer>

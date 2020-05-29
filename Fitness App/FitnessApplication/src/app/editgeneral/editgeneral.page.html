@@ -12,7 +12,7 @@
 <ion-grid fixed="true">
 
   <ion-item (click)="activarRutina()">
-    <ion-label>Activa?</ion-label>
+    <ion-label>Activar rutina</ion-label>
     <ion-checkbox [(ngModel)]="active.isChecked"></ion-checkbox>
   </ion-item>
   <ion-text *ngIf="bienvenida==true">No tienes ninguna rutina creada. Empieza creando en +. </ion-text>
@@ -24,8 +24,12 @@
     </ion-card> 
   </div>
   </ion-grid>
-</ion-content>
 
-<ion-footer class="footer">
-  <ion-fab-button size="small" (click)="addDaily()">+</ion-fab-button>
-</ion-footer>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">  
+    <ion-fab-button size="small" (click)="addDaily()">  
+      <ion-icon name="add"></ion-icon>  
+    </ion-fab-button>  
+  </ion-fab>  
+
+
+</ion-content>

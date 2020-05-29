@@ -34,8 +34,10 @@
       <ion-list>
         <ion-card *ngFor="let i of recetas | filtroReceta: textoBuscar" (click)="select(i)">
           <img src="./assets/{{i.imagen}}">
-          <ion-item>{{i.receta}}</ion-item>
-        </ion-card>    
+
+            <ion-item>{{i.receta}}</ion-item>
+
+        </ion-card> 
       </ion-list>
     </ion-grid>
 </ion-content>
