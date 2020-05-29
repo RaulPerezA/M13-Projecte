@@ -18,8 +18,11 @@
     </ion-card> 
   </div>
   
-</ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">  
+    <ion-fab-button size="small" (click)="createExercice()">  
+      <ion-icon name="add"></ion-icon>  
+    </ion-fab-button>  
+  </ion-fab>  
 
-<ion-footer class="footer">
-  <ion-fab-button size="small" (click)="createExercice()">+</ion-fab-button>
-</ion-footer>
+
+</ion-content>
