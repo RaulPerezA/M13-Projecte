@@ -1,11 +1,4 @@
-ion-content {
-    --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
-    background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
-    color: white;
-}
-
 .header {
-    background-color: #2196F3;
     height: 130px;
     padding-top: 1px;
 }
@@ -30,7 +23,7 @@ ion-content {
 }
 
 .border-blue {
-    border: 7px solid #006bbf;
+    border: 7px solid rgb(211, 210, 210);
     border-radius: 50%;
     width: fit-content;
 }
@@ -43,4 +36,8 @@ ion-content {
 
 .center {
     text-align: center;
+}
+
+ion-card {
+    border: 1px solid grey;
 }

@@ -1,5 +1,4 @@
 ion-content {
-    --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
     background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
     color: white;
 }
@@ -11,12 +10,6 @@ ion-searchbar {
     margin-left: 10px;
     padding-left: 0;
 
-}
-
-ion-list {
-    --background: linear-gradient(180deg, rgb(35, 155, 224) 0%, rgb(73, 150, 181) 100%);
-    background: linear-gradient(180deg, rgb(38, 94, 167) 0%, rgba(73,180,181,1) 100%);
-    color: white;
 }
 
 .selected {
@@ -34,3 +27,11 @@ ion-icon {
     flex-basis: 80%;
     width: 90%;
 }
+
+ion-card {
+    border: 1px solid grey;
+}
+
+ion-item{
+    --ion-background-color:rgb(221, 218, 218);
+ }

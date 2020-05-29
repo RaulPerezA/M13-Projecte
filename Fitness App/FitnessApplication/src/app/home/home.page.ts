@@ -14,6 +14,7 @@ import { RoutineService } from '../routine.service';
 import { Ejercicio } from '../Objects/Ejercicio';
 import { ExerciseService } from '../exercise.service';
 import { LoadingController } from '@ionic/angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 @Component({
   selector: 'app-home',
